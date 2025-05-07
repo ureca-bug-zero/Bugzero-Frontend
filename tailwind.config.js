@@ -9,6 +9,7 @@ export default {
           200: '#A3F5C7',
         },
         secondary: {
+          600: '#333333',
           500: '#606060',
           200: '#E7BEEE',
         },
