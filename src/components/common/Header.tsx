@@ -11,7 +11,7 @@ const Header = () => {
       </div>
 
       {/* 로그아웃 버튼 */}
-      <button className="bg-secondary-600 hover:bg-primary-200 text-white px-4 py-2 rounded transition font-medium">
+      <button className="bg-secondary-600 hover: text-white px-4 py-2 rounded transition font-medium">
         Logout
       </button>
     </header>
