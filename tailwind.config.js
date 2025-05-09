@@ -14,6 +14,10 @@ export default {
           200: '#E7BEEE',
         },
       },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        pretendard: ['Pretendard', 'sans-serif'],
+      },
     },
   },
   plugins: [],
