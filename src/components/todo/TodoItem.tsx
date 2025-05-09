@@ -71,9 +71,13 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
       <div className="relative">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="text-lg px-2 text-gray-500 hover:text-gray-700"
+          className="p-1 hover:opacity-80"
         >
-          ⋮
+          <img
+            src="src\assets\todo-Menu Vertical.png"
+            alt="메뉴"
+            className="w-[25px] h-[25px]"
+          />
         </button>
 
         {menuOpen && (
