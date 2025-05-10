@@ -140,6 +140,7 @@ utilities layer: 다른 어떤 스타일보다 먼저 적용되어야할 작고,
     border: 0;
     font-size: 100%;
     font: inherit;
+    color: theme('colors.secondary');
     vertical-align: baseline;
   }
 
@@ -207,7 +208,7 @@ utilities layer: 다른 어떤 스타일보다 먼저 적용되어야할 작고,
     @apply font-pretendard-bold text-[1.125rem] leading-[3rem];
   }
   .Heading7 {
-    @apply font-pretendard-bold text-[0.875rem] leading-[2.8125rem] tablet:text-[1.125rem];
+    @apply font-pretendard-bold text-[0.875rem] leading-[2.8125rem] text-white tablet:text-[1.125rem];
   }
   .Nav_Eng {
     @apply font-inter-semibold text-[0.9375rem];
@@ -219,7 +220,7 @@ utilities layer: 다른 어떤 스타일보다 먼저 적용되어야할 작고,
     @apply font-pretendard-medium text-[0.75rem] leading-[1.5rem];
   }
   .Label1_Eng {
-    @apply font-inter-semibold text-[0.65438rem] leading-[0.98125rem] tablet:text-[1rem] tablet:leading-[1.5rem];
+    @apply font-inter-semibold text-[0.65438rem] leading-[0.98125rem] text-white tablet:text-[1rem] tablet:leading-[1.5rem];
   }
   .Label1_Kor {
     @apply font-pretendard-semibold text-[0.78rem];
@@ -240,7 +241,7 @@ utilities layer: 다른 어떤 스타일보다 먼저 적용되어야할 작고,
     @apply font-pretendard-regular text-[1.0625rem] leading-[3rem];
   }
   .Label4_Eng {
-    @apply font-inter-medium text-[0.75rem] leading-[1.5rem];
+    @apply font-inter-medium text-[0.75rem] leading-[1.5rem] text-white;
   }
   .Label4_Kor {
     @apply font-pretendard-medium text-[0.75rem] leading-[1.5rem];
