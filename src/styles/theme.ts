@@ -1,18 +1,24 @@
-import { palette } from './palette';
+import { textPalette, bgPalette } from './palette';
 import { typo } from './typo';
 
 export interface TypeOfTheme {
   typo: TypeOfTypo;
-  palette: TypeOfPalette;
+  textPalette: TypeOfTextPalette;
+  bgPalette: TypeOfBgPalette;
 }
 
 export const theme: TypeOfTheme = {
   typo,
-  palette,
+  textPalette,
+  bgPalette,
 };
 
-export type TypeOfPalette = typeof palette; /*전체 구조*/
-export type KeyOfPalette = keyof typeof palette; /*key만(props에서 사용)*/
+export type TypeOfTextPalette = typeof textPalette; /*전체 구조*/
+export type KeyOfTextPalette =
+  keyof typeof textPalette; /*key만(props에서 사용)*/
+
+export type TypeOfBgPalette = typeof bgPalette;
+export type KeyOfBgPalette = keyof typeof bgPalette;
 
 export type TypeOfTypo = typeof typo;
 export type KeyOfTypo = keyof typeof typo;

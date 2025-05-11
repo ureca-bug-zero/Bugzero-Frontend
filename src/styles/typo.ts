@@ -9,7 +9,7 @@ export const typo = {
   Heading5: calendar-title
   Heading6: timer
   Heading7: landing-desc
-  Nav_Eng: header
+  Nav: header
   Body1: mission-todo
   Body2: todo
   Label1_Eng: confirm-btn
