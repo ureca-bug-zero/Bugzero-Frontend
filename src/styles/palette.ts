@@ -8,4 +8,4 @@ export const palette = {
   Gray3: 'text-gray-100',
   White: 'text-white',
   Transparent: 'text-transparent',
-};
+} as const;

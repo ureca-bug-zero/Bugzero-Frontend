@@ -70,4 +70,4 @@ export const typo = {
   Label7: 'font-pretendard-regular text-[0.60688rem] tablet:text-[1rem]',
   Label8:
     'font-pretendard-regular text-[0.40937rem] leading-[0.775rem] tablet:text-[0.625rem] tablet:leading-[1.1875rem]',
-};
+} as const;
