@@ -15,14 +15,26 @@ export default function Header({ type }: HeaderProps) {
         Flex({
           direction: 'row',
           justify: type === 'home' ? 'between' : 'start',
+          width: 'w-full',
+          height: 'h-[100px]',
+          padding: {
+            x: 'px-[40px]',
+            y: 'py-[0px]',
+          },
         }),
-        'w-full h-[100px] p-[0_40px]',
         theme.bgPalette.Secondary,
+        'fixed top-0 left-0 z-10',
       )}
     >
-      <div className={(theme.typo.Nav, theme.textPalette.White)}>Logo</div>
+      <img
+        src="/src/assets/icons/logo.png"
+        alt="BugZero"
+        className="w-[158px] h-[44px]"
+      />
       {type === 'home' && (
-        <div className={(theme.typo.Nav, theme.textPalette.White)}>Logout</div>
+        <button className={clsx(theme.textPalette.White, theme.typo.Nav)}>
+          Logout
+        </button>
       )}
     </header>
   );

@@ -2,15 +2,15 @@ import { textPalette, bgPalette } from './palette';
 import { typo } from './typo';
 
 export interface TypeOfTheme {
-  typo: TypeOfTypo;
   textPalette: TypeOfTextPalette;
   bgPalette: TypeOfBgPalette;
+  typo: TypeOfTypo;
 }
 
 export const theme: TypeOfTheme = {
-  typo,
   textPalette,
   bgPalette,
+  typo,
 };
 
 export type TypeOfTextPalette = typeof textPalette; /*전체 구조*/
