@@ -9,7 +9,7 @@
     "jsx": "react-jsx", // JSX를 처리할 수 있도록 설정
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "lib": ["DOM", "ES2015"]
+    "lib": ["DOM", "ES2017"]
   },
   "include": ["src", "**/*.ts", "**/*.tsx"]
 }
