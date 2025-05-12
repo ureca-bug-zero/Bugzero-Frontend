@@ -16,13 +16,19 @@ export default function Header({ type }: HeaderProps) {
           direction: 'row',
           justify: type === 'home' ? 'between' : 'start',
         }),
-        'w-full h-[100px] p-[0_40px]',
+        'fixed top-0 left-0 w-full h-[100px] p-[0_40px]',
         theme.bgPalette.Secondary,
       )}
     >
-      <div className={(theme.typo.Nav, theme.textPalette.White)}>Logo</div>
+      <img
+        src="/src/assets/icons/logo.png"
+        alt="BugZero"
+        className="w-[158px] h-[44px]"
+      />
       {type === 'home' && (
-        <div className={(theme.typo.Nav, theme.textPalette.White)}>Logout</div>
+        <button className={(theme.typo.Nav, theme.textPalette.White)}>
+          Logout
+        </button>
       )}
     </header>
   );
