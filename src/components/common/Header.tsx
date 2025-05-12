@@ -1,19 +1,13 @@
 import clsx from 'clsx';
 import { Flex } from './Wrapper';
 import { theme } from '../../styles/theme';
+import { CommonProps } from './types';
 
-export type HeaderType = 'home' | 'landing';
-
-interface HeaderProps {
-  type: HeaderType;
-}
-
-export default function Header({ type }: HeaderProps) {
+export default function Header({ type }: CommonProps) {
   return (
     <header
       className={clsx(
         Flex({
-          direction: 'row',
           justify: type === 'home' ? 'between' : 'start',
           width: 'w-full',
           height: 'h-[100px]',
