@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 
+/*Flex*/
 const BasicFlex = cva('flex', {
   variants: {
     direction: {
@@ -55,5 +56,43 @@ export const Flex = (options: FlexOptions) => {
     padding?.x && padding.x,
     padding?.y && padding.y,
     margin && margin,
+  );
+};
+
+/*Position*/
+const BasicPosition = cva('position', {
+  variants: {
+    position: {
+      static: 'static',
+      fixed: 'fixed',
+      absolute: 'absolute',
+      relative: 'relative',
+      sticky: 'sticky',
+    },
+  },
+  defaultVariants: {
+    position: 'static',
+  },
+});
+
+type BasicPositionOptions = VariantProps<typeof BasicPosition>;
+
+interface PositionOptions extends BasicPositionOptions {
+  top?: string;
+  right?: string;
+  left?: string;
+  bottom?: string;
+  zIndex?: string;
+}
+
+export const Position = (options: PositionOptions) => {
+  const { top, right, left, bottom, zIndex, ...rest } = options;
+  return clsx(
+    BasicPosition(rest),
+    top && top,
+    right && right,
+    left && left,
+    bottom && bottom,
+    zIndex && zIndex,
   );
 };

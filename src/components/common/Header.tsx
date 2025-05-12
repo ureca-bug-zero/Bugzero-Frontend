@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Flex } from './Wrapper';
+import { Flex, Position } from './Wrapper';
 import { theme } from '../../styles/theme';
 import { CommonProps } from './types';
 
@@ -16,8 +16,13 @@ export default function Header({ type }: CommonProps) {
             y: 'py-[0px]',
           },
         }),
+        Position({
+          position: 'fixed',
+          top: 'top-0',
+          left: 'left-0',
+          zIndex: 'z-10',
+        }),
         theme.bgPalette.Secondary,
-        'fixed top-0 left-0 z-10',
       )}
     >
       <img
