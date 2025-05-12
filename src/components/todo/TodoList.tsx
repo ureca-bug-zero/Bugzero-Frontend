@@ -10,9 +10,9 @@ const TodoList = () => {
   const normalTodos = todos.filter((t) => !t.isMission);
 
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col items-center gap-4 w-full">
       {missionTodo && (
-        <li className="border border-green-400 bg-green-50 rounded p-3">
+        <li className="w-full max-w-[360px] border border-green-400 bg-green-50 rounded p-3">
           <div className="text-sm font-bold text-green-700 mb-1">
             🎯 오늘의 미션
           </div>
@@ -20,7 +20,7 @@ const TodoList = () => {
         </li>
       )}
       {normalTodos.map((todo) => (
-        <li key={todo.id}>
+        <li key={todo.id} className="w-full flex justify-center">
           <TodoItem todo={todo} />
         </li>
       ))}
