@@ -21,7 +21,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   };
 
   return (
-    <div className="relative flex justify-between items-center w-full max-w-[360px] h-[45px] bg-white rounded-[10px] border border-gray-200 px-[12px] py-[10px]">
+    <div className="relative flex justify-between items-center w-[360px] h-[45px] bg-white rounded-[10px] px-[12px] py-[10px]">
       {/* 왼쪽: 체크박스 + 텍스트 */}
       <div className="flex items-center gap-2 flex-1">
         <input
@@ -68,13 +68,13 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
       </div>
 
       {/* ⋮ 더보기 메뉴 */}
-      <div className="relative">
+      <div className="relative ml-[12px]">
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="p-1 hover:opacity-80"
         >
           <img
-            src="src\assets\todo-Menu Vertical.png"
+            src="src/assets/todo-Menu Vertical.png"
             alt="메뉴"
             className="w-[25px] h-[25px]"
           />

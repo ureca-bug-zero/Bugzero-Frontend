@@ -1,5 +1,3 @@
-// 메인 기능 3분할 페이지 <- 이 안에 컴포넌트로 기능들 넣기 (component폴더안 내용들)
-
 import React from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import UserPanel from '@/components/panels/UserPanel';
@@ -10,50 +8,56 @@ const HomePage: React.FC = () => {
   return (
     <MainLayout>
       <div className="pt-[112px] px-4 lg:px-0">
-        {/* 데스크탑 */}
+        {/* ✅ 데스크탑 레이아웃 */}
         <div className="hidden lg:flex justify-center w-full">
           <div className="flex">
-            {/* 각 패널에 padding-right 적용으로 간격 유지 */}
-            <div className="pr-[35px] pl-[35px]">
-              <div className="w-[470px]">
+            {/* 왼쪽: 유저 패널 */}
+            <div className="pr-[70px]">
+              <div className="w-[360px]">
                 <UserPanel />
               </div>
             </div>
 
-            <div className="pr-[35px] pl-[35px]">
-              <div className="w-[470px]">
+            {/* 가운데: 투두 패널 */}
+            <div className="px-[70px]">
+              <div className="w-[360px]">
                 <TodoPanel />
               </div>
             </div>
 
-            <div className="pr-[35px] pl-[35px]">
-              <div className="w-[470px]">
+            {/* 오른쪽: 친구 패널 */}
+            <div className="pl-[70px]">
+              <div className="w-[360px]">
                 <RightPanel />
               </div>
             </div>
           </div>
         </div>
 
-        {/* 태블릿 이하 */}
+        {/* ✅ 태블릿 이하 */}
         <div className="flex flex-col lg:hidden gap-8">
-          {/* 태블릿 */}
-          <div className="hidden md:flex justify-center px-6">
-            <div className="px-[35px] w-[360px]">
-              <UserPanel />
+          {/* 태블릿: 유저 + 투두 나란히 */}
+          <div className="hidden md:flex justify-center">
+            <div className="pr-[70px]">
+              <div className="w-[360px]">
+                <UserPanel />
+              </div>
             </div>
-            <div className="px-[35px] w-[360px]">
-              <TodoPanel />
+            <div className="pl-[70px]">
+              <div className="w-[360px]">
+                <TodoPanel />
+              </div>
             </div>
           </div>
 
-          {/* 모바일 */}
+          {/* 모바일: 세로 정렬 */}
           <div className="md:hidden flex flex-col items-center gap-6">
             <UserPanel />
             <TodoPanel />
             <RightPanel />
           </div>
 
-          {/* 태블릿에서 친구 패널 하단 */}
+          {/* 태블릿 전용 친구 패널 하단 배치 */}
           <div className="hidden md:block w-full px-6">
             <RightPanel />
           </div>
