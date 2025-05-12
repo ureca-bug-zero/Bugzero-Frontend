@@ -1,0 +1,170 @@
+/*Inter*/
+@font-face {
+  font-family: 'Inter-Regular';
+  font-style: normal;
+  src: url('/src/assets/fonts/Inter-Regular.otf');
+}
+@font-face {
+  font-family: 'Inter-Medium';
+  font-style: normal;
+  src: url('/src/assets/fonts/Inter-Medium.otf');
+}
+@font-face {
+  font-family: 'Inter-SemiBold';
+  font-style: normal;
+  src: url('/src/assets/fonts/Inter-SemiBold.otf');
+}
+@font-face {
+  font-family: 'Inter-Bold';
+  font-style: normal;
+  src: url('/src/assets/fonts/Inter-Bold.otf');
+}
+
+/*Pretendard*/
+@font-face {
+  font-family: 'Pretendard-Regular';
+  font-style: normal;
+  src: url('/src/assets/fonts/Pretendard-Regular.otf');
+}
+@font-face {
+  font-family: 'Pretendard-Medium';
+  font-style: normal;
+  src: url('/src/assets/fonts/Pretendard-Medium.otf');
+}
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  font-style: normal;
+  src: url('/src/assets/fonts/Pretendard-SemiBold.otf');
+}
+@font-face {
+  font-family: 'Pretendard-Bold';
+  font-style: normal;
+  src: url('/src/assets/fonts/Pretendard-Bold.otf');
+}
+@font-face {
+  font-family: 'Pretendard-ExtraBold';
+  font-style: normal;
+  src: url('/src/assets/fonts/Pretendard-ExtraBold.otf');
+}
+
+/*
+base layer: 룰 초기화 or HTML 자체에 적용될 default 스타일을 위한 layer
+components layer: 로 재정의 할 수 있는 class기반 스타일을 위한 layer
+utilities layer: 다른 어떤 스타일보다 먼저 적용되어야할 작고, 하나의 목적을 가진 class를 위한 layer
+*/
+@layer base {
+  /*reset.css*/
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    color: theme('colors.secondary');
+    vertical-align: baseline;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+  button {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+  input:focus {
+    outline: none;
+  }
+  textarea:focus {
+    outline: none;
+  }
+  input,
+  textarea {
+    border: none;
+    margin: 0;
+    word-break: break-all;
+    resize: none;
+  }
+}
