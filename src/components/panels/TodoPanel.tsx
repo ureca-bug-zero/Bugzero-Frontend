@@ -10,7 +10,9 @@ const TodoPanel: React.FC = () => {
         Todo-List
       </h2>
       <TodoInput />
-      <TodoList />
+      <div className="overflow-y-auto max-h-[400px] pr-1 hide-scrollbar">
+        <TodoList />
+      </div>
     </div>
   );
 };
