@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import './styles/tailwind.css';
 import Header, { HeaderType } from './components/common/Header';
 import Home from './pages/home';
 

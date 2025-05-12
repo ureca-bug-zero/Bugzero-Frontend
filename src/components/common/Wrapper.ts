@@ -1,6 +1,7 @@
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
+import clsx from 'clsx';
 
-export const Flex = cva('flex', {
+const BasicFlex = cva('flex', {
   variants: {
     direction: {
       row: 'flex-row',
@@ -30,3 +31,29 @@ export const Flex = cva('flex', {
     wrap: 'nowrap',
   },
 });
+
+type BasicFlexOptions = VariantProps<typeof BasicFlex>;
+
+interface FlexOptions extends BasicFlexOptions {
+  width?: string;
+  height?: string;
+  gap?: string;
+  padding?: {
+    x?: string;
+    y?: string;
+  };
+  margin?: string;
+}
+
+export const Flex = (options: FlexOptions) => {
+  const { width, height, gap, padding, margin, ...rest } = options;
+  return clsx(
+    BasicFlex(rest),
+    width && width,
+    height && height,
+    gap && gap,
+    padding?.x && padding.x,
+    padding?.y && padding.y,
+    margin && margin,
+  );
+};

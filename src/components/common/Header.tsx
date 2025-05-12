@@ -15,9 +15,15 @@ export default function Header({ type }: HeaderProps) {
         Flex({
           direction: 'row',
           justify: type === 'home' ? 'between' : 'start',
+          width: 'w-full',
+          height: 'h-[100px]',
+          padding: {
+            x: 'px-[40px]',
+            y: 'py-[0px]',
+          },
         }),
-        'fixed top-0 left-0 w-full h-[100px] p-[0_40px]',
         theme.bgPalette.Secondary,
+        'fixed top-0 left-0 z-10',
       )}
     >
       <img
@@ -26,7 +32,7 @@ export default function Header({ type }: HeaderProps) {
         className="w-[158px] h-[44px]"
       />
       {type === 'home' && (
-        <button className={(theme.typo.Nav, theme.textPalette.White)}>
+        <button className={clsx(theme.textPalette.White, theme.typo.Nav)}>
           Logout
         </button>
       )}
