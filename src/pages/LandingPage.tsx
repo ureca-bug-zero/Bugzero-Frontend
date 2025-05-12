@@ -3,6 +3,7 @@ import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import logo from '@/assets/Landing-logo.png';
 import kakaoLoginBtn from '@/assets/kakao-login.png';
+import { useAuth } from '@/features/auth/useAuth';
 
 // png icon import
 import iconTodo from '@/assets/icon-check.png';
@@ -11,6 +12,7 @@ import iconTimer from '@/assets/icon-timer.png';
 import iconFriends from '@/assets/icon-friend.png';
 
 const LandingPage = () => {
+  const { handleKakaoLogin } = useAuth();
   return (
     <div className="min-h-screen flex flex-col bg-primary-500 text-secondary-600 select-none">
       <Header />
@@ -76,7 +78,7 @@ const LandingPage = () => {
               src={kakaoLoginBtn}
               alt="카카오 로그인 버튼"
               className="cursor-pointer w-[300px] h-[73px] hover:opacity-90 transition self-center xl1440:self-start"
-              // onClick={handleKakaoLogin}
+              onClick={handleKakaoLogin}
             />
           </div>
         </div>
