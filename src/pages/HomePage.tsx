@@ -1,67 +1,87 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import UserPanel from '@/components/panels/UserPanel';
 import TodoPanel from '@/components/panels/TodoPanel';
 import RightPanel from '@/components/panels/RightPanel';
 
 const HomePage: React.FC = () => {
+  const [isDesktop, setIsDesktop] = useState<boolean>(
+    window.innerWidth >= 1024,
+  );
+  const [isTablet, setIsTablet] = useState<boolean>(
+    window.innerWidth >= 768 && window.innerWidth < 1024,
+  );
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      setIsDesktop(width >= 1024);
+      setIsTablet(width >= 768 && width < 1024);
+      setIsMobile(width < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <MainLayout>
       <div className="pt-[112px] px-4 lg:px-0">
-        {/* ✅ 데스크탑 레이아웃 */}
-        <div className="hidden lg:flex justify-center w-full">
-          <div className="flex">
-            {/* 왼쪽: 유저 패널 */}
-            <div className="pr-[70px]">
-              <div className="w-[360px]">
-                <UserPanel />
-              </div>
-            </div>
-
-            {/* 가운데: 투두 패널 */}
-            <div className="px-[70px]">
-              <div className="w-[360px]">
-                <TodoPanel />
-              </div>
-            </div>
-
-            {/* 오른쪽: 친구 패널 */}
-            <div className="pl-[70px]">
-              <div className="w-[360px]">
-                <RightPanel />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ✅ 태블릿 이하 */}
-        <div className="flex flex-col lg:hidden gap-8">
-          {/* 태블릿: 유저 + 투두 나란히 */}
-          <div className="hidden md:flex justify-center">
-            <div className="pr-[70px]">
-              <div className="w-[360px]">
-                <UserPanel />
-              </div>
-            </div>
-            <div className="pl-[70px]">
-              <div className="w-[360px]">
-                <TodoPanel />
-              </div>
-            </div>
-          </div>
-
-          {/* 모바일: 세로 정렬 */}
-          <div className="md:hidden flex flex-col items-center gap-6">
+        {/* 공통: 유저 + 투두 패널 */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: isDesktop || isTablet ? 'center' : 'flex-start',
+            flexDirection: isDesktop || isTablet ? 'row' : 'column',
+            gap: isDesktop ? '140px' : isTablet ? '30px' : '16px',
+          }}
+        >
+          <div style={{ width: '360px' }}>
             <UserPanel />
-            <TodoPanel />
-            <RightPanel />
           </div>
 
-          {/* 태블릿 전용 친구 패널 하단 배치 */}
-          <div className="hidden md:block w-full px-6">
+          <div style={{ width: '360px' }}>
+            <TodoPanel />
+          </div>
+
+          {/* 데스크탑에서만 라이트 패널을 함께 보여줌 */}
+          {isDesktop && (
+            <div style={{ width: '360px' }}>
+              <RightPanel />
+            </div>
+          )}
+        </div>
+
+        {/* 태블릿에서만 라이트 패널을 아래에 별도로 보여줌 */}
+        {isTablet && (
+          <div
+            style={{
+              marginTop: '40px',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <div style={{ width: '360px' }}>
+              <RightPanel />
+            </div>
+          </div>
+        )}
+
+        {/* 모바일에서 세로 정렬 */}
+        {isMobile && (
+          <div
+            style={{
+              marginTop: '24px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '16px',
+            }}
+          >
             <RightPanel />
           </div>
-        </div>
+        )}
       </div>
     </MainLayout>
   );
