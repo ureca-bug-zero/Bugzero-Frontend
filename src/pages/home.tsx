@@ -1,3 +1,9 @@
+import CalendarBox from '../components/home/CalendarBox';
+
 export default function Home() {
-  return <></>;
+  return (
+    <main>
+      <CalendarBox />
+    </main>
+  );
 }
