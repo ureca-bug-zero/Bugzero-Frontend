@@ -4,12 +4,20 @@
 
 .react-calendar__tile {
   /*달력 내 각 날짜박스*/
-  @apply w-[37.45055px] h-[37.45055px] font-pretendard-bold text-[12.484px] text-secondary text-center cursor-pointer;
+  @apply w-[37.45055px] h-[37.45055px]  mr-[2.34px] mb-[9.36px] font-pretendard-bold text-[12.484px] text-secondary text-center cursor-pointer;
+
+  abbr {
+    @apply bg-primary w-[37.45055px] h-[37.45055px] rounded-full block leading-[37.45055px];
+  }
+}
+
+.react-calendar__tile:nth-child(7n) {
+  @apply mr-0;
 }
 
 .react-calendar__month-view__weekdays {
   /*요일 전체 박스*/
-  @apply grid grid-cols-7 gap-x-[28.9px] px-[15.604px] py-[9.363px];
+  @apply grid grid-cols-7 gap-x-[28.9px] px-[15.604px] py-[9.363px] mb-[7.63px];
 }
 
 .react-calendar__month-view__weekdays__weekday {
