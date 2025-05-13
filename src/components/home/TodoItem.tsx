@@ -33,6 +33,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
             y: 'py-[10px]',
           },
         }),
+        'tablet:w-[360px]',
+        'tablet:h-[45px]',
         todo.isMission ? '' : 'bg-white',
       )}
     >
@@ -50,17 +52,42 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         >
           <img
             src={todo.isChecked ? filledBox : emptyBox}
-            alt={todo.isChecked ? '완료됨' : '미완료'}
+            alt={todo.isChecked ? '완료' : '미완료'}
           />
         </button>
-        <span
+        {/* <span
           className={clsx(
             todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
             theme.textPalette.Secondary,
           )}
         >
           {todo.content}
-        </span>
+        </span> */}
+        {todo.link ? (
+          <a
+            href={
+              todo.link.startsWith('http') ? todo.link : `https://${todo.link}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className={clsx(
+              todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+              theme.textPalette.Secondary,
+              // 'underline', // 링크에 밑줄 줄지 말지
+            )}
+          >
+            {todo.content}
+          </a>
+        ) : (
+          <span
+            className={clsx(
+              todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+              theme.textPalette.Secondary,
+            )}
+          >
+            {todo.content}
+          </span>
+        )}
       </div>
 
       {!todo.isMission && (
@@ -80,7 +107,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
                   direction: 'column',
                 }),
                 'w-[60px]',
-                'z-10', // 겹침 방지용
               )}
             >
               <button
@@ -148,6 +174,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         'border-primary',
         'rounded-[10px]',
         'bg-[rgba(26,226,115,0.10)]',
+
+        'tablet:w-[360px]',
+        'tablet:h-[70px]',
       )}
     >
       {inner}
