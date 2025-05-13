@@ -2,7 +2,7 @@
 import { useAuthStore } from '@/store/auth';
 
 export const useAuth = () => {
-  const { setUser } = useAuthStore();
+  const { setUser, logout } = useAuthStore();
 
   const handleKakaoLogin = () => {
     window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/kakao/login`;
@@ -31,8 +31,14 @@ export const useAuth = () => {
     }
   };
 
+  const handleLogout = () => {
+    logout(); //zustand 초기화
+    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/kakao/logout`;
+  };
+
   return {
     handleKakaoLogin,
     processKakaoCallback,
+    handleLogout,
   };
 };

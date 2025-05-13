@@ -1,10 +1,12 @@
 import React from 'react';
 import { useAuthStore } from '@/store/auth';
+import { useAuth } from '@/features/auth/useAuth';
 // import { useNavigate } from 'react-router-dom';
 import logo from '@/assets/logo.png';
 
 const Header = () => {
   const { isLoggedIn } = useAuthStore();
+  const { handleLogout } = useAuth();
   // const navigate = useNavigate();
   return (
     <header className="w-full bg-secondary-600 text-white px-8 py-4 flex justify-between select-none">
@@ -15,7 +17,10 @@ const Header = () => {
 
       {/* 로그아웃 버튼 */}
       {isLoggedIn && (
-        <button className="bg-secondary-600 hover: text-white rounded transition font-pretendard text-[15px]">
+        <button
+          className="bg-secondary-600 font-pretendard text-[15px] hover:opacity-80 transition"
+          onClick={handleLogout}
+        >
           Logout
         </button>
       )}
