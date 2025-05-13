@@ -7,6 +7,20 @@ import { theme } from '../../styles/theme';
 import { Flex, Position } from '../common/Wrapper';
 
 export default function CalendarBox() {
+  // useEffect(() => {
+  //   Object.entries(opacityData).forEach(([dateStr, opacity]) => {
+  //     const label = format(new Date(dateStr), 'yyyy년 M월 d일');
+  //     const abbr = document.querySelector(
+  //       `.react-calendar__tile abbr[aria-label="${label}"]`,
+  //     ) as HTMLElement;
+
+  //     if (abbr) {
+  //       abbr.style.opacity = String(opacity);
+  //     }
+  //   });
+  // }, [opacityData]);
+
+  /* 색상 보여주는 표 */
   const circle = clsx(
     theme.bgPalette.Primary,
     'w-[15px] h-[15px] rounded-full',
