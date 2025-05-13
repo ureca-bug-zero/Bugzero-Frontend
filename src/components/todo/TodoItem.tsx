@@ -44,24 +44,34 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
             autoFocus
           />
         ) : (
-          <div className="flex flex-col">
-            <span
-              className={`text-base ${
-                todo.isChecked ? 'line-through text-gray-400' : 'text-gray-900'
-              }`}
-            >
-              {todo.content}
-            </span>
-
-            {todo.link && (
+          <div className="flex flex-col w-full">
+            {todo.link ? (
               <a
-                href={todo.link}
+                href={
+                  todo.link.startsWith('http')
+                    ? todo.link
+                    : `https://${todo.link}`
+                }
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-blue-500 hover:underline mt-0.5"
+                className={`text-base font-medium hover:underline ${
+                  todo.isChecked
+                    ? 'line-through text-gray-400'
+                    : 'text-gray-900'
+                }`}
               >
-                {todo.link}
+                {todo.content}
               </a>
+            ) : (
+              <span
+                className={`text-base font-medium ${
+                  todo.isChecked
+                    ? 'line-through text-gray-400'
+                    : 'text-gray-900'
+                }`}
+              >
+                {todo.content}
+              </span>
             )}
           </div>
         )}
