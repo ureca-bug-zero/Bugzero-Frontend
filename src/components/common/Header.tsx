@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { Flex, Position } from './Wrapper';
 import { theme } from '../../styles/theme';
 import { CommonProps } from './types';
+import logo from '@/assets/icons/logo.png';
 
 export default function Header({ type }: CommonProps) {
   return (
@@ -25,11 +26,7 @@ export default function Header({ type }: CommonProps) {
         theme.bgPalette.Secondary,
       )}
     >
-      <img
-        src="/src/assets/icons/logo.png"
-        alt="BugZero"
-        className="w-[158px] h-[44px]"
-      />
+      <img src={logo} alt="BugZero" className="w-[158px] h-[44px]" />
       {type === 'home' && (
         <button className={clsx(theme.textPalette.White, theme.typo.Nav)}>
           Logout
