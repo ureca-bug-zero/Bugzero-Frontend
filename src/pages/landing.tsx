@@ -9,13 +9,7 @@ import clsx from 'clsx';
 import { Flex } from '../components/common/Wrapper';
 import { theme } from '../styles/theme';
 
-const descText = clsx(
-  theme.textPalette.White,
-  theme.typo.Heading7,
-  Flex({
-    direction: 'column',
-  }),
-);
+const descText = clsx(theme.textPalette.White, theme.typo.Heading7);
 
 const iconStyle = clsx('w-10', 'h-10');
 
@@ -50,7 +44,7 @@ const LandingPage = () => {
           <br />
           투두리스트
         </p>
-        {/* <div className="flex flex-row justify-between w-[500px] "> */}
+
         <div
           className={clsx(
             Flex({
@@ -59,39 +53,64 @@ const LandingPage = () => {
             }),
           )}
         >
-          {/* <div className="flex flex-col items-center text-[18px] leading-loose text-white font-bold font-pretendard pt-5 pb-5 gap-2"> */}
-          <div className={descText}>
+          <div
+            className={clsx(
+              Flex({
+                direction: 'column',
+              }),
+            )}
+          >
             <img
               src={iconTodo}
               alt="투두 관리 아이콘"
               // className="w-[3.125rem] h-[3.125rem] mb-1 mt-1"
               className={clsx('w-[3.125rem]', 'h-[3.125rem]')}
             />
-            투두 관리
+            <p
+              className={clsx(
+                theme.textPalette.White,
+                theme.typo.Heading7,
+                '-translate-y-[5px]',
+              )}
+            >
+              투두 관리
+            </p>
           </div>
-          <div className={descText}>
+          <div
+            className={Flex({
+              direction: 'column',
+            })}
+          >
             <img
               src={iconDaily}
               alt="데일리 미션 아이콘"
               className={iconStyle}
             />
-            데일리 미션
+            <p className={descText}>데일리 미션</p>
           </div>
-          <div className={descText}>
+          <div
+            className={Flex({
+              direction: 'column',
+            })}
+          >
             <img
               src={iconTimer}
               alt="타이머 기능 아이콘"
               className={iconStyle}
             />
-            타이머 기능
+            <p className={descText}>타이머 기능</p>
           </div>
-          <div className={descText}>
+          <div
+            className={Flex({
+              direction: 'column',
+            })}
+          >
             <img
               src={iconFriend}
               alt="친구와 함께 아이콘"
               className={iconStyle}
             />
-            친구와 함께
+            <p className={descText}>친구와 함께</p>
           </div>
         </div>
         <button
