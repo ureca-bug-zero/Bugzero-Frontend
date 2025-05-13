@@ -1,7 +1,7 @@
 import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo, useCallback } from 'react';
 import axios from '@/api/axios';
 
 interface CalendarResponse {
@@ -63,6 +63,13 @@ const StyledCalendar = styled(Calendar)`
 `;
 
 const UserCalendar = () => {
+  useEffect(() => {
+    console.log('🟢 UserCalendar mounted');
+
+    return () => {
+      console.log('🔴 UserCalendar unmounted');
+    };
+  }, []);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [percentageMap, setPercentageMap] = useState<Record<string, number>>(
     {},
@@ -70,12 +77,13 @@ const UserCalendar = () => {
   const [selectedKey, setSelectedKey] = useState<string>(''); // 선택된 날짜 키
 
   // 날짜를 "YYYY-MM-DD" 형식으로 변환
-  const formatDateKey = (date: Date) => {
+  // useCallback 사용하여 불필요한 함수 재생성을 방지
+  const formatDateKey = useCallback((date: Date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
-  };
+  }, []);
 
   const fetchCalendarData = async (yearMonthStr: string) => {
     try {
@@ -186,4 +194,4 @@ const UserCalendar = () => {
   );
 };
 
-export default UserCalendar;
+export default memo(UserCalendar);

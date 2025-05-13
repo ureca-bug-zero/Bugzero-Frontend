@@ -2,11 +2,18 @@
 
 // src/components/panels/TodoPanel.tsx
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import TodoInput from '@/components/todo/TodoInput';
 import TodoList from '@/components/todo/TodoList';
 
 const TodoPanel: React.FC = () => {
+  useEffect(() => {
+    console.log('🎇 todo!!! mounted');
+
+    return () => {
+      console.log('🎇 todo!!!! unmounted');
+    };
+  }, []);
   return (
     <div className="flex flex-col items-center">
       <div className="w-[360px] flex flex-col">
