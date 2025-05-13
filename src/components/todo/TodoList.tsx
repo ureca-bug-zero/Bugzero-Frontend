@@ -10,17 +10,25 @@ const TodoList = () => {
   const normalTodos = todos.filter((t) => !t.isMission);
 
   return (
-    <ul className="flex flex-col items-center gap-4 w-full">
-      {missionTodo && (
-        <li className="w-full max-w-[360px] border border-green-400 bg-green-50 rounded p-3">
-          <div className="text-sm font-bold text-green-700 mb-1">
-            🎯 오늘의 미션
+    <ul className="flex flex-col items-center">
+      {/* 🎯 오늘의 미션 */}
+      <li className="w-[360px] h-[70px] mb-[10px]">
+        {missionTodo ? (
+          <div className="w-full h-full overflow-hidden border border-[#1AE273] bg-[#DAFAE8] rounded-[10px] flex items-center px-4">
+            <TodoItem todo={missionTodo} />
           </div>
-          <TodoItem todo={missionTodo} />
-        </li>
-      )}
+        ) : (
+          <div className="w-full h-full overflow-hidden border border-[#1AE273] bg-[#DAFAE8] rounded-[10px] flex items-center justify-center px-4">
+            <span className="text-sm font-bold text-secondary-600">
+              오늘의 미션을 불러오는 중...
+            </span>
+          </div>
+        )}
+      </li>
+
+      {/* 일반 투두 리스트 */}
       {normalTodos.map((todo) => (
-        <li key={todo.id} className="w-full flex justify-center">
+        <li key={todo.id} className="w-[360px]">
           <TodoItem todo={todo} />
         </li>
       ))}

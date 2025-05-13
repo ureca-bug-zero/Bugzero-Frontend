@@ -21,7 +21,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   };
 
   return (
-    <div className="relative flex justify-between items-center w-[360px] h-[45px] bg-white rounded-[10px] px-[12px] py-[10px]">
+    <div className="relative flex justify-between items-center w-full max-w-[360px] h-[45px] bg-white rounded-[10px] px-[12px] py-[10px]">
       {/* 왼쪽: 체크박스 + 텍스트 */}
       <div className="flex items-center gap-2 flex-1">
         <input
@@ -67,42 +67,44 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         )}
       </div>
 
-      {/* ⋮ 더보기 메뉴 */}
-      <div className="relative ml-[12px]">
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="p-1 hover:opacity-80"
-        >
-          <img
-            src="src/assets/todo-Menu Vertical.png"
-            alt="메뉴"
-            className="w-[25px] h-[25px]"
-          />
-        </button>
+      {/* 오른쪽: ⋮ 더보기 메뉴 (미션이면 표시 안 함) */}
+      {!todo.isMission && (
+        <div className="relative ml-[12px]">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="p-1 hover:opacity-80"
+          >
+            <img
+              src="src/assets/todo-Menu Vertical.png"
+              alt="메뉴"
+              className="w-[25px] h-[25px]"
+            />
+          </button>
 
-        {menuOpen && (
-          <div className="absolute right-0 mt-2 w-[100px] bg-white border rounded-[10px] shadow z-10 text-base overflow-hidden">
-            <button
-              onClick={() => {
-                setIsEditing(true);
-                setMenuOpen(false);
-              }}
-              className="w-full px-3 py-2 border-b text-center hover:bg-gray-100"
-            >
-              수정
-            </button>
-            <button
-              onClick={() => {
-                removeTodo(todo.id);
-                setMenuOpen(false);
-              }}
-              className="w-full px-3 py-2 text-center text-red-500 hover:bg-gray-100"
-            >
-              삭제
-            </button>
-          </div>
-        )}
-      </div>
+          {menuOpen && (
+            <div className="absolute right-0 mt-2 w-[100px] bg-white border rounded-[10px] shadow z-10 text-base overflow-hidden">
+              <button
+                onClick={() => {
+                  setIsEditing(true);
+                  setMenuOpen(false);
+                }}
+                className="w-full px-3 py-2 border-b text-center hover:bg-gray-100"
+              >
+                수정
+              </button>
+              <button
+                onClick={() => {
+                  removeTodo(todo.id);
+                  setMenuOpen(false);
+                }}
+                className="w-full px-3 py-2 text-center text-red-500 hover:bg-gray-100"
+              >
+                삭제
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
