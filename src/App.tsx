@@ -1,26 +1,33 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import Header, { HeaderType } from './components/common/Header';
+import Header from './components/common/Header';
 import Home from './pages/home';
-import LandingPage from './pages/landing.tsx';
+import { CommonType, SelectCommonProps } from './components/common/types';
+import Footer from './components/common/Footer';
+import LandingPage from './pages/landing';
 
-function HeaderWithProps() {
+function SelectCommon({ type }: SelectCommonProps) {
   const location = useLocation();
-  let type: HeaderType = 'landing';
+  let commonType: CommonType = 'landing';
 
-  if (location.pathname === '/') type = 'home';
-  else if (location.pathname === '/landing') type = 'landing';
+  if (location.pathname === '/') commonType = 'home';
+  else if (location.pathname === '/landing') commonType = 'landing';
 
-  return <Header type={type} />;
+  return type === 'header' ? (
+    <Header type={commonType} />
+  ) : (
+    <Footer type={commonType} />
+  );
 }
 
 function App() {
   return (
     <BrowserRouter>
-      <HeaderWithProps />
+      <SelectCommon type={'header'} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/landing" element={<LandingPage />} />
       </Routes>
+      <SelectCommon type={'footer'} />
     </BrowserRouter>
   );
 }
