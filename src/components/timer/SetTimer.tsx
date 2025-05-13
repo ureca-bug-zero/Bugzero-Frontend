@@ -1,7 +1,14 @@
 // 타이머 UI 및 제어
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const SetTimer: React.FC = () => {
+  useEffect(() => {
+    console.log('🟢 right!!! mounted');
+
+    return () => {
+      console.log('🔴 right!!!! unmounted');
+    };
+  }, []);
   return (
     <div>
       <h2>Timer Panel</h2>

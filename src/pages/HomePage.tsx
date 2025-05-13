@@ -5,8 +5,12 @@ import TodoPanel from '@/components/panels/TodoPanel';
 import RightPanel from '@/components/panels/RightPanel';
 
 const HomePage: React.FC = () => {
-  const [isDesktop, setIsDesktop] = useState<boolean>(window.innerWidth >= 1024);
-  const [isTablet, setIsTablet] = useState<boolean>(window.innerWidth >= 768 && window.innerWidth < 1024);
+  const [isDesktop, setIsDesktop] = useState<boolean>(
+    window.innerWidth >= 1024,
+  );
+  const [isTablet, setIsTablet] = useState<boolean>(
+    window.innerWidth >= 768 && window.innerWidth < 1024,
+  );
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 768);
 
   useEffect(() => {
@@ -24,13 +28,13 @@ const HomePage: React.FC = () => {
   return (
     <MainLayout>
       <div className="pt-[112px] px-4 lg:px-0">
-        {/* ✅ 공통: 유저 + 투두 패널 */}
+        {/* 공통: 유저 + 투두 패널 */}
         <div
           style={{
             display: 'flex',
             justifyContent: isDesktop || isTablet ? 'center' : 'flex-start',
             flexDirection: isDesktop || isTablet ? 'row' : 'column',
-            gap: isDesktop ? '70px' : isTablet ? '30px' : '16px',
+            gap: isDesktop ? '140px' : isTablet ? '30px' : '16px',
           }}
         >
           <div style={{ width: '360px' }}>
@@ -51,7 +55,13 @@ const HomePage: React.FC = () => {
 
         {/* 태블릿에서만 라이트 패널을 아래에 별도로 보여줌 */}
         {isTablet && (
-          <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'center' }}>
+          <div
+            style={{
+              marginTop: '40px',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             <div style={{ width: '360px' }}>
               <RightPanel />
             </div>
