@@ -47,7 +47,7 @@ const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__tile:hover {
-    background-color: transparent;
+    background-color: transparent !important;
   }
 
   .react-calendar__tile:hover::before {
@@ -60,6 +60,19 @@ const StyledCalendar = styled(Calendar)`
     border-radius: 50%;
     z-index: 0;
   }
+
+  /* 타일 안의 날짜 글씨 기본 */
+  .react-calendar__tile {
+    color: #333;
+  }
+  /* 날짜 뷰에서만 적용되도록 .react-calendar__month-view 추가 */
+  .react-calendar__month-view .react-calendar__tile.sunday abbr {
+    color: red;
+  }
+
+  .react-calendar__month-view .react-calendar__tile.saturday abbr {
+    color: blue;
+  }
 `;
 
 const UserCalendar = () => {
@@ -70,11 +83,8 @@ const UserCalendar = () => {
       console.log('🔴 UserCalendar unmounted');
     };
   }, []);
+
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [percentageMap, setPercentageMap] = useState<Record<string, number>>(
-    {},
-  );
-  const [selectedKey, setSelectedKey] = useState<string>(''); // 선택된 날짜 키
 
   // 날짜를 "YYYY-MM-DD" 형식으로 변환
   // useCallback 사용하여 불필요한 함수 재생성을 방지
@@ -84,6 +94,15 @@ const UserCalendar = () => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }, []);
+
+  // selectedDate 기준으로 selectedKey 초기값 설정
+  const [selectedKey, setSelectedKey] = useState(() =>
+    formatDateKey(new Date()),
+  );
+  const [percentageMap, setPercentageMap] = useState<Record<string, number>>(
+    {},
+  );
+  const [prevYearMonth, setPrevYearMonth] = useState(''); //  이전 연-월 저장하고 변경시에만 달성률 조회
 
   const fetchCalendarData = async (yearMonthStr: string) => {
     try {
@@ -113,8 +132,13 @@ const UserCalendar = () => {
     const year = selectedDate.getFullYear();
     const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
     const yearMonthStr = `${year}-${month}`;
-    fetchCalendarData(yearMonthStr);
-  }, [selectedDate]); // 의존성 배열에 `selectedDate`만 포함
+
+    // 이전 연-월과 다를 때만 fetch
+    if (yearMonthStr !== prevYearMonth) {
+      fetchCalendarData(yearMonthStr);
+      setPrevYearMonth(yearMonthStr); // 요청 후 이전 연-월 갱신
+    }
+  }, [selectedDate]); // selectedDate 변경 시 호출
 
   const handleActiveStartDateChange = ({ activeStartDate, view }) => {
     if (view === 'month' && activeStartDate) {
@@ -147,6 +171,12 @@ const UserCalendar = () => {
         locale="en-US"
         next2Label={null}
         prev2Label={null}
+        tileClassName={({ date }) => {
+          const day = date.getDay(); // 0: 일요일, 6: 토요일
+          if (day === 0) return 'sunday';
+          if (day === 6) return 'saturday';
+          return null;
+        }}
         tileContent={({ date }) => {
           const key = formatDateKey(date);
           const percent = percentageMap[key];
