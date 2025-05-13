@@ -9,11 +9,11 @@ import { useAuthStore } from '@/store/auth';
 
 export const useFriendModal = () => {
   const {
+    modalType,
+    openModal,
+    closeModal,
     friendRequests,
     setFriendRequests,
-    isRequestModalOpen,
-    openRequestModal,
-    closeRequestModal,
   } = useFriendStore();
 
   const { user } = useAuthStore();
@@ -58,10 +58,10 @@ export const useFriendModal = () => {
   };
 
   return {
+    modalType,
+    openModal,
+    closeModal,
     friendRequests,
-    isRequestModalOpen,
-    openRequestModal,
-    closeRequestModal,
     loadRequests,
     handleAccept,
     handleReject,
