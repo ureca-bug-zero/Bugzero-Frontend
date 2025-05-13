@@ -1,7 +1,5 @@
 // 투두 입력 + 리스트
 
-// src/components/panels/TodoPanel.tsx
-
 import React, { useEffect } from 'react';
 import TodoInput from '@/components/todo/TodoInput';
 import TodoList from '@/components/todo/TodoList';
@@ -28,7 +26,7 @@ const TodoPanel: React.FC = () => {
         </div>
 
         {/* 리스트 */}
-        <div className="mt-4 overflow-y-auto max-h-[400px] pr-1 hide-scrollbar">
+        <div className="mt-[48px] max-h-[400px] overflow-y-auto hide-scrollbar w-full max-w-[360px]">
           <TodoList />
         </div>
       </div>

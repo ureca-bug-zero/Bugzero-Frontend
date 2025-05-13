@@ -21,7 +21,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   };
 
   return (
-    <div className="relative flex justify-between items-center w-[360px] h-[45px] bg-white rounded-[10px] px-[12px] py-[10px]">
+    <div className="relative flex justify-between items-center w-full max-w-[360px] h-[45px] bg-white rounded-[10px] px-[12px] py-[10px]">
       {/* 왼쪽: 체크박스 + 텍스트 */}
       <div className="flex items-center gap-2 flex-1">
         <input

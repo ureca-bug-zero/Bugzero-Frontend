@@ -10,14 +10,18 @@ const TodoList = () => {
   const normalTodos = todos.filter((t) => !t.isMission);
 
   return (
-    <ul className="flex flex-col items-center gap-4">
+    <ul className="flex flex-col items-center">
       {/* 🎯 오늘의 미션 */}
-      <li className="w-[360px] h-[70px] border border-primary-500 bg-[#DAFAE8] rounded-[10px] px-4 py-2 flex items-center">
+      <li className="w-[360px] h-[70px] mb-[10px]">
         {missionTodo ? (
-          <TodoItem todo={missionTodo} />
+          <div className="w-full h-full overflow-hidden border border-[#1AE273] bg-[#DAFAE8] rounded-[10px] flex items-center px-4">
+            <TodoItem todo={missionTodo} />
+          </div>
         ) : (
-          <div className="text-sm font-bold text-secondary-600">
-            오늘의 미션을 불러오는 중...
+          <div className="w-full h-full overflow-hidden border border-[#1AE273] bg-[#DAFAE8] rounded-[10px] flex items-center justify-center px-4">
+            <span className="text-sm font-bold text-secondary-600">
+              오늘의 미션을 불러오는 중...
+            </span>
           </div>
         )}
       </li>
