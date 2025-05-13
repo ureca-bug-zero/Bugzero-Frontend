@@ -15,11 +15,11 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [menuStyle, setMenuStyle] = useState({ top: 0, left: 0 });
 
-  const handleEditSubmit = () => {
+  const handleEditSubmit = async () => {
     if (editContent.trim() && editContent !== todo.content) {
-      updateTodo(todo.id, { content: editContent });
+      await updateTodo(todo.id, { content: editContent });
     }
-    setIsEditing(false);
+    setIsEditing(false); // 무조건 실행되도록 조건문 바깥에 둠
   };
 
   // 메뉴 위치 계산
