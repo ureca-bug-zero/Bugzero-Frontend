@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import { useEffect, useState, memo, useCallback } from 'react';
 import axios from '@/api/axios';
+import calendarBtn from '@/assets/calendar-Btn.png';
 
 interface CalendarResponse {
   success: boolean;
@@ -21,14 +22,92 @@ const getColorFromPercentage = (percentage: number) => {
 };
 
 const StyledCalendar = styled(Calendar)`
+  color: #333333;
+  width: 277px !important;
+  height: 378px !important;
+  font-family: 'Pretendard', sans-serif;
   border: none;
 
+  /* 네비게이션바 css 설정 */
+  .react-calendar__navigation {
+    display: flex; /* 플렉스 박스로 설정 */
+    width: 148px;
+    height: 40px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  /* 네비게이션 레이블 */
+  .react-calendar__navigation__label {
+    width: 100px; /* 레이블 너비 조정 */
+    text-align: center; /* 레이블 가운데 정렬 */
+    flex-shrink: 0; /* 레이블이 축소되지 않도록 설정 */
+  }
+  .react-calendar__navigation button,
+  .react-calendar__navigation__label__labelText,
+  .react-calendar__navigation__label__labelText--from {
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: transparent;
+    }
+  }
+  .react-calendar__navigation__label__labelText {
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  /* 이전 버튼 */
+  .react-calendar__navigation__prev-button,
+  .react-calendar__navigation__next-button {
+    width: auto;
+    height: 28px;
+    min-width: unset !important;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 10px 17px; /* 이미지 크기 조정 */
+    border: none; /* 기본 버튼 테두리 제거 */
+    font-size: 0; /* 텍스트 숨기기 */
+    background-image: url(${calendarBtn}); /* 이미지 적용 */
+    flex-grow: 1; /* 버튼들이 남은 공간을 차지하도록 설정 */
+  }
+
+  /* 다음 버튼 */
+  .react-calendar__navigation__next-button {
+    transform: rotate(180deg); /* 오른쪽 버튼은 이미지를 뒤집어서 사용 */
+  }
+
+  /* 일자 공간 gap */
+  .react-calendar__month-view__days {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  /* 일월화수목금토 영역*/
+  .react-calendar__month-view__weekdays__weekday {
+    margin-bottom: 7.7px;
+  }
+  /*  */
+  .react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+    border-bottom: none;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 8px 0;
+  }
+
+  /* 잔디 */
   .react-calendar__tile {
+    padding: 0 !important;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    height: 50px;
+    width: 37px;
+    height: 37px;
   }
 
   .react-calendar__tile abbr {
@@ -53,25 +132,20 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__tile:hover::before {
     content: '';
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 37px;
+    height: 37px;
     background-color: #606060;
     opacity: 0.5;
     border-radius: 50%;
-    z-index: 0;
+    z-index: 2;
   }
-
-  /* 타일 안의 날짜 글씨 기본 */
-  .react-calendar__tile {
-    color: #333;
+  /* 전체 글씨 색 */
+  .react-calendar__tile.sunday abbr,
+  .react-calendar__tile.saturday abbr {
+    color: #333333;
   }
-  /* 날짜 뷰에서만 적용되도록 .react-calendar__month-view 추가 */
-  .react-calendar__month-view .react-calendar__tile.sunday abbr {
-    color: red;
-  }
-
-  .react-calendar__month-view .react-calendar__tile.saturday abbr {
-    color: blue;
+  .react-calendar__tile abbr {
+    color: #333333;
   }
 `;
 
@@ -143,7 +217,9 @@ const UserCalendar = () => {
   const handleActiveStartDateChange = ({ activeStartDate, view }) => {
     if (view === 'month' && activeStartDate) {
       const newDate = new Date(
-        `${activeStartDate.getFullYear()}-${String(activeStartDate.getMonth() + 1).padStart(2, '0')}-01`,
+        `${activeStartDate.getFullYear()}-${String(
+          activeStartDate.getMonth() + 1,
+        ).padStart(2, '0')}-01`,
       );
 
       // 새로운 날짜와 기존 날짜가 다를 경우에만 상태를 변경
@@ -153,10 +229,16 @@ const UserCalendar = () => {
     }
   };
 
-  const selectedDateKo = `${selectedDate.getFullYear()}년 ${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일`; // 한글 형식으로 변환
+  const selectedDateKo = `${selectedDate.getFullYear()}년 ${
+    selectedDate.getMonth() + 1
+  }월 ${selectedDate.getDate()}일`; // 한글 형식으로 변환
 
   return (
-    <div>
+    <div className="relative flex flex-col items-center">
+      {/* 이미지 추가 */}
+      <div className="absolute right-[3px] top-[2px] w-[90px]">
+        <img alt="Calendar Button" src="/src/assets/gradation.png" />
+      </div>
       <StyledCalendar
         value={selectedDate}
         onChange={(value) => {
@@ -166,9 +248,10 @@ const UserCalendar = () => {
             setSelectedKey(key); // 선택된 날짜 키 설정
           }
         }}
-        onActiveStartDateChange={handleActiveStartDateChange} // 변경된 부분
+        onActiveStartDateChange={handleActiveStartDateChange}
         calendarType="hebrew"
-        locale="en-US"
+        locale="ko-KR" // 한글로 표시
+        formatDay={(locale, date) => String(date.getDate())} //1일 -> 1
         next2Label={null}
         prev2Label={null}
         tileClassName={({ date }) => {
@@ -187,8 +270,8 @@ const UserCalendar = () => {
               {percent !== undefined && (
                 <div
                   style={{
-                    width: 40,
-                    height: 40,
+                    width: 37,
+                    height: 37,
                     borderRadius: '50%',
                     backgroundColor: getColorFromPercentage(percent),
                     position: 'absolute',
@@ -202,9 +285,9 @@ const UserCalendar = () => {
               {isSelected && (
                 <div
                   style={{
-                    width: 40,
-                    height: 40,
-                    border: '2px solid #333333',
+                    width: 37,
+                    height: 37,
+                    border: '2px dashed #333333',
                     borderRadius: '50%',
                     position: 'absolute',
                     top: '50%',
