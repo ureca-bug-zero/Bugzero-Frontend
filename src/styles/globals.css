@@ -170,4 +170,10 @@ utilities layer: 다른 어떤 스타일보다 먼저 적용되어야할 작고,
   main {
     padding-top: 100px;
   }
+  img {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
 }

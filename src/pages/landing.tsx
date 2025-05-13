@@ -9,7 +9,11 @@ import clsx from 'clsx';
 import { Flex } from '../components/common/Wrapper';
 import { theme } from '../styles/theme';
 
-const descText = clsx(theme.textPalette.White, theme.typo.Heading7);
+const descText = clsx(
+  theme.textPalette.White,
+  theme.typo.Heading7,
+  'select-none',
+);
 
 const iconStyle = clsx('w-10', 'h-10');
 
@@ -38,7 +42,11 @@ const LandingPage = () => {
         )}
       >
         <p
-          className={clsx(theme.typo.Heading1_Kor, theme.textPalette.Secondary)}
+          className={clsx(
+            theme.typo.Heading1_Kor,
+            theme.textPalette.Secondary,
+            'select-none',
+          )}
         >
           개발자를 위한
           <br />
@@ -71,6 +79,7 @@ const LandingPage = () => {
                 theme.textPalette.White,
                 theme.typo.Heading7,
                 '-translate-y-[5px]',
+                'select-none',
               )}
             >
               투두 관리
