@@ -1,5 +1,5 @@
 .react-calendar {
-  @apply w-[276.19781px];
+  @apply w-full;
 }
 
 .react-calendar__tile {
@@ -23,9 +23,19 @@
   }
 }
 
+.react-calendar__tile.react-calendar__month-view__days__day.react-calendar__month-view__days__day--neighboringMonth {
+  /*전 달, 다음 달의 날짜가 보이는 것*/
+  abbr {
+    display: none;
+  }
+  img {
+    display: none;
+  }
+}
+
 .react-calendar__navigation {
   /*Month 바꾸는 헤더 부분*/
-  @apply mb-[41.68px] inline-flex;
+  @apply mt-[7px] mb-[41.68px] inline-flex;
 }
 
 .react-calendar__navigation__arrow.react-calendar__navigation__prev-button {
