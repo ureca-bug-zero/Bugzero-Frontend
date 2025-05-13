@@ -22,23 +22,34 @@ const LandingPage = () => {
     <main
       className={clsx(
         'min-h-screen',
-        Flex({}),
         'flex-grow',
-        'gap-[140px]',
-        'px-20',
+        'px-6',
+        'tablet:px-12',
+        'desktop:px-20',
+        Flex({
+          direction: 'column',
+        }),
+        'gap-y-[50px]',
         theme.bgPalette.Primary,
+        'desktop:flex-row',
+        'desktop:gap-[140px]',
       )}
     >
       {/* 화면 좌측*/}
-      <img src={logo} alt="랜딩페이지 로고" className="h-40" />
+      <img
+        src={logo}
+        alt="랜딩페이지 로고"
+        className={clsx('tablet:h-[200px]', 'h-[123px]')}
+      />
       {/* 화면 우측 */}
       <div
         className={clsx(
           Flex({
             direction: 'column',
-            align: 'start',
-            gap: 'gap-5',
+            gap: 'gap-[26px]',
           }),
+          'desktop:items-start',
+          'tablet:gap-[40px]',
         )}
       >
         <p
@@ -48,8 +59,8 @@ const LandingPage = () => {
             'select-none',
           )}
         >
-          개발자를 위한
-          <br />
+          개발자를 위한<span className="inline desktop:hidden">&nbsp;</span>
+          <br className="hidden desktop:inline" />
           투두리스트
         </p>
 
@@ -57,8 +68,12 @@ const LandingPage = () => {
           className={clsx(
             Flex({
               justify: 'between',
-              width: 'w-[500px]',
+              width: 'w-[399px]',
+              gap: 'g-[28px]',
             }),
+            'tablet:w-[534px]',
+            'tablet:gap-[18px]',
+            'desktop:-translate-x-[20px]',
           )}
         >
           <div
@@ -66,6 +81,7 @@ const LandingPage = () => {
               Flex({
                 direction: 'column',
               }),
+              'tablet:w-[120px]',
             )}
           >
             <img
@@ -86,9 +102,12 @@ const LandingPage = () => {
             </p>
           </div>
           <div
-            className={Flex({
-              direction: 'column',
-            })}
+            className={clsx(
+              Flex({
+                direction: 'column',
+              }),
+              'tablet:w-[120px]',
+            )}
           >
             <img
               src={iconDaily}
@@ -98,9 +117,12 @@ const LandingPage = () => {
             <p className={descText}>데일리 미션</p>
           </div>
           <div
-            className={Flex({
-              direction: 'column',
-            })}
+            className={clsx(
+              Flex({
+                direction: 'column',
+              }),
+              'tablet:w-[120px]',
+            )}
           >
             <img
               src={iconTimer}
@@ -110,9 +132,12 @@ const LandingPage = () => {
             <p className={descText}>타이머 기능</p>
           </div>
           <div
-            className={Flex({
-              direction: 'column',
-            })}
+            className={clsx(
+              Flex({
+                direction: 'column',
+              }),
+              'tablet:w-[120px]',
+            )}
           >
             <img
               src={iconFriend}
@@ -127,10 +152,13 @@ const LandingPage = () => {
             window.location.href = 'http://52.78.163.213:8080/auth/kakao/login';
           }}
           className={clsx(
-            'w-[300px]',
-            'h-[73px]',
+            'w-[170px]',
+            'h-[41px]',
+            'tablet:w-[300px]',
+            'tablet:h-[73px]',
             'hover:opacity-90',
             'transition',
+            '-translate-y-[11px]',
           )}
         >
           <img src={kakaoLoginBtn} />
