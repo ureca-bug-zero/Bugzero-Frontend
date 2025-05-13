@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAuthStore } from '@/store/auth';
-import axios from 'axios';
+import axios from '@/api/axios'; // axios 인스턴스 경로에 맞게 수정
 import { UserInfoResponse } from '@/types/auth';
 import AppRouter from '@/router';
 
@@ -12,11 +12,7 @@ const App = () => {
     if (!token) return;
 
     axios
-      .get<UserInfoResponse>(`${import.meta.env.VITE_API_BASE_URL}/user/info`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get<UserInfoResponse>('/user/info')
       .then((res) => {
         const user = res.data.data;
         setUser({ ...user, token });

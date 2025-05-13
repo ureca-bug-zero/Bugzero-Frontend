@@ -1,5 +1,6 @@
-// 로그인 훅
+import axios from '@/api/axios';
 import { useAuthStore } from '@/store/auth';
+import { UserInfoResponse, UserInfo } from '@/types/auth';
 
 export const useAuth = () => {
   const { setUser, logout } = useAuthStore();
@@ -14,16 +15,15 @@ export const useAuth = () => {
       const { data: token } = JSON.parse(raw);
       localStorage.setItem('accessToken', token);
 
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/user/info`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
-      const json = await res.json();
+      // 타입 명시해서 응답 구조 안전하게 처리
+      const { data: response }: { data: UserInfoResponse } =
+        await axios.get('/user/info');
 
-      if (json.success) {
-        const user = { ...json.data, token };
+      if (response.success) {
+        const user: UserInfo & { token: string } = {
+          ...response.data,
+          token,
+        };
         setUser(user);
       }
     } catch (err) {
@@ -32,7 +32,7 @@ export const useAuth = () => {
   };
 
   const handleLogout = () => {
-    logout(); //zustand 초기화
+    logout();
     window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/kakao/logout`;
   };
 
