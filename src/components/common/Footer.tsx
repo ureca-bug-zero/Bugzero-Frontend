@@ -7,7 +7,7 @@ export default function Footer({ type }: CommonProps) {
   return (
     <footer
       className={clsx(
-        Flex({ width: 'w-full', height: 'h-80px' }),
+        Flex({ width: 'w-full', height: 'h-[80px]' }),
         type === 'home' ? theme.bgPalette.Gray2 : theme.bgPalette.Secondary,
       )}
     >

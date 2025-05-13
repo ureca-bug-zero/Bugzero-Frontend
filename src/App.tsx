@@ -3,6 +3,7 @@ import Header from './components/common/Header';
 import Home from './pages/home';
 import { CommonType, SelectCommonProps } from './components/common/types';
 import Footer from './components/common/Footer';
+import LandingPage from './pages/landing';
 
 function SelectCommon({ type }: SelectCommonProps) {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
       <SelectCommon type={'header'} />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/landing" element={<LandingPage />} />
       </Routes>
       <SelectCommon type={'footer'} />
     </BrowserRouter>
