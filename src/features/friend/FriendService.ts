@@ -1,4 +1,4 @@
-import axios from 'axios';
+import instance from '@/api/axios';
 import {
   IncomingFriendRequest,
   FriendRequestPayload,
@@ -6,23 +6,12 @@ import {
   FriendRequestResponse,
 } from '@/types/friend';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const getAuthHeader = () => {
-  const token = localStorage.getItem('accessToken');
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-};
-
 // 친구 요청 보내기
 export const sendFriendRequest = async (payload: FriendRequestPayload) => {
-  const res = await axios.post(
-    `${API_BASE_URL}/friend/request`,
+  const res = await instance.post(
+    `/friend/request`,
     {},
     {
-      ...getAuthHeader(),
       params: { email: payload.email },
     },
   );
@@ -31,21 +20,13 @@ export const sendFriendRequest = async (payload: FriendRequestPayload) => {
 
 // 친구 요청 수락
 export const acceptFriendRequest = async (payload: FriendResponsePayload) => {
-  const res = await axios.post(
-    `${API_BASE_URL}/friend/response/accept`,
-    payload,
-    getAuthHeader(),
-  );
+  const res = await instance.post(`$/friend/response/accept`, payload);
   return res.data;
 };
 
 // 친구 요청 거절
 export const refuseFriendRequest = async (payload: FriendResponsePayload) => {
-  const res = await axios.post(
-    `${API_BASE_URL}/friend/response/refuse`,
-    payload,
-    getAuthHeader(),
-  );
+  const res = await instance.post(`$/friend/response/refuse`, payload);
   return res.data;
 };
 
@@ -53,9 +34,6 @@ export const refuseFriendRequest = async (payload: FriendResponsePayload) => {
 export const fetchFriendRequests = async (): Promise<
   IncomingFriendRequest[]
 > => {
-  const res = await axios.get<FriendRequestResponse>(
-    `${API_BASE_URL}/friend/requests`,
-    getAuthHeader(),
-  );
+  const res = await instance.get<FriendRequestResponse>(`$/friend/requests`);
   return res.data.data;
 };
