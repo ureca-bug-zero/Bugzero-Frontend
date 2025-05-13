@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8080', // 실제 백엔드 주소에 맞게 수정
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
 });
 

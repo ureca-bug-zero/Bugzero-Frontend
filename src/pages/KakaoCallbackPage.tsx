@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useAuthStore } from '@/store/auth';
 import { UserInfoResponse } from '@/types/auth';
+import axios from '@/api/axios'; // axios 인스턴스 import
 
 const KakaoCallbackPage = () => {
   const navigate = useNavigate();
@@ -18,9 +18,7 @@ const KakaoCallbackPage = () => {
     localStorage.setItem('accessToken', token);
 
     axios
-      .get<UserInfoResponse>(`${import.meta.env.VITE_API_BASE_URL}/user/info`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get<UserInfoResponse>('/user/info')
       .then((res) => {
         const user = res.data.data;
         setUser({ ...user, token }); // token도 함께 저장
