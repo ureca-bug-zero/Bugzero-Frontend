@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Todo } from '../../types/todo';
 import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
@@ -16,9 +16,25 @@ type TodoItemProps = {
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const toggleCheck = useTodoStore((s) => s.toggleCheck);
   const deleteTodo = useTodoStore((s) => s.deleteTodo);
+  const editTodo = useTodoStore((s) => s.editTodo);
 
   // 플로팅버튼
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editContent, setEditContent] = useState(todo.content);
+  const [editLink, setEditLink] = useState(todo.link);
+
+  const handleEdit = () => {
+    if (editContent.trim()) {
+      editTodo(todo.id, editContent.trim(), (editLink || '').trim());
+      setIsEditMode(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') handleEdit();
+  };
 
   // 체크박스 + 텍스트 + 메뉴
   const inner = (
@@ -26,7 +42,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       className={clsx(
         Flex({
           justify: 'between',
-          height: 'h-[45px]',
           width: 'w-[277px]',
           padding: {
             x: 'px-[12px]',
@@ -34,7 +49,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           },
         }),
         'tablet:w-[360px]',
-        'tablet:h-[45px]',
+        isEditMode ? 'h-auto' : 'h-[45px]',
         todo.isMission ? '' : 'bg-white',
       )}
     >
@@ -53,17 +68,50 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           <img
             src={todo.isChecked ? filledBox : emptyBox}
             alt={todo.isChecked ? '완료' : '미완료'}
+            className="w-[18px] h-[18px] min-w-[18px] min-h-[18px]"
           />
         </button>
-        {/* <span
-          className={clsx(
-            todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
-            theme.textPalette.Secondary,
-          )}
-        >
-          {todo.content}
-        </span> */}
-        {todo.link ? (
+
+        {isEditMode ? (
+          <div
+            className={clsx(
+              Flex({
+                direction: 'column',
+                width: 'w-full',
+              }),
+            )}
+          >
+            <input
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="할 일을 입력하세요."
+              className={clsx(
+                'bg-transparent',
+                'w-full',
+                'placeholder-gray-700',
+                'focus:placeholder-transparent',
+                todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+                theme.textPalette.Secondary,
+              )}
+            />
+            <input
+              value={editLink}
+              onChange={(e) => setEditLink(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="링크를 입력하세요."
+              className={clsx(
+                'mt-[6px]',
+                'bg-transparent',
+                'w-full',
+                'placeholder-gray-700',
+                'focus:placeholder-transparent',
+                todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+                theme.textPalette.Secondary,
+              )}
+            />
+          </div>
+        ) : todo.link ? (
           <a
             href={
               todo.link.startsWith('http') ? todo.link : `https://${todo.link}`
@@ -115,7 +163,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
               <button
                 onClick={() => {
                   setIsMenuOpen(false);
-                  // 수정 기능 넣기
+                  setIsEditMode(true);
                 }}
                 className={clsx(
                   theme.typo.Body2,
