@@ -25,7 +25,7 @@ const FriendAddModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 min-h-screen transition-opacity duration-300">
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 min-h-screen">
       <div className="bg-white rounded-2xl w-[550px] h-[410px] shadow-lg p-12 relative">
         {/* 닫기 버튼 */}
         <button
