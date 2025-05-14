@@ -6,10 +6,20 @@ interface TodoStore {
   toggleCheck: (id: number) => void;
   deleteTodo: (id: number) => void;
   // editTodo: (id: number, newContent: string) => void;
+  addTodo: (todo: Omit<Todo, 'id' | 'isChecked'>) => void;
 }
 
 export const useTodoStore = create<TodoStore>((set) => ({
   todos: [
+    {
+      id: 2,
+      content: '미션 안함',
+      isChecked: false,
+      isMission: true,
+      link: '',
+      date: '2025-05-13',
+      userId: 1,
+    },
     {
       id: 1,
       content: '미션 아닌데 함',
@@ -20,11 +30,11 @@ export const useTodoStore = create<TodoStore>((set) => ({
       userId: 1,
     },
     {
-      id: 2,
-      content: '미션 안함',
+      id: 3,
+      content: '이거 백준 링크',
       isChecked: false,
-      isMission: true,
-      link: '',
+      isMission: false,
+      link: 'https://www.acmicpc.net/problem/13460',
       date: '2025-05-13',
       userId: 1,
     },
@@ -38,5 +48,16 @@ export const useTodoStore = create<TodoStore>((set) => ({
   deleteTodo: (id) =>
     set((state) => ({
       todos: state.todos.filter((t) => t.id !== id),
+    })),
+  addTodo: (todo) =>
+    set((state) => ({
+      todos: [
+        ...state.todos,
+        {
+          ...todo,
+          id: Date.now(),
+          isChecked: false,
+        },
+      ],
     })),
 }));
