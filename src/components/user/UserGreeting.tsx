@@ -8,11 +8,11 @@ const UserGreeting: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-2 text-blackText">
-      <h1 className="text-2xl font-bold">{`Hello, ${user.name}!`}</h1>
-      <p className="text-lg">
+    <div className="w-[277px] flex flex-col items-left space-y-[47px] text-blackText">
+      <h1 className="text-[36px] font-bold">{`Hello, ${user.name}!`}</h1>
+      <p className="text-[20px]">
         이번 주 순위는{' '}
-        <span className="font-bold bg-green-200 px-2 py-0.5">
+        <span className="font-bold text-[24px] bg-green-200 px-0.5 py-1">
           {user.rank}위
         </span>{' '}
         입니다!

@@ -5,7 +5,7 @@ import UserCalendar from '@/components/user/UserCalendar';
 
 const UserPanel: React.FC = () => {
   return (
-    <div className="space-y-4">
+    <div className="space-y-[85px] w-[360px] flex flex-col items-center">
       <UserGreeting />
 
       <UserCalendar />

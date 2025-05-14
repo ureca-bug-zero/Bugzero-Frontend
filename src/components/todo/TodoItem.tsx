@@ -1,5 +1,3 @@
-// 개별 투두 항목
-
 import { Todo } from '@/types/todo';
 import { useTodoStore } from '@/store/todo';
 import { useState, useRef, useEffect } from 'react';
@@ -13,16 +11,26 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   const updateTodo = useTodoStore((s) => s.updateTodo);
   const removeTodo = useTodoStore((s) => s.removeTodo);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [menuStyle, setMenuStyle] = useState({ top: 0, left: 0 });
 
-  const handleEditSubmit = () => {
-    if (editContent.trim() && editContent !== todo.content) {
-      updateTodo(todo.id, { content: editContent });
-    }
+  const handleEditSubmit = async () => {
+    if (!isEditing) return; // ✅ 중복 실행 방지
     setIsEditing(false);
+
+    const trimmed = editContent.trim();
+
+    if (trimmed && trimmed !== todo.content) {
+      console.log('✏️ 수정 요청 실행!', {
+        id: todo.id,
+        newContent: trimmed,
+        prevContent: todo.content,
+      }); // ✅ 로그 추가
+
+      await updateTodo(todo.id, { content: trimmed });
+    }
   };
 
-  // 메뉴 위치 계산
   useEffect(() => {
     if (menuOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
@@ -43,15 +51,22 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           onChange={() => toggleCheck(todo.id)}
           className="w-5 h-5 accent-gray-700 cursor-pointer"
         />
+
         {isEditing ? (
           <input
+            ref={inputRef}
             className="w-full text-base border-b border-gray-300 focus:outline-none"
             value={editContent}
             onChange={(e) => setEditContent(e.target.value)}
             onBlur={handleEditSubmit}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') handleEditSubmit();
-              if (e.key === 'Escape') setIsEditing(false);
+              if (e.key === 'Enter') {
+                inputRef.current?.blur(); // ✅ 직접 blur 유도 → handleEditSubmit() 호출됨
+              }
+              if (e.key === 'Escape') {
+                setIsEditing(false);
+                setEditContent(todo.content); // ✅ esc 시 원래 텍스트 복구
+              }
             }}
             autoFocus
           />
@@ -79,7 +94,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         )}
       </div>
 
-      {/* 오른쪽: 메뉴 버튼 */}
+      {/* 오른쪽 ⋮ 메뉴 */}
       {!todo.isMission && (
         <div className="relative ml-[12px]">
           <button
@@ -94,15 +109,13 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
             />
           </button>
 
-          {/* Portal로 분리된 메뉴 */}
           {menuOpen && (
             <DropdownPortal>
               <div
                 className="absolute w-[100px] bg-white border rounded-[10px] shadow z-[9999] text-base overflow-hidden"
                 style={{
-                  position: 'absolute',
                   top: `${menuStyle.top}px`,
-                  left: `${menuStyle.left - 60}px`, // 버튼 기준 위치 보정
+                  left: `${menuStyle.left - 60}px`,
                 }}
               >
                 <button
