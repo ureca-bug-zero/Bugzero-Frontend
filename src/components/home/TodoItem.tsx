@@ -73,7 +73,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
             className={clsx(
               todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
               theme.textPalette.Secondary,
-              // 'underline', // 링크에 밑줄 줄지 말지
+              'underline', // 링크에 밑줄 줄지 말지
             )}
           >
             {todo.content}
