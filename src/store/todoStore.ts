@@ -5,7 +5,7 @@ interface TodoStore {
   todos: Todo[];
   toggleCheck: (id: number) => void;
   deleteTodo: (id: number) => void;
-  // editTodo: (id: number, newContent: string) => void;
+  editTodo: (id: number, newContent: string) => void;
   addTodo: (todo: Omit<Todo, 'id' | 'isChecked'>) => void;
 }
 
@@ -59,5 +59,11 @@ export const useTodoStore = create<TodoStore>((set) => ({
           isChecked: false,
         },
       ],
+    })),
+  editTodo: (id, newContent) =>
+    set((state) => ({
+      todos: state.todos.map((t) =>
+        t.id === id ? { ...t, content: newContent } : t,
+      ),
     })),
 }));
