@@ -55,7 +55,7 @@ const FriendRequestModal = () => {
                 <div className="w-10 h-5 bg-gray-300 rounded-full shadow-inner"></div>
                 <div className="absolute left-0 top-0 w-5 h-5 bg-white border rounded-full shadow transform transition" />
               </div>
-              <span className="ml-2 text-sm text-secondary-500">요청</span>
+              <span className="ml-2 text-sm text-secondary-500">수락</span>
             </label>
           </div>
         </div>

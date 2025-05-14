@@ -1,6 +1,7 @@
 export interface IncomingFriendRequest {
-  senderId: number;
-  senderName: string;
+  friendId: number;
+  friendName: string;
+  friendEmail: string;
 }
 
 export interface FriendRequestPayload {

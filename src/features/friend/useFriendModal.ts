@@ -23,10 +23,11 @@ export const useFriendModal = () => {
     try {
       const response = await fetchFriendRequests(); // IncomingFriendRequest[]
       const transformed = response.map((item) => ({
-        id: item.senderId,
-        name: item.senderName,
-        email: '', // 서버 응답에 없으면 빈 문자열
+        id: item.friendId,
+        name: item.friendName,
+        email: item.friendEmail,
       }));
+      console.log(transformed);
       setFriendRequests(transformed);
     } catch (err) {
       console.error('친구 요청 로딩 실패:', err);
