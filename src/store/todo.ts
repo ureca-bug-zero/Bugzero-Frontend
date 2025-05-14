@@ -2,50 +2,61 @@
 
 import { create } from 'zustand';
 import { Todo } from '@/types/todo';
+import {
+  getTodosByDate,
+  postTodo,
+  patchTodo,
+  deleteTodo,
+  postCheckTodo,
+} from '@/api/todo';
 
-interface TodoStore {
+interface TodoState {
   todos: Todo[];
-  fetchTodos: () => void;
-  addTodo: (todo: Omit<Todo, 'id' | 'isChecked'>) => void;
-  updateTodo: (id: number, updated: Partial<Todo>) => void;
-  removeTodo: (id: number) => void;
-  toggleCheck: (id: number) => void;
+  fetchTodos: (userId: number, date: string) => Promise<void>;
+  addTodo: (
+    todo: Omit<Todo, 'id' | 'isChecked' | 'isMission'>,
+  ) => Promise<void>;
+  updateTodo: (id: number, data: Partial<Todo>) => Promise<void>;
+  removeTodo: (id: number) => Promise<void>;
+  toggleCheck: (id: number) => Promise<void>;
 }
 
-export const useTodoStore = create<TodoStore>((set) => ({
+export const useTodoStore = create<TodoState>((set, get) => ({
   todos: [],
 
-  // 로컬에선 초기 fetch는 의미 없음
-  fetchTodos: () => {},
+  fetchTodos: async (userId, date) => {
+    const todos = await getTodosByDate(userId, date);
+    set({ todos });
+  },
 
-  addTodo: (todo) =>
-    set((state) => ({
-      todos: [
-        ...state.todos,
-        {
-          id: Date.now(),
-          isChecked: false,
-          ...todo,
-        },
-      ],
-    })),
+  addTodo: async (todo) => {
+    await postTodo({ ...todo });
+    const { fetchTodos } = get();
+    await fetchTodos(todo.userId, todo.date);
+  },
 
-  updateTodo: (id, updated) =>
+  updateTodo: async (id, data) => {
+    await patchTodo(id, data); // ✅ 이 줄이 문제일 가능성 있음
     set((state) => ({
       todos: state.todos.map((todo) =>
-        todo.id === id ? { ...todo, ...updated } : todo,
+        todo.id === id ? { ...todo, ...data } : todo,
       ),
-    })),
+    }));
+  },
 
-  removeTodo: (id) =>
+  removeTodo: async (id) => {
+    await deleteTodo(id);
     set((state) => ({
       todos: state.todos.filter((todo) => todo.id !== id),
-    })),
+    }));
+  },
 
-  toggleCheck: (id) =>
+  toggleCheck: async (id) => {
+    await postCheckTodo(id);
     set((state) => ({
       todos: state.todos.map((todo) =>
         todo.id === id ? { ...todo, isChecked: !todo.isChecked } : todo,
       ),
-    })),
+    }));
+  },
 }));
