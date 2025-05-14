@@ -27,7 +27,6 @@ export const useFriendModal = () => {
         name: item.friendName,
         email: item.friendEmail,
       }));
-      console.log(transformed);
       setFriendRequests(transformed);
     } catch (err) {
       console.error('친구 요청 로딩 실패:', err);

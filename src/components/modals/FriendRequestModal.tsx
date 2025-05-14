@@ -40,7 +40,7 @@ const FriendRequestModal = () => {
               className="w-10 h-10"
               alt="icon"
             />
-            Received Requests
+            Confirm your requests
           </div>
 
           {/* 토글 */}
@@ -60,6 +60,13 @@ const FriendRequestModal = () => {
           </div>
         </div>
 
+        {/* 설명 */}
+        <div className="text-sm text-primary-600 pt-3 mb-6">
+          친구 요청을 확인해 주세요! <br />
+          친구 요청 수락 시 <span className="font-semibold">친구로 등록</span>
+          됩니다.
+        </div>
+
         {/* 요청 목록 */}
         {friendRequests.length === 0 ? (
           <p className="text-center text-gray-400 mt-8">
@@ -68,25 +75,30 @@ const FriendRequestModal = () => {
         ) : (
           <div className="space-y-4 max-h-[240px] overflow-y-auto pr-2">
             {friendRequests.map((f) => (
-              <div
-                key={f.id}
-                className="flex justify-between items-center border p-3 rounded-lg"
-              >
-                <div className="text-sm">
-                  {f.name} ({f.email})
+              <div key={f.id} className="flex justify-between items-center p-2">
+                {/* 왼쪽: 이름 + 이메일 */}
+                <div className="flex flex-col">
+                  <span className="text-secondary-600 font-semibold text-base">
+                    {f.name}
+                  </span>
+                  <span className="text-sm text-gray-500">{f.email}</span>
                 </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleAccept(f.id)}
-                    className="text-green-600 font-semibold"
-                  >
-                    수락
+
+                {/* 오른쪽: 아이콘 버튼 */}
+                <div className="flex gap-3">
+                  <button onClick={() => handleReject(f.id)}>
+                    <img
+                      src="/public/icons/reject-icon.svg"
+                      alt="거절"
+                      className="w-6 h-6"
+                    />
                   </button>
-                  <button
-                    onClick={() => handleReject(f.id)}
-                    className="text-red-500 font-semibold"
-                  >
-                    거절
+                  <button onClick={() => handleAccept(f.id)}>
+                    <img
+                      src="/public/icons/accept-icon.svg"
+                      alt="수락"
+                      className="w-6 h-6"
+                    />
                   </button>
                 </div>
               </div>
