@@ -5,6 +5,8 @@ import { useEffect, useState, memo, useCallback } from 'react';
 import axios from '@/api/axios';
 import calendarBtn from '@/assets/calendar-Btn.png';
 import { useCalendarStore } from '@/store/calendar';
+import { getKSTDate } from '@/utils/date'; //한국시간대로 변환하는 util
+
 interface Props {
   selectedDate: Date;
   setSelectedDate: (date: Date) => void;
@@ -18,11 +20,7 @@ interface CalendarResponse {
     score: Record<string, number>;
   };
 }
-// 한국 시간대로 변경
-const getKSTDate = (date: Date) => {
-  const utc = date.getTime() + date.getTimezoneOffset() * 60000;
-  return new Date(utc + 9 * 60 * 60000);
-};
+
 // 백엔드 농도 퍼센트를 기반으로 RGBA 색상 생성 (투명도 조절 방식)
 const getColorFromPercentage = (percentage: number) => {
   const baseColor = '26, 226, 115'; // #1AE273 in RGB
