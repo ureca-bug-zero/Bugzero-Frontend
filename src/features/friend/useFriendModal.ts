@@ -9,11 +9,11 @@ import { useAuthStore } from '@/store/auth';
 
 export const useFriendModal = () => {
   const {
+    modalType,
+    openModal,
+    closeModal,
     friendRequests,
     setFriendRequests,
-    isRequestModalOpen,
-    openRequestModal,
-    closeRequestModal,
   } = useFriendStore();
 
   const { user } = useAuthStore();
@@ -23,9 +23,9 @@ export const useFriendModal = () => {
     try {
       const response = await fetchFriendRequests(); // IncomingFriendRequest[]
       const transformed = response.map((item) => ({
-        id: item.senderId,
-        name: item.senderName,
-        email: '', // 서버 응답에 없으면 빈 문자열
+        id: item.friendId,
+        name: item.friendName,
+        email: item.friendEmail,
       }));
       setFriendRequests(transformed);
     } catch (err) {
@@ -58,10 +58,10 @@ export const useFriendModal = () => {
   };
 
   return {
+    modalType,
+    openModal,
+    closeModal,
     friendRequests,
-    isRequestModalOpen,
-    openRequestModal,
-    closeRequestModal,
     loadRequests,
     handleAccept,
     handleReject,

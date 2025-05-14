@@ -4,21 +4,20 @@ import { sendFriendRequest } from '@/features/friend/FriendService';
 import { X } from 'lucide-react';
 
 const FriendAddModal = () => {
-  const { isAddModalOpen, closeAddModal } = useFriendStore();
+  const { modalType, closeModal, openModal } = useFriendStore();
   const [email, setEmail] = useState('');
-  const [isRequestMode, setIsRequestMode] = useState(true);
 
-  if (!isAddModalOpen) return null;
+  if (modalType !== 'add') return null;
 
   const handleSubmit = async () => {
-    if (!email || email.trim() === '') {
+    if (!email.trim()) {
       alert('이메일을 입력해주세요.');
       return;
     }
     try {
       await sendFriendRequest({ email });
       alert('친구 요청을 보냈습니다!');
-      closeAddModal();
+      closeModal();
     } catch (err) {
       console.error('친구 요청 실패:', err);
       alert('요청 실패: 이메일을 확인하세요');
@@ -30,7 +29,7 @@ const FriendAddModal = () => {
       <div className="bg-white rounded-2xl w-[550px] h-[410px] shadow-lg p-12 relative">
         {/* 닫기 버튼 */}
         <button
-          onClick={closeAddModal}
+          onClick={closeModal}
           className="absolute top-4 right-4 text-gray-500 hover:text-black"
         >
           <X className="w-5 h-5" />
@@ -40,7 +39,7 @@ const FriendAddModal = () => {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2 text-2xl">
             <img
-              src="/public/add-modal-icon.svg"
+              src="/public/icons/add-modal-icon.svg"
               className="w-10 h-10"
               alt="icon"
             />
@@ -54,17 +53,12 @@ const FriendAddModal = () => {
                 <input
                   type="checkbox"
                   className="sr-only"
-                  checked={!isRequestMode}
-                  onChange={() => setIsRequestMode(!isRequestMode)}
+                  onChange={() => openModal('request')}
                 />
                 <div className="w-10 h-5 bg-gray-300 rounded-full shadow-inner"></div>
-                <div
-                  className={`absolute left-0 top-0 w-5 h-5 bg-white border rounded-full shadow transform transition ${
-                    !isRequestMode ? 'translate-x-5' : ''
-                  }`}
-                ></div>
+                <div className="absolute left-0 top-0 w-5 h-5 bg-white border rounded-full shadow transform transition translate-x-5" />
               </div>
-              {/* <span className="ml-2 text-sm text-gray-600">수락</span> */}
+              <span className="ml-2 text-sm text-secondary-500">요청</span>
             </label>
           </div>
         </div>

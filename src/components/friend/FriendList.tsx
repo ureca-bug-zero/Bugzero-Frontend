@@ -7,7 +7,7 @@ interface Friend {
 }
 
 const FriendList: React.FC = () => {
-  const { openAddModal } = useFriendStore();
+  const { openModal } = useFriendStore(); // ✅ 수정: openAddModal → openModal
 
   const dummyFriends: Friend[] = [
     { id: 1, name: '안민지' },
@@ -20,7 +20,7 @@ const FriendList: React.FC = () => {
 
       {/* 추가 버튼 */}
       <button
-        onClick={openAddModal}
+        onClick={() => openModal('add')} // ✅ 수정된 부분
         className="bg-blue-500 text-white px-4 py-2 rounded-md"
       >
         친구 추가
