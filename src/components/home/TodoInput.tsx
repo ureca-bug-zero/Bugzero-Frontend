@@ -16,10 +16,11 @@ const TodoInput: React.FC = () => {
   const [link, setLink] = useState('');
 
   const handleAddTodo = () => {
-    if (!content.trim) return;
+    const trimmedContent = content.trim();
+    if (!trimmedContent) return;
 
     addTodo({
-      content,
+      content: trimmedContent,
       date: new Date().toISOString(),
       isMission: false,
       link: link.trim() || '',
