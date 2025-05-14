@@ -14,10 +14,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         {/* 헤더 넣기! */}
         <Header />
       </header>
-      <main className="flex-1 overflow-hidden">{children}</main>{' '}
+      <main className="flex-1 overflow-auto pb-12 hide-scrollbar">
+        {children}
+      </main>
       {/* children 부분 렌더링 */}
       <footer className="h-12 bg-gray-100 text-center text-xs flex items-center justify-center text-gray-500">
-        <p>© 2025 My App</p>
+        <p>© 2025 BugZero. All rights reserved.</p>
       </footer>
     </div>
   );

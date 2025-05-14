@@ -30,55 +30,38 @@ const HomePage: React.FC = () => {
       <div className="pt-[112px] px-4 lg:px-0">
         {/* 공통: 유저 + 투두 패널 */}
         <div
-          style={{
-            display: 'flex',
-            justifyContent: isDesktop || isTablet ? 'center' : 'flex-start',
-            flexDirection: isDesktop || isTablet ? 'row' : 'column',
-            gap: isDesktop ? '140px' : isTablet ? '30px' : '16px',
-          }}
+          className={`flex ${
+            isDesktop || isTablet ? 'flex-row justify-center' : 'flex-col'
+          } ${isDesktop ? 'gap-[140px]' : isTablet ? 'gap-[30px]' : 'gap-4'}`}
         >
-          <div style={{ width: '360px' }}>
+          <div className="w-[360px]">
             <UserPanel />
           </div>
 
-          <div style={{ width: '360px' }}>
+          <div className="w-[360px]">
             <TodoPanel />
           </div>
 
-          {/* 데스크탑에서만 라이트 패널을 함께 보여줌 */}
+          {/* 데스크탑에서만 라이트 패널 표시 */}
           {isDesktop && (
-            <div style={{ width: '360px' }}>
+            <div className="w-[360px]">
               <RightPanel />
             </div>
           )}
         </div>
 
-        {/* 태블릿에서만 라이트 패널을 아래에 별도로 보여줌 */}
+        {/* 태블릿 전용: 아래에 라이트 패널 */}
         {isTablet && (
-          <div
-            style={{
-              marginTop: '40px',
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            <div style={{ width: '360px' }}>
+          <div className="mt-[40px] flex justify-center">
+            <div className="w-[360px]">
               <RightPanel />
             </div>
           </div>
         )}
 
-        {/* 모바일에서 세로 정렬 */}
+        {/* 모바일 전용: 세로 정렬 + 아래 여백으로 footer 방지 */}
         {isMobile && (
-          <div
-            style={{
-              marginTop: '24px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '16px',
-            }}
-          >
+          <div className="mt-[24px] flex flex-col items-center gap-4 pb-12">
             <RightPanel />
           </div>
         )}
