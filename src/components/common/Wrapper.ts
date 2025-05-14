@@ -6,7 +6,9 @@ const BasicFlex = cva('flex', {
   variants: {
     direction: {
       row: 'flex-row',
+      rowReverse: 'flex-row-reverse',
       column: 'flex-col',
+      colReverse: 'flex-col-reverse',
     },
     justify: {
       center: 'justify-center',

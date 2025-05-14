@@ -1,0 +1,61 @@
+.react-calendar {
+  @apply w-full;
+}
+
+.react-calendar__tile {
+  /*달력 내 각 날짜박스*/
+  @apply w-[37.45055px] h-[37.45055px]  mr-[2.34px] mb-[9.36px] font-pretendard-bold text-[12.484px] text-secondary text-center cursor-pointer;
+
+  abbr {
+    @apply bg-primary w-[37.45055px] h-[37.45055px] rounded-full block leading-[37.45055px];
+  }
+}
+
+.react-calendar__tile:nth-child(7n) {
+  @apply mr-0;
+}
+
+.react-calendar__month-view__weekdays {
+  /*요일 전체 박스*/
+  @apply grid grid-cols-7 gap-x-[28.9px] px-[15.604px] py-[9.363px] mb-[7.63px];
+}
+
+.react-calendar__month-view__weekdays__weekday {
+  /*요일 하나 당 박스*/
+  @apply font-pretendard-bold text-[12.484px] text-secondary;
+  flex: unset !important;
+  width: 100% !important;
+
+  abbr {
+    @apply w-[11px] h-[15px] no-underline;
+  }
+}
+
+.react-calendar__tile.react-calendar__month-view__days__day.react-calendar__month-view__days__day--neighboringMonth {
+  /*전 달, 다음 달의 날짜가 보이는 것*/
+  abbr {
+    display: none;
+  }
+  img {
+    display: none;
+  }
+}
+
+.react-calendar__navigation {
+  /*Month 바꾸는 헤더 부분*/
+  @apply mt-[7px] mb-[41.68px] inline-flex;
+}
+
+.react-calendar__navigation__arrow.react-calendar__navigation__prev-button {
+  /*prev Month 화살표 버튼*/
+  @apply pr-[4px];
+}
+
+.react-calendar__navigation__arrow.react-calendar__navigation__next-button {
+  @apply pl-[4px];
+}
+
+.react-calendar__navigation__label {
+  /*Month label*/
+  @apply w-[110px] h-[23px] text-center font-pretendard-bold text-[19px] text-secondary pointer-events-none;
+}
