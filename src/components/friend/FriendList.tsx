@@ -21,15 +21,19 @@ const FriendList: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <h3 className="font-semibold text-lg">친구 목록</h3>
-
-      {/* 친구 추가 버튼 */}
-      <button
-        onClick={() => openModal('add')}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+      <div
+        className="flex justify-between items-center gap-2 
+      text-[32px] font-semibold text-secondary-600
+      font-inter text-left'"
       >
-        친구 추가
-      </button>
+        Friends
+        <img
+          src="/public/icons/friend-icon.svg"
+          className="w-7 h-7 cursor-pointer hover:opacity-80"
+          alt="icon"
+          onClick={() => openModal('add')}
+        />
+      </div>
 
       {/* 친구 목록 */}
       <ul className="space-y-2">
@@ -37,9 +41,16 @@ const FriendList: React.FC = () => {
           <p className="text-gray-400">등록된 친구가 없습니다.</p>
         ) : (
           friends.map((friend) => (
-            <li key={friend.friendId} className="flex flex-col border-b py-2">
-              <span className="font-medium">{friend.friendName}</span>
-              <span className="text-sm text-gray-500">
+            <li
+              key={friend.friendId}
+              className="flex flex-col px-4 py-3 gap-y-1 
+              cursor-pointer hover:bg-secondary-200 
+              transition-colors duration-200 rounded-lg"
+            >
+              <span className="text-secondary-600 font-medium">
+                {friend.friendName}
+              </span>
+              <span className="text-sm text-secondary-500">
                 {friend.friendEmail}
               </span>
             </li>
