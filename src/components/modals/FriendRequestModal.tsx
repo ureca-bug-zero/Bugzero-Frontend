@@ -69,7 +69,7 @@ const FriendRequestModal = () => {
 
         {/* 요청 목록 */}
         {friendRequests.length === 0 ? (
-          <p className="text-center text-gray-400 mt-8">
+          <p className="text-center text-secondary-500 mt-24">
             받은 친구 요청이 없습니다.
           </p>
         ) : (
