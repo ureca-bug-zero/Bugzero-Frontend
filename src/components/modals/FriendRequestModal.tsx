@@ -36,7 +36,7 @@ const FriendRequestModal = () => {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2 text-2xl">
             <img
-              src="/public/add-modal-icon.svg"
+              src="/public/icons/add-modal-icon.svg"
               className="w-10 h-10"
               alt="icon"
             />
