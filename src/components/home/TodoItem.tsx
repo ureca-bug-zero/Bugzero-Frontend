@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Todo } from '../../types/todo';
 import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
@@ -25,6 +25,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const [editContent, setEditContent] = useState(todo.content);
   const [editLink, setEditLink] = useState(todo.link);
 
+  const todoRef = useRef<HTMLDivElement>(null);
+
   const handleEdit = () => {
     if (editContent.trim()) {
       editTodo(todo.id, editContent.trim(), (editLink || '').trim());
@@ -36,9 +38,24 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     if (e.key === 'Enter') handleEdit();
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (todoRef.current && !todoRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+        setIsEditMode(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   // 체크박스 + 텍스트 + 메뉴
   const inner = (
     <div
+      ref={todoRef}
       className={clsx(
         Flex({
           justify: 'between',
