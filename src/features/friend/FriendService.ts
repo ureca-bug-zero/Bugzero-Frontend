@@ -20,13 +20,21 @@ export const sendFriendRequest = async (payload: FriendRequestPayload) => {
 
 // 친구 요청 수락
 export const acceptFriendRequest = async (payload: FriendResponsePayload) => {
-  const res = await instance.post(`/friend/response/accept`, payload);
+  const res = await instance.post(`/friend/response/accept`, null, {
+    params: {
+      senderId: payload.senderId,
+    },
+  });
   return res.data;
 };
 
 // 친구 요청 거절
 export const refuseFriendRequest = async (payload: FriendResponsePayload) => {
-  const res = await instance.post(`/friend/response/refuse`, payload);
+  const res = await instance.post(`/friend/response/refuse`, null, {
+    params: {
+      senderId: payload.senderId,
+    },
+  });
   return res.data;
 };
 

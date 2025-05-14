@@ -90,14 +90,14 @@ const FriendRequestModal = () => {
                     <img
                       src="/public/icons/reject-icon.svg"
                       alt="거절"
-                      className="w-6 h-6"
+                      className="w-7 h-7"
                     />
                   </button>
                   <button onClick={() => handleAccept(f.id)}>
                     <img
                       src="/public/icons/accept-icon.svg"
                       alt="수락"
-                      className="w-6 h-6"
+                      className="w-7 h-7"
                     />
                   </button>
                 </div>
