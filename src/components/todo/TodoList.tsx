@@ -2,12 +2,16 @@
 
 import { useTodoStore } from '@/store/todo';
 import TodoItem from './TodoItem';
+import { Todo } from '@/types/todo';
 
-const TodoList = () => {
-  const todos = useTodoStore((s) => s.todos);
+interface TodoListProps {
+  todos: Todo[]; // 'todos'를 prop으로 받는 타입
+  selectedDate: Date;
+}
 
-  const missionTodo = todos.find((t) => t.isMission);
-  const normalTodos = todos.filter((t) => !t.isMission);
+const TodoList = ({ todos = [], selectedDate }: TodoListProps) => {
+  const missionTodo = todos.find((t) => t.isMission); // 미션 투두 찾기
+  const normalTodos = todos.filter((t) => !t.isMission); // 일반 투두 필터링
 
   return (
     <ul className="flex flex-col items-center">

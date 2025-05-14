@@ -4,6 +4,10 @@ import 'react-calendar/dist/Calendar.css';
 import { useEffect, useState, memo, useCallback } from 'react';
 import axios from '@/api/axios';
 import calendarBtn from '@/assets/calendar-Btn.png';
+interface Props {
+  selectedDate: Date;
+  setSelectedDate: (date: Date) => void;
+}
 
 interface CalendarResponse {
   success: boolean;
@@ -13,7 +17,11 @@ interface CalendarResponse {
     score: Record<string, number>;
   };
 }
-
+// 한국 시간대로 변경
+const getKSTDate = (date: Date) => {
+  const utc = date.getTime() + date.getTimezoneOffset() * 60000;
+  return new Date(utc + 9 * 60 * 60000);
+};
 // 백엔드 농도 퍼센트를 기반으로 RGBA 색상 생성 (투명도 조절 방식)
 const getColorFromPercentage = (percentage: number) => {
   const baseColor = '26, 226, 115'; // #1AE273 in RGB
@@ -149,7 +157,7 @@ const StyledCalendar = styled(Calendar)`
   }
 `;
 
-const UserCalendar = () => {
+const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
   useEffect(() => {
     console.log('🟢 UserCalendar mounted');
 
@@ -157,8 +165,6 @@ const UserCalendar = () => {
       console.log('🔴 UserCalendar unmounted');
     };
   }, []);
-
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   // 날짜를 "YYYY-MM-DD" 형식으로 변환
   // useCallback 사용하여 불필요한 함수 재생성을 방지
@@ -171,7 +177,7 @@ const UserCalendar = () => {
 
   // selectedDate 기준으로 selectedKey 초기값 설정
   const [selectedKey, setSelectedKey] = useState(() =>
-    formatDateKey(new Date()),
+    formatDateKey(getKSTDate(selectedDate)),
   );
   const [percentageMap, setPercentageMap] = useState<Record<string, number>>(
     {},
@@ -203,8 +209,9 @@ const UserCalendar = () => {
   };
 
   useEffect(() => {
-    const year = selectedDate.getFullYear();
-    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const kstSelected = getKSTDate(selectedDate);
+    const year = kstSelected.getFullYear();
+    const month = String(kstSelected.getMonth() + 1).padStart(2, '0');
     const yearMonthStr = `${year}-${month}`;
 
     // 이전 연-월과 다를 때만 fetch
@@ -216,10 +223,9 @@ const UserCalendar = () => {
 
   const handleActiveStartDateChange = ({ activeStartDate, view }) => {
     if (view === 'month' && activeStartDate) {
+      const kstDate = getKSTDate(activeStartDate);
       const newDate = new Date(
-        `${activeStartDate.getFullYear()}-${String(
-          activeStartDate.getMonth() + 1,
-        ).padStart(2, '0')}-01`,
+        `${kstDate.getFullYear()}-${String(kstDate.getMonth() + 1).padStart(2, '0')}-01`,
       );
 
       // 새로운 날짜와 기존 날짜가 다를 경우에만 상태를 변경
@@ -229,9 +235,9 @@ const UserCalendar = () => {
     }
   };
 
-  const selectedDateKo = `${selectedDate.getFullYear()}년 ${
-    selectedDate.getMonth() + 1
-  }월 ${selectedDate.getDate()}일`; // 한글 형식으로 변환
+  const selectedDateKo = `${selectedDate.getFullYear()}-${String(
+    selectedDate.getMonth() + 1,
+  ).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
 
   return (
     <div className="relative flex flex-col items-center">
@@ -243,8 +249,9 @@ const UserCalendar = () => {
         value={selectedDate}
         onChange={(value) => {
           if (value instanceof Date) {
-            const key = formatDateKey(value);
-            setSelectedDate(value);
+            const kstDate = getKSTDate(value);
+            const key = formatDateKey(kstDate);
+            setSelectedDate(kstDate);
             setSelectedKey(key); // 선택된 날짜 키 설정
           }
         }}
@@ -261,10 +268,10 @@ const UserCalendar = () => {
           return null;
         }}
         tileContent={({ date }) => {
-          const key = formatDateKey(date);
+          const kstDate = getKSTDate(date);
+          const key = formatDateKey(kstDate);
           const percent = percentageMap[key];
           const isSelected = key === selectedKey;
-
           return (
             <>
               {percent !== undefined && (
@@ -302,7 +309,6 @@ const UserCalendar = () => {
           );
         }}
       />
-      <p>{selectedDateKo}</p> {/* 클릭한 날짜를 한글 형식으로 출력 */}
     </div>
   );
 };
