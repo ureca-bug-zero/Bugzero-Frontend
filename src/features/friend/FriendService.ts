@@ -1,4 +1,5 @@
 import instance from '@/api/axios';
+import { FriendListItem } from '@/store/friend';
 import {
   IncomingFriendRequest,
   FriendRequestPayload,
@@ -43,5 +44,10 @@ export const fetchFriendRequests = async (): Promise<
   IncomingFriendRequest[]
 > => {
   const res = await instance.get<FriendRequestResponse>(`/friend/requests`);
+  return res.data.data;
+};
+
+export const fetchFriendList = async (): Promise<FriendListItem[]> => {
+  const res = await instance.get<{ data: FriendListItem[] }>('/friend/list');
   return res.data.data;
 };

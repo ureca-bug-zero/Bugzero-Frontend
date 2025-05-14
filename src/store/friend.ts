@@ -24,3 +24,9 @@ export const useFriendStore = create<FriendState>((set) => ({
   closeModal: () => set({ modalType: null }),
   setFriendRequests: (list) => set({ friendRequests: list }),
 }));
+
+export interface FriendListItem {
+  friendId: number;
+  friendName: string;
+  friendEmail: string;
+}
