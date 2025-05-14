@@ -5,7 +5,8 @@ import { useTodoStore } from '@/store/todo';
 import { useAuthStore } from '@/store/auth';
 import { useCalendarStore } from '@/store/calendar';
 
-const TodoInput = () => {
+const TodoInput = ({ selectedDate }: { selectedDate: Date }) => {
+  // 캘린더 선택 날짜 받아오기
   const [content, setContent] = useState('');
   const [link, setLink] = useState('');
   const addTodo = useTodoStore((s) => s.addTodo);
@@ -15,12 +16,20 @@ const TodoInput = () => {
   const handleAdd = async () => {
     if (!content.trim() || !userId) return;
 
+    // 캘린더에서 선택된 날짜(한국시간대)를 지정 포맷으로 변경
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+    const day = String(selectedDate.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
+
     await addTodo({
       content,
       link,
-      date: new Date().toISOString().split('T')[0],
+      date: dateStr, //캘린더에서 받아온 날짜
       userId,
     });
+    console.log(addTodo);
+    console.log(dateStr);
     triggerRefresh(); //투두 상태 변화(추가) 시 캘린더 새로고침
     setContent('');
     setLink('');

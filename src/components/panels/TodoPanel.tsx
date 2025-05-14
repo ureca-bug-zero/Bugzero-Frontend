@@ -39,7 +39,7 @@ const TodoPanel = ({ selectedDate }: Props) => {
 
         {/* 입력창 */}
         <div className="mt-[36px]">
-          <TodoInput />
+          <TodoInput selectedDate={selectedDate} />
         </div>
 
         {/* 리스트 */}
