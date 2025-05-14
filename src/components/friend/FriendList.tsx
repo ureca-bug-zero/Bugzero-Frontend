@@ -1,42 +1,61 @@
-import React from 'react';
-import { useFriendStore } from '@/store/friend';
-
-interface Friend {
-  id: number;
-  name: string;
-}
+import React, { useEffect, useState } from 'react';
+import { useFriendStore, FriendListItem } from '@/store/friend';
+import { fetchFriendList } from '@/features/friend/FriendService';
 
 const FriendList: React.FC = () => {
-  const { openModal } = useFriendStore(); // ✅ 수정: openAddModal → openModal
+  const { openModal } = useFriendStore();
+  const [friends, setFriends] = useState<FriendListItem[]>([]);
 
-  const dummyFriends: Friend[] = [
-    { id: 1, name: '안민지' },
-    { id: 2, name: '이은채' },
-  ];
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await fetchFriendList();
+        setFriends(data);
+      } catch (err) {
+        console.error('친구 목록 불러오기 실패:', err);
+      }
+    };
+
+    load();
+  }, []);
 
   return (
     <div className="space-y-4">
-      <h3 className="font-semibold text-lg">친구 목록</h3>
-
-      {/* 추가 버튼 */}
-      <button
-        onClick={() => openModal('add')} // ✅ 수정된 부분
-        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+      <div
+        className="flex justify-between items-center gap-2 
+      text-[32px] font-semibold text-secondary-600
+      font-inter text-left'"
       >
-        친구 추가
-      </button>
+        Friends
+        <img
+          src="/public/icons/friend-icon.svg"
+          className="w-7 h-7 cursor-pointer hover:opacity-80"
+          alt="icon"
+          onClick={() => openModal('add')}
+        />
+      </div>
 
       {/* 친구 목록 */}
       <ul className="space-y-2">
-        {dummyFriends.map((friend) => (
-          <li
-            key={friend.id}
-            className="flex justify-between items-center border-b py-1"
-          >
-            <span>{friend.name}</span>
-            <button className="text-red-500">삭제</button>
-          </li>
-        ))}
+        {friends.length === 0 ? (
+          <p className="text-gray-400">등록된 친구가 없습니다.</p>
+        ) : (
+          friends.map((friend) => (
+            <li
+              key={friend.friendId}
+              className="flex flex-col px-4 py-3 gap-y-1 
+              cursor-pointer hover:bg-secondary-200 
+              transition-colors duration-200 rounded-lg"
+            >
+              <span className="text-secondary-600 font-medium">
+                {friend.friendName}
+              </span>
+              <span className="text-sm text-secondary-500">
+                {friend.friendEmail}
+              </span>
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );
