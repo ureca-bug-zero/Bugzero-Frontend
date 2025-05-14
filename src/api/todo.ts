@@ -59,6 +59,7 @@ export const patchTodo = async (
   id: number,
   todo: UpdateTodoDTO,
 ): Promise<void> => {
+  console.log('🔧 PATCH 요청 전송:', id, todo); // ✅ 확인용
   await axios.patch(`/todolist/${id}`, todo);
 };
 

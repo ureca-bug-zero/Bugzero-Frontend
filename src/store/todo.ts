@@ -36,12 +36,12 @@ export const useTodoStore = create<TodoState>((set, get) => ({
   },
 
   updateTodo: async (id, data) => {
-    await patchTodo(id, data);
-    const { todos, fetchTodos } = get();
-    const target = todos.find((t) => t.id === id);
-    if (target) {
-      await fetchTodos(target.userId, target.date);
-    }
+    await patchTodo(id, data); // ✅ 이 줄이 문제일 가능성 있음
+    set((state) => ({
+      todos: state.todos.map((todo) =>
+        todo.id === id ? { ...todo, ...data } : todo,
+      ),
+    }));
   },
 
   removeTodo: async (id) => {
