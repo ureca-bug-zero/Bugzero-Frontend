@@ -4,6 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import { useEffect, useState, memo, useCallback } from 'react';
 import axios from '@/api/axios';
 import calendarBtn from '@/assets/calendar-Btn.png';
+import { useCalendarStore } from '@/store/calendar';
 interface Props {
   selectedDate: Date;
   setSelectedDate: (date: Date) => void;
@@ -158,6 +159,8 @@ const StyledCalendar = styled(Calendar)`
 `;
 
 const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
+  const refreshTrigger = useCalendarStore((s) => s.refreshTrigger);
+
   useEffect(() => {
     console.log('🟢 UserCalendar mounted');
 
@@ -214,12 +217,13 @@ const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
     const month = String(kstSelected.getMonth() + 1).padStart(2, '0');
     const yearMonthStr = `${year}-${month}`;
 
-    // 이전 연-월과 다를 때만 fetch
-    if (yearMonthStr !== prevYearMonth) {
+    // 조건 1: selectedDate의 연월이 변경된 경우 fetch
+    // 조건 2: refreshTrigger가 변경된 경우 (같은 연월이어도 강제 fetch) = 투두 상태변화
+    if (yearMonthStr !== prevYearMonth || refreshTrigger > 0) {
       fetchCalendarData(yearMonthStr);
       setPrevYearMonth(yearMonthStr); // 요청 후 이전 연-월 갱신
     }
-  }, [selectedDate]); // selectedDate 변경 시 호출
+  }, [refreshTrigger, selectedDate]); // selectedDate 변경 or 투두 상태 변화 시 호출
 
   const handleActiveStartDateChange = ({ activeStartDate, view }) => {
     if (view === 'month' && activeStartDate) {
@@ -234,10 +238,6 @@ const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
       }
     }
   };
-
-  const selectedDateKo = `${selectedDate.getFullYear()}-${String(
-    selectedDate.getMonth() + 1,
-  ).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
 
   return (
     <div className="relative flex flex-col items-center">
