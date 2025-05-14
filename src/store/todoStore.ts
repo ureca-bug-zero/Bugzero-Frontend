@@ -5,8 +5,8 @@ interface TodoStore {
   todos: Todo[];
   toggleCheck: (id: number) => void;
   deleteTodo: (id: number) => void;
-  editTodo: (id: number, newContent: string) => void;
   addTodo: (todo: Omit<Todo, 'id' | 'isChecked'>) => void;
+  editTodo: (id: number, newContent: string, newLink: string) => void;
 }
 
 export const useTodoStore = create<TodoStore>((set) => ({
@@ -60,10 +60,10 @@ export const useTodoStore = create<TodoStore>((set) => ({
         },
       ],
     })),
-  editTodo: (id, newContent) =>
+  editTodo: (id, newContent, newLink) =>
     set((state) => ({
       todos: state.todos.map((t) =>
-        t.id === id ? { ...t, content: newContent } : t,
+        t.id === id ? { ...t, content: newContent, link: newLink } : t,
       ),
     })),
 }));
