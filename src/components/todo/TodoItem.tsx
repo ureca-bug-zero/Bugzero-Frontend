@@ -2,6 +2,7 @@ import { Todo } from '@/types/todo';
 import { useTodoStore } from '@/store/todo';
 import { useState, useRef, useEffect } from 'react';
 import DropdownPortal from '@/components/common/DropdownPortal';
+import { useCalendarStore } from '@/store/calendar'; // 캘린더 새로고침 트리거 함수
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -14,6 +15,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [menuStyle, setMenuStyle] = useState({ top: 0, left: 0 });
+  const triggerRefresh = useCalendarStore((s) => s.triggerRefresh); // 달력 새로고침 트리거
 
   const handleEditSubmit = async () => {
     const trimmedContent = editContent.trim();
@@ -57,7 +59,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
 
   return (
     <div
-      className="relative flex justify-between items-start w-full max-w-[360px] bg-white rounded-[10px] px-[12px] py-[10px]"
+      className="relative flex justify-between items-start w-full max-w-[360px] rounded-[10px] px-[12px] py-[10px]"
       ref={containerRef}
     >
       {/* 왼쪽 체크박스 + 텍스트 */}
@@ -66,7 +68,10 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           <input
             type="checkbox"
             checked={todo.isChecked}
-            onChange={() => toggleCheck(todo.id)}
+            onChange={async () => {
+              await toggleCheck(todo.id);
+              triggerRefresh(); // 투두 체크 시 캘린더 새로고침
+            }}
             className="w-5 h-5 accent-gray-700 cursor-pointer"
           />
           {isEditing ? (
@@ -159,8 +164,9 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
                   수정
                 </button>
                 <button
-                  onClick={() => {
-                    removeTodo(todo.id);
+                  onClick={async () => {
+                    await removeTodo(todo.id);
+                    triggerRefresh(); // 삭제 후 캘린더 갱신
                     setMenuOpen(false);
                   }}
                   className="w-full px-3 py-2 text-center text-red-500 hover:bg-gray-100"

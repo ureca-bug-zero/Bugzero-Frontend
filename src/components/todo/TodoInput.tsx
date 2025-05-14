@@ -3,12 +3,14 @@
 import React, { useState } from 'react';
 import { useTodoStore } from '@/store/todo';
 import { useAuthStore } from '@/store/auth';
+import { useCalendarStore } from '@/store/calendar';
 
 const TodoInput = () => {
   const [content, setContent] = useState('');
   const [link, setLink] = useState('');
   const addTodo = useTodoStore((s) => s.addTodo);
   const userId = useAuthStore((s) => s.user?.id); // 또는 s.user?.userId: 로그인된 사용자 ID 가져오기
+  const triggerRefresh = useCalendarStore((s) => s.triggerRefresh); // 캘린더 새로고침 트리거 함수
 
   const handleAdd = async () => {
     if (!content.trim() || !userId) return;
@@ -19,7 +21,7 @@ const TodoInput = () => {
       date: new Date().toISOString().split('T')[0],
       userId,
     });
-
+    triggerRefresh(); //투두 상태 변화(추가) 시 캘린더 새로고침
     setContent('');
     setLink('');
   };
