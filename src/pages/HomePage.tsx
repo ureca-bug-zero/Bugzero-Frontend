@@ -5,6 +5,8 @@ import TodoPanel from '@/components/panels/TodoPanel';
 import RightPanel from '@/components/panels/RightPanel';
 
 const HomePage: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
   const [isDesktop, setIsDesktop] = useState<boolean>(
     window.innerWidth >= 1024,
   );
@@ -34,12 +36,15 @@ const HomePage: React.FC = () => {
             isDesktop || isTablet ? 'flex-row justify-center' : 'flex-col'
           } ${isDesktop ? 'gap-[140px]' : isTablet ? 'gap-[30px]' : 'gap-4'}`}
         >
-          <div className="w-[360px]">
-            <UserPanel />
+          <div style={{ width: '360px' }}>
+            <UserPanel
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+            />
           </div>
 
-          <div className="w-[360px]">
-            <TodoPanel />
+          <div style={{ width: '360px' }}>
+            <TodoPanel selectedDate={selectedDate} />
           </div>
 
           {/* 데스크탑에서만 라이트 패널 표시 */}

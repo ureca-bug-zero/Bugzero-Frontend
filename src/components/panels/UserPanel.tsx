@@ -3,12 +3,20 @@ import React from 'react';
 import UserGreeting from '@/components/user/UserGreeting';
 import UserCalendar from '@/components/user/UserCalendar';
 
-const UserPanel: React.FC = () => {
+interface Props {
+  selectedDate: Date;
+  setSelectedDate: (date: Date) => void;
+}
+
+const UserPanel = ({ selectedDate, setSelectedDate }: Props) => {
   return (
     <div className="space-y-[85px] w-[360px] flex flex-col items-center">
       <UserGreeting />
 
-      <UserCalendar />
+      <UserCalendar
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
     </div>
   );
 };

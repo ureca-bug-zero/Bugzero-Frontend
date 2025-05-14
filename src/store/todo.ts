@@ -12,6 +12,7 @@ import {
 
 interface TodoState {
   todos: Todo[];
+  setTodos: (todos: Todo[]) => void; //todo setting
   fetchTodos: (userId: number, date: string) => Promise<void>;
   addTodo: (
     todo: Omit<Todo, 'id' | 'isChecked' | 'isMission'>,
@@ -23,7 +24,7 @@ interface TodoState {
 
 export const useTodoStore = create<TodoState>((set, get) => ({
   todos: [],
-
+  setTodos: (todos) => set({ todos }),
   fetchTodos: async (userId, date) => {
     const todos = await getTodosByDate(userId, date);
     set({ todos });
@@ -36,7 +37,7 @@ export const useTodoStore = create<TodoState>((set, get) => ({
   },
 
   updateTodo: async (id, data) => {
-    await patchTodo(id, data); // ✅ 이 줄이 문제일 가능성 있음
+    await patchTodo(id, data);
     set((state) => ({
       todos: state.todos.map((todo) =>
         todo.id === id ? { ...todo, ...data } : todo,
