@@ -101,14 +101,15 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
                 Position({
                   position: 'absolute',
                   top: 'top-[28px]',
-                  right: 'right-[-48px]',
+                  right: 'right-[-44px]',
                 }),
                 Flex({
                   direction: 'column',
                 }),
                 'w-[60px]',
                 'tablet:w-[80px]',
-                'tablet:right-[-68px]',
+                'tablet:right-[-64px]',
+                'z-50',
               )}
             >
               <button
@@ -122,6 +123,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
                     width: 'w-full',
                     height: 'h-[22.5px]',
                   }),
+                  'tablet:h-[30px]',
                   'text-center',
                   'bg-white',
                   'border',
@@ -145,6 +147,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
                     width: 'w-full',
                     height: 'h-[22.5px]',
                   }),
+                  'tablet:h-[30px]',
                   'text-center',
                   'bg-white',
                   'border',
