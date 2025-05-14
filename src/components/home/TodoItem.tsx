@@ -107,6 +107,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
                   direction: 'column',
                 }),
                 'w-[60px]',
+                'tablet:w-[80px]',
+                'tablet:right-[-68px]',
               )}
             >
               <button
