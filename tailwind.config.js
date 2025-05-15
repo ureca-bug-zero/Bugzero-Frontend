@@ -3,7 +3,23 @@
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        fadeIn: {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        fadeOut: {
+          from: { opacity: '1' },
+          to: { opacity: '0' },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.3s ease-in-out',
+        fadeOut: 'fadeOut 0.3s ease-in-out',
+      },
+    },
+
     screens: {
       phone: '393px',
       tablet: '768px',
