@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { Flex } from "../common/Wrapper";
 import { theme } from "../../styles/theme";
 
-interface FriendItemProps {
+export interface FriendItemProps {
   name: string;
   email: string;
 }
