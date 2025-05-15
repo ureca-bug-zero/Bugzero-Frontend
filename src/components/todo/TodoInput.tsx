@@ -3,8 +3,8 @@ import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
 
-import contentIcon from '../../assets/icons/home/todo-content.svg';
-import linkIcon from '../../assets/icons/home/todo-link.svg';
+import contentIcon from '../../assets/icons/todo/todo-content.svg';
+import linkIcon from '../../assets/icons/todo/todo-link.svg';
 import { theme } from '../../styles/theme';
 
 // const iconStyle = clsx('w-[22px]', 'h-[22px]');
