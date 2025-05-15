@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main>
       <CalendarBox />
-      <TimerBox minutes={3}/>
+      <TimerBox minutes={1}/>
     </main>
   );
 }

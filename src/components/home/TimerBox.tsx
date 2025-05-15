@@ -1,5 +1,8 @@
+import clsx from "clsx";
 import moment from "moment";
 import { useEffect, useRef, useState } from "react";
+import { Flex, Position } from "../common/Wrapper";
+import { theme } from "../../styles/theme";
 
 interface TimerProps{
   minutes: number; //분 단위로 입력
@@ -35,8 +38,12 @@ export default function TimerBox({minutes}: TimerProps) {
   }, [minutes]);
 
   return (
-    <div>
-      {moment.utc(seconds * 1000).format('mm:ss')}
+    <div className={clsx(Flex({ gap: 'gap-[24px]' }))}>
+      <div className={clsx(Position({ position: 'relative' }), 'w-[200px] h-[6px] rounded-[30px]', theme.bgPalette.Gray3)}>
+        <div className={clsx(Position({ position: 'relative' }), 'h-[6px] rounded-[30px]', theme.bgPalette.Primary)} style={{ width: `${(seconds / (minutes * 60))*200}px`}} />
+      </div>
+      <div className={theme.typo.Heading6}>
+      {moment.utc(seconds * 1000).format('mm:ss')}</div>
     </div>
   )
 }
