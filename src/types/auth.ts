@@ -3,7 +3,7 @@ export interface UserInfo {
   email: string;
   name: string;
   rank: number;
-  weekScore?: number | null;
+  weekScore: number | null;
   token?: string;
 }
 
