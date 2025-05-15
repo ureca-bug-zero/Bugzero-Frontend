@@ -51,11 +51,11 @@ export default function CalendarBox() {
           locale="ko"
           defaultView="month"
           calendarType="gregory"
-          formatShortWeekday={(locale, date) =>
+          formatShortWeekday={(_, date) =>
             ['일', '월', '화', '수', '목', '금', '토'][date.getDay()]
           }
-          formatDay={(locale, date) => format(date, 'd')}
-          formatMonthYear={(locale, date) => format(date, 'yyyy년 M월')}
+          formatDay={(_, date) => format(date, 'd')}
+          formatMonthYear={(_, date) => format(date, 'yyyy년 M월')}
           nextLabel={<img src={rightIcon} alt="right" />}
           prevLabel={<img src={leftIcon} alt="left" />}
           next2Label={null}
