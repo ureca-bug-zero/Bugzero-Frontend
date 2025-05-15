@@ -1,19 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFriendStore } from '@/store/friend';
-import { sendFriendRequest } from '@/features/friend/FriendService';
+import {
+  sendFriendRequest,
+  fetchFriendList,
+} from '@/features/friend/FriendService';
 import { X } from 'lucide-react';
 
 const FriendAddModal = () => {
-  const { modalType, closeModal, openModal } = useFriendStore();
+  const { modalType, closeModal, openModal, friendList, setFriendList } =
+    useFriendStore();
   const [email, setEmail] = useState('');
+  const [isDuplicate, setIsDuplicate] = useState(false);
 
-  if (modalType !== 'add') return null;
+  // 모달이 열릴 때 친구 리스트 로드
+  useEffect(() => {
+    const loadFriendList = async () => {
+      try {
+        const list = await fetchFriendList();
+        setFriendList(list);
+      } catch (err) {
+        console.error('친구 리스트 불러오기 실패:', err);
+      }
+    };
+
+    if (modalType === 'add') {
+      loadFriendList();
+    }
+  }, [modalType, setFriendList]);
+
+  // 이메일 입력 시 중복 검사
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+
+    const duplicate = friendList.some((friend) => friend.friendEmail === value);
+    setIsDuplicate(duplicate);
+  };
 
   const handleSubmit = async () => {
     if (!email.trim()) {
       alert('이메일을 입력해주세요.');
       return;
     }
+
+    if (isDuplicate) return;
+
     try {
       await sendFriendRequest({ email });
       alert('친구 요청을 보냈습니다!');
@@ -23,6 +54,8 @@ const FriendAddModal = () => {
       alert('요청 실패: 이메일을 확인하세요');
     }
   };
+
+  if (modalType !== 'add') return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 min-h-screen">
@@ -64,7 +97,7 @@ const FriendAddModal = () => {
         </div>
 
         {/* 설명 */}
-        <div className="text-sm text-primary-600 pt-5 mb-6">
+        <div className="text-sm text-primary-600 pt-5 mb-4">
           친구를 추가해 보세요. <br />
           친구의 <span className="text-secondary-500 font-semibold">Bug</span>
           <span className="text-primary-500 font-semibold">Zero</span> 를 구경할
@@ -76,14 +109,24 @@ const FriendAddModal = () => {
           type="email"
           placeholder="이메일을 입력해주세요"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full h-[73px] border rounded-lg px-4 py-3 mb-6"
+          onChange={handleEmailChange}
+          className={`w-full h-[73px] rounded-lg px-4 py-3 mb-2 border ${
+            isDuplicate ? 'border-red-500' : 'border-gray-300'
+          }`}
         />
+        {isDuplicate && (
+          <p className="text-red-500 text-sm mb-2">이미 등록된 친구입니다.</p>
+        )}
 
         {/* 제출 버튼 */}
         <button
           onClick={handleSubmit}
-          className="w-full py-3 rounded-lg bg-primary-500 text-white font-semibold hover:bg-green-600 mt-2"
+          disabled={isDuplicate}
+          className={`w-full py-3 rounded-lg font-semibold mt-2 transition duration-200 ${
+            isDuplicate
+              ? 'bg-gray-300 text-white cursor-not-allowed'
+              : 'bg-primary-500 text-white hover:bg-green-600'
+          }`}
         >
           Confirm
         </button>
