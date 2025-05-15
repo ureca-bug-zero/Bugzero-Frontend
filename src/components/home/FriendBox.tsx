@@ -24,7 +24,7 @@ export default function FriendBox() {
         )}
       >
         <p className={clsx(theme.typo.Heading3_Eng)}>Friends</p>
-        <ModalIcon className={clsx('fill-primary')} />
+        <ModalIcon className={clsx('fill-primary cursor-pointer')} />
       </div>
       <div
         className={clsx(
