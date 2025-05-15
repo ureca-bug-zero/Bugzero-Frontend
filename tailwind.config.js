@@ -32,5 +32,5 @@ export default {
       transparent: 'transparent',
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 };

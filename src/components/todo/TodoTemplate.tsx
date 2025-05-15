@@ -4,7 +4,7 @@ import TodoInput from './TodoInput';
 import { useTodoStore } from '../../store/todoStore';
 import TodoItem from './TodoItem';
 
-import arrowIcon from '../../assets/icons/home/todo-arrow.svg';
+import arrowIcon from '../../assets/icons/todo/todo-arrow.svg';
 import { theme } from '../../styles/theme';
 
 const TodoTemplate = () => {
@@ -19,9 +19,6 @@ const TodoTemplate = () => {
           margin: 'mx-[16px]',
           gap: 'gap-[32px]',
         }),
-        'border',
-        'border-solid',
-        'border-primary',
         'tablet:w-[369px]',
         'tablet:mx-[8px]',
         'desktop:w-[360px]',
@@ -29,26 +26,6 @@ const TodoTemplate = () => {
         'tablet:gap-[36px]',
       )}
     >
-      {/* 제목 */}
-      <div
-        className={clsx(
-          Flex({
-            justify: 'start',
-            gap: 'gap-[3px]',
-          }),
-          '-translate-x-[100px]',
-          'desktop:translate-x-0',
-        )}
-      >
-        <img
-          src={arrowIcon}
-          alt="화살표"
-          className={clsx('w-[20px]', 'h-[20px]', 'tablet:hidden')}
-          // onClick={}
-        />
-        <h1 className={clsx(theme.typo.Heading3_Eng)}>Todo-List</h1>
-      </div>
-
       {/* 입력 + 리스트 */}
       <div
         className={clsx(
