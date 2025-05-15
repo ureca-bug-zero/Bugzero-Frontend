@@ -18,7 +18,7 @@ const SetTimer = () => {
           () => (
             <CustomToast type="success" message={`⏰ 시간이 모두 지났어요!`} />
           ),
-          { autoClose: 50000 },
+          { autoClose: 2000 },
         );
       }
       setIsRunning(false);
@@ -42,7 +42,7 @@ const SetTimer = () => {
             message={`잘못된 시간 형식입니다.\n예: 05: 30 또는 123: 45`}
           />
         ),
-        { autoClose: 50000 },
+        { autoClose: 2000 },
       );
       setIsEditing(false);
       return;
@@ -66,7 +66,7 @@ const SetTimer = () => {
             message={`시간은 00:01 ~ xxx:59 범위여야 하며,\n 초는 60 미만이어야 합니다.`}
           />
         ),
-        { autoClose: 50000 },
+        { autoClose: 2000 },
       );
       setIsEditing(false);
       return;
@@ -82,7 +82,7 @@ const SetTimer = () => {
             message={`0초 이상의 시간을 입력해주세요.`}
           />
         ),
-        { autoClose: 50000 },
+        { autoClose: 2000 },
       );
       setIsEditing(false);
       return;
@@ -168,7 +168,7 @@ const SetTimer = () => {
             <img
               src={isRunning ? 'src/assets/pause.png' : 'src/assets/play.png'}
               alt="Play/Pause"
-              className={isRunning ? 'w-[16px] h-[16px]' : 'w-[18px] h-[18px]'}
+              className={isRunning ? 'w-[16px] h-[16px]' : 'w-[14px] h-[14px]'}
             />
           </button>
           <button
