@@ -6,6 +6,8 @@ interface User {
   email: string;
   name: string;
   token: string;
+  weekScore: number | null;
+  rank: number;
 }
 
 interface AuthState {
