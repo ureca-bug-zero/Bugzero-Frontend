@@ -1,0 +1,24 @@
+import { ToastContentProps } from 'react-toastify';
+
+const CustomSuccessToast = ({ closeToast }: ToastContentProps) => {
+  return (
+    <div className="flex items-center justify-between bg-primary-200 px-5 py-3 rounded-md shadow-md min-w-[320px] min-h-[64px]">
+      <div className="flex items-center gap-2 font-pretendard">
+        <img
+          src="/public/icons/toast-success.svg"
+          alt="toast success"
+          className="w-5 h-5"
+        />
+        <span className="text-secondary-600 text-sm font-[16px]">
+          친구 요청을 보냈습니다!
+        </span>
+      </div>
+      <button
+        onClick={closeToast}
+        className="text-secondary-500 hover:text-secondary-200"
+      ></button>
+    </div>
+  );
+};
+
+export default CustomSuccessToast;
