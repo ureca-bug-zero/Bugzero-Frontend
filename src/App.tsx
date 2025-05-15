@@ -31,6 +31,7 @@ const App = () => {
         position="top-center"
         autoClose={3000}
         hideProgressBar
+        icon={false}
         newestOnTop
         closeOnClick
         rtl={false}
