@@ -51,7 +51,7 @@ const TodoInput = ({ selectedDate }: { selectedDate: Date }) => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="할 일을 입력하세요."
-            className="w-full text-[12px] font-medium font-pretendard text-secondary-500 placeholder:text-secondary-500 border-b border-gray-500 bg-transparent focus:outline-none"
+            className="w-full text-sm font-medium font-pretendard text-secondary-500 placeholder:text-secondary-500 border-b border-gray-500 bg-transparent focus:outline-none"
           />
         </div>
 
@@ -67,7 +67,7 @@ const TodoInput = ({ selectedDate }: { selectedDate: Date }) => {
             value={link}
             onChange={(e) => setLink(e.target.value)}
             placeholder="링크를 입력하세요."
-            className="w-full text-[12px] font-medium font-pretendard text-secondary-500 placeholder:text-secondary-500 border-b border-gray-500 bg-transparent focus:outline-none"
+            className="w-full text-sm font-medium font-pretendard text-secondary-500 placeholder:text-secondary-500 border-b border-gray-500 bg-transparent focus:outline-none"
           />
         </div>
       </div>
@@ -75,7 +75,7 @@ const TodoInput = ({ selectedDate }: { selectedDate: Date }) => {
       {/* 오른쪽: Add 버튼 */}
       <button
         onClick={handleAdd}
-        className="w-[66px] h-[55px] bg-secondary-500 text-white text-[12px] font-medium font-inter rounded-md"
+        className="w-[66px] h-[55px] bg-[#212121] text-white text-[12px] font-medium font-inter rounded-md transition-colors duration-200 hover:bg-[#606060]"
       >
         Add
       </button>
