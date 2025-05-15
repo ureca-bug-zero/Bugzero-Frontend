@@ -3,14 +3,14 @@ import { useFriendStore, FriendListItem } from '@/store/friend';
 import { fetchFriendList } from '@/features/friend/FriendService';
 
 const FriendList: React.FC = () => {
-  const { openModal } = useFriendStore();
+  const { openModal, friendRequests } = useFriendStore();
   const [friends, setFriends] = useState<FriendListItem[]>([]);
 
   useEffect(() => {
     const load = async () => {
       try {
         const data = await fetchFriendList();
-        setFriends(data);
+        setFriends(data ?? []);
       } catch (err) {
         console.error('친구 목록 불러오기 실패:', err);
       }
@@ -28,7 +28,11 @@ const FriendList: React.FC = () => {
       >
         Friends
         <img
-          src="/public/icons/friend-icon.svg"
+          src={
+            friendRequests.length > 0
+              ? '/public/icons/friend-req-icon.svg'
+              : '/public/icons/friend-icon.svg'
+          }
           className="w-7 h-7 cursor-pointer hover:opacity-80"
           alt="icon"
           onClick={() => openModal('add')}
@@ -37,8 +41,8 @@ const FriendList: React.FC = () => {
 
       {/* 친구 목록 */}
       <ul className="space-y-2">
-        {friends.length === 0 ? (
-          <p className="text-gray-400">등록된 친구가 없습니다.</p>
+        {!friends || friends.length === 0 ? (
+          <p className="text-secondary-600">친구를 추가해보세요!</p>
         ) : (
           friends.map((friend) => (
             <li

@@ -29,6 +29,9 @@ const FriendAddModal = () => {
     if (modalType === 'add') {
       loadFriendList();
     }
+    if (modalType !== 'add') {
+      setEmail('');
+    }
   }, [modalType, setFriendList]);
 
   // 이메일 입력 시 중복 검사
@@ -51,6 +54,7 @@ const FriendAddModal = () => {
     try {
       await sendFriendRequest({ email });
       toast((props) => <CustomSuccessToast {...props} />);
+      setEmail('');
       closeModal();
     } catch (err) {
       console.error('친구 요청 실패:', err);
