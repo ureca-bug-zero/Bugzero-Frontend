@@ -23,9 +23,10 @@ const SetTimer = () => {
   }, [isRunning, timeLeft]);
 
   const handleSetTime = () => {
-    const timeRegex = /^\d{2}:\d{2}$/;
+    // 정규식: 분은 1~3자리, 초는 반드시 두 자리
+    const timeRegex = /^\d{1,3}:\d{1,2}$/;
     if (!timeRegex.test(inputValue)) {
-      alert('잘못된 시간 형식입니다. 예: 05:30');
+      alert('잘못된 시간 형식입니다.\n예: 05:30 또는 123:45');
       setIsEditing(false);
       return;
     }
@@ -41,7 +42,7 @@ const SetTimer = () => {
       seconds < 0 ||
       seconds >= 60
     ) {
-      alert('시간은 00:01 ~ 59:59 범위여야 하며, 초는 60 미만이어야 합니다.');
+      alert('시간은 00:01 ~ xxx:59 범위여야 하며, 초는 60 미만이어야 합니다.');
       setIsEditing(false);
       return;
     }
@@ -54,9 +55,13 @@ const SetTimer = () => {
       return;
     }
 
+    // 자동 포맷팅: 입력값 다시 세팅
+    const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    setInputValue(formatted);
+
     setDuration(total);
     setTimeLeft(total);
-    setIsRunning(true); // ✅ 시간 설정과 동시에 타이머 시작
+    setIsRunning(true); // 시간 설정과 동시에 시작
     setIsEditing(false);
   };
 
