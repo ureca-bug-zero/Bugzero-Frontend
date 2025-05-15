@@ -23,7 +23,7 @@ const FriendRequestModal = () => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 min-h-screen">
-      <div className="bg-white rounded-2xl w-[550px] h-[410px] shadow-lg p-12 relative overflow-y-auto">
+      <div className="bg-white rounded-2xl w-[550px] h-[410px] shadow-lg p-12 relative hide-scrollbar">
         {/* 닫기 버튼 */}
         <button
           onClick={closeModal}
@@ -73,7 +73,7 @@ const FriendRequestModal = () => {
             받은 친구 요청이 없습니다.
           </p>
         ) : (
-          <div className="space-y-4 max-h-[240px] overflow-y-auto pr-2">
+          <div className="space-y-4 max-h-[200px] overflow-y-auto pr-2">
             {friendRequests.map((f) => (
               <div key={f.id} className="flex justify-between items-center p-2">
                 {/* 왼쪽: 이름 + 이메일 */}

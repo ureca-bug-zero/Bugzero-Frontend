@@ -3,7 +3,7 @@ import { useFriendStore, FriendListItem } from '@/store/friend';
 import { fetchFriendList } from '@/features/friend/FriendService';
 
 const FriendList: React.FC = () => {
-  const { openModal } = useFriendStore();
+  const { openModal, friendRequests } = useFriendStore();
   const [friends, setFriends] = useState<FriendListItem[]>([]);
 
   useEffect(() => {
@@ -28,7 +28,11 @@ const FriendList: React.FC = () => {
       >
         Friends
         <img
-          src="/public/icons/friend-icon.svg"
+          src={
+            friendRequests.length > 0
+              ? '/public/icons/friend-req-icon.svg'
+              : '/public/icons/friend-icon.svg'
+          }
           className="w-7 h-7 cursor-pointer hover:opacity-80"
           alt="icon"
           onClick={() => openModal('add')}
