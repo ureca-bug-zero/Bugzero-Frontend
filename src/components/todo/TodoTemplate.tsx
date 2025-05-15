@@ -4,9 +4,6 @@ import TodoInput from './TodoInput';
 import { useTodoStore } from '../../store/todoStore';
 import TodoItem from './TodoItem';
 
-import arrowIcon from '../../assets/icons/todo/todo-arrow.svg';
-import { theme } from '../../styles/theme';
-
 const TodoTemplate = () => {
   const todos = useTodoStore((s) => s.todos);
 
