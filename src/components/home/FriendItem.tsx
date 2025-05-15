@@ -17,7 +17,7 @@ export default function FriendItem({ name, email }: FriendItemProps) {
           height: 'min-h-[54px] tablet:min-h-[80px]',
           padding: { x: 'tablet:px-[20px]' },
         }),
-        'tablet:hover:bg-gray-100 tablet:rounded-[5px]',
+        'cursor-pointer tablet:hover:bg-gray-100 tablet:rounded-[5px]',
       )}
     >
       <p

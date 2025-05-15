@@ -58,7 +58,7 @@ export default function TimerBox() {
         'w-[292px]',
       )}
     >
-      <p className={clsx(theme.typo.Heading3_Eng)}>Set Timer</p>
+      <p className={clsx(theme.typo.Heading3_Eng, 'mb-[48px]')}>Set Timer</p>
       <div className={clsx(Flex({ gap: 'gap-[24px]' }))}>
         <div
           className={clsx(
