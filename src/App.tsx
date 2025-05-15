@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/common/Header';
-import Home from './pages/home';
+import HomePage from './pages/home';
 import { CommonType, SelectCommonProps } from './components/common/types';
 import Footer from './components/common/Footer';
 import LandingPage from './pages/landing';
@@ -24,7 +24,7 @@ function App() {
     <BrowserRouter>
       <SelectCommon type={'header'} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/landing" element={<LandingPage />} />
       </Routes>
       <SelectCommon type={'footer'} />

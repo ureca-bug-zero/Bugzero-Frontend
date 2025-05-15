@@ -3,6 +3,8 @@ import { Flex } from '../common/Wrapper';
 import TodoInput from './TodoInput';
 import { useTodoStore } from '../../store/todoStore';
 import TodoItem from './TodoItem';
+import arrowIcon from '../../assets/icons/todo/todo-arrow.svg';
+import { theme } from '../../styles/theme';
 
 const TodoTemplate = () => {
   const todos = useTodoStore((s) => s.todos);
@@ -23,6 +25,26 @@ const TodoTemplate = () => {
         'tablet:gap-[36px]',
       )}
     >
+      {/* 제목 */}
+      <div
+        className={clsx(
+          Flex({
+            justify: 'start',
+            gap: 'gap-[3px]',
+          }),
+          '-translate-x-[100px]',
+          'desktop:translate-x-0',
+        )}
+      >
+        <img
+          src={arrowIcon}
+          alt="화살표"
+          className={clsx('w-[20px]', 'h-[20px]', 'tablet:hidden')}
+          // onClick={}
+        />
+        <h1 className={clsx(theme.typo.Heading3_Eng)}>Todo-List</h1>
+      </div>
+
       {/* 입력 + 리스트 */}
       <div
         className={clsx(
