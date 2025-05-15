@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
 import FriendItem from './FriendItem';
 import { theme } from '../../styles/theme';
-import ModalIcon from '../../assets/icons/home/friend-modal.svg';
+import ModalIcon from '@/assets/icons/home/friend-modal.svg?react';
 // import { useEffect, useState } from "react";
 
 export default function FriendBox() {
@@ -24,7 +24,7 @@ export default function FriendBox() {
         )}
       >
         <p className={clsx(theme.typo.Heading3_Eng)}>Friends</p>
-        <img src={ModalIcon} alt="modal" />
+        <ModalIcon className={clsx('fill-primary')} />
       </div>
       <div
         className={clsx(
