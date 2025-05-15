@@ -16,6 +16,9 @@ export default {
           500: '#606060',
           200: '#E7EBEE',
         },
+        error: {
+          200: '#FFCCCC',
+        },
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],

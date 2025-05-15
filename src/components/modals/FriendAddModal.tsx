@@ -5,6 +5,9 @@ import {
   fetchFriendList,
 } from '@/features/friend/FriendService';
 import { X } from 'lucide-react';
+import { toast } from 'react-toastify';
+import CustomSuccessToast from '../common/CustomSuccessToast';
+import CustomErrorToast from '../common/CustomErrorToast';
 
 const FriendAddModal = () => {
   const { modalType, closeModal, openModal, friendList, setFriendList } =
@@ -38,20 +41,20 @@ const FriendAddModal = () => {
   };
 
   const handleSubmit = async () => {
-    if (!email.trim()) {
-      alert('이메일을 입력해주세요.');
-      return;
-    }
+    // if (!email.trim()) {
+
+    //   return;
+    // }
 
     if (isDuplicate) return;
 
     try {
       await sendFriendRequest({ email });
-      alert('친구 요청을 보냈습니다!');
+      toast((props) => <CustomSuccessToast {...props} />);
       closeModal();
     } catch (err) {
       console.error('친구 요청 실패:', err);
-      alert('요청 실패: 이메일을 확인하세요');
+      toast((props) => <CustomErrorToast {...props} />);
     }
   };
 
