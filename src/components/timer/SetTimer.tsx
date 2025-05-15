@@ -1,17 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import CustomToast from '@/components/common/CustomTimerToast'; // 경로는 실제 위치에 맞게 수정
 
 const SetTimer = () => {
-  const [duration, setDuration] = useState(0); // 전체 시간 (초)
-  const [timeLeft, setTimeLeft] = useState(0); // 남은 시간
+  const [duration, setDuration] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState('00:00');
-  const [isRunning, setIsRunning] = useState(false); // 타이머 실행 여부
+  const [isRunning, setIsRunning] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // 타이머 작동
+  // ⏱ 타이머 작동
   useEffect(() => {
     if (!isRunning || timeLeft <= 0) {
-      setIsRunning(false); // 시간 다 흐르면 자동 멈춤
+      if (isRunning && timeLeft <= 0) {
+        toast.success(
+          () => (
+            <CustomToast type="success" message={`⏰ 시간이 모두 지났어요!`} />
+          ),
+          { autoClose: 50000 },
+        );
+      }
+      setIsRunning(false);
       return;
     }
 
@@ -23,10 +33,17 @@ const SetTimer = () => {
   }, [isRunning, timeLeft]);
 
   const handleSetTime = () => {
-    // 정규식: 분은 1~3자리, 초는 반드시 두 자리
     const timeRegex = /^\d{1,3}:\d{1,2}$/;
     if (!timeRegex.test(inputValue)) {
-      alert('잘못된 시간 형식입니다.\n예: 05:30 또는 123:45');
+      toast.error(
+        () => (
+          <CustomToast
+            type="error"
+            message={`잘못된 시간 형식입니다.\n예: 05: 30 또는 123: 45`}
+          />
+        ),
+        { autoClose: 50000 },
+      );
       setIsEditing(false);
       return;
     }
@@ -42,7 +59,15 @@ const SetTimer = () => {
       seconds < 0 ||
       seconds >= 60
     ) {
-      alert('시간은 00:01 ~ xxx:59 범위여야 하며, 초는 60 미만이어야 합니다.');
+      toast.error(
+        () => (
+          <CustomToast
+            type="error"
+            message={`시간은 00:01 ~ xxx:59 범위여야 하며,\n 초는 60 미만이어야 합니다.`}
+          />
+        ),
+        { autoClose: 50000 },
+      );
       setIsEditing(false);
       return;
     }
@@ -50,18 +75,24 @@ const SetTimer = () => {
     const total = minutes * 60 + seconds;
 
     if (total <= 0) {
-      alert('0초 이상의 시간을 입력해주세요.');
+      toast.error(
+        () => (
+          <CustomToast
+            type="error"
+            message={`0초 이상의 시간을 입력해주세요.`}
+          />
+        ),
+        { autoClose: 50000 },
+      );
       setIsEditing(false);
       return;
     }
 
-    // 자동 포맷팅: 입력값 다시 세팅
     const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     setInputValue(formatted);
-
     setDuration(total);
     setTimeLeft(total);
-    setIsRunning(true); // 시간 설정과 동시에 시작
+    setIsRunning(true);
     setIsEditing(false);
   };
 
@@ -92,9 +123,7 @@ const SetTimer = () => {
         Set Timer
       </h2>
 
-      {/* 타이머 영역 (게이지 + 시간 + 버튼) */}
       <div className="mt-[55px] flex items-center justify-between gap-4">
-        {/* 게이지 바 + 시간 */}
         <div className="flex items-center gap-6">
           <div className="relative w-[200px] h-[6px] rounded-full bg-gray-200 overflow-hidden">
             <div
@@ -103,7 +132,6 @@ const SetTimer = () => {
             />
           </div>
 
-          {/* 시간 입력 or 텍스트 */}
           {isEditing ? (
             <input
               ref={inputRef}
@@ -132,7 +160,6 @@ const SetTimer = () => {
           )}
         </div>
 
-        {/* 컨트롤 버튼 */}
         <div className="flex gap-3 items-center">
           <button
             onClick={handlePlayPause}
@@ -141,7 +168,7 @@ const SetTimer = () => {
             <img
               src={isRunning ? 'src/assets/pause.png' : 'src/assets/play.png'}
               alt="Play/Pause"
-              className={isRunning ? 'w-[16px] h-[16px]' : 'w-[14px] h-[14px]'}
+              className={isRunning ? 'w-[16px] h-[16px]' : 'w-[18px] h-[18px]'}
             />
           </button>
           <button
