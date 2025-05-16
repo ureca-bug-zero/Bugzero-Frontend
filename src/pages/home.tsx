@@ -6,9 +6,11 @@ import TimerBox from '../components/home/TimerBox';
 import TodoTemplate from '../components/todo/TodoTemplate';
 import { Flex, Position } from '../components/common/Wrapper';
 import { useState } from 'react';
+import { useUserStore } from '../store/user';
 
 export default function HomePage() {
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const token = useUserStore((state) => state.token);
 
   // const handleOpen = () => {
   //   setIsClicked(true);
