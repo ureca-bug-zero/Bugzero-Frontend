@@ -196,13 +196,27 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
               )}
             >
               <span className={clsx(theme.typo.Label2_Kor)}>
-                친구 요청을 확인해주세요!
-                <br />
-                친구 요청 수락 시{' '}
-                <span className={clsx(theme.typo.Label2_Bold_Kor)}>
-                  친구로 등록
-                </span>{' '}
-                됩니다.
+                {isRequestMode ? (
+                  <>
+                    친구 요청을 확인해 주세요!
+                    <br />
+                    친구 요청 수락 시{' '}
+                    <span className={clsx(theme.typo.Label2_Bold_Kor)}>
+                      친구로 등록
+                    </span>
+                    됩니다.
+                  </>
+                ) : (
+                  <>
+                    친구를 추가해 보세요.
+                    <br />
+                    친구의 <span>Bug</span>
+                    <span className={clsx(theme.textPalette.Primary)}>
+                      Zero
+                    </span>
+                    를 구경할 수 있어요!
+                  </>
+                )}
               </span>
             </div>
           </div>
