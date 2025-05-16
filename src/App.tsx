@@ -4,6 +4,8 @@ import HomePage from './pages/home';
 import { CommonType, SelectCommonProps } from './components/common/types';
 import Footer from './components/common/Footer';
 import LandingPage from './pages/landing';
+import clsx from 'clsx';
+import { Flex } from './components/common/Wrapper';
 
 function SelectCommon({ type }: SelectCommonProps) {
   const location = useLocation();
@@ -22,12 +24,18 @@ function SelectCommon({ type }: SelectCommonProps) {
 function App() {
   return (
     <BrowserRouter>
-      <SelectCommon type={'header'} />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/landing" element={<LandingPage />} />
-      </Routes>
-      <SelectCommon type={'footer'} />
+      <div
+        className={clsx(Flex({ direction: 'column', height: 'min-h-screen' }))}
+      >
+        <SelectCommon type={'header'} />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/landing" element={<LandingPage />} />
+          </Routes>
+        </main>
+        <SelectCommon type={'footer'} />
+      </div>
     </BrowserRouter>
   );
 }

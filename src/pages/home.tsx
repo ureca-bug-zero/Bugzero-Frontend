@@ -23,13 +23,13 @@ export default function HomePage() {
   );
 
   return (
-    <main
+    <div
       className={clsx(
         Flex({
           height: 'desktop:h-[620px]',
           align: 'start',
         }),
-        ' overflow-hidden  mt-[41px] mb-[40.33px] tablet:mt-[60px] tablet:mb-[76.86px] desktop:mt-[112px] desktop:mb-[192px]',
+        ' overflow-hidden  pt-[5px] mt-[41px] mb-[40.33px] tablet:mt-[60px] tablet:mb-[76.86px] desktop:mt-[112px] desktop:mb-[192px]',
       )}
     >
       <div
@@ -95,6 +95,6 @@ export default function HomePage() {
           <TodoTemplate handleClose={handleClose} />
         </div>
       )}
-    </main>
+    </div>
   );
 }
