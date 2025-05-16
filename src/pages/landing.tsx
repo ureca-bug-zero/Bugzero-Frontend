@@ -148,7 +148,7 @@ const LandingPage = () => {
         </div>
         <button
           onClick={() => {
-            window.location.href = 'http://52.78.163.213:8080/auth/kakao/login';
+            window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/kakao/login`;
           }}
           className={clsx(
             'w-[170px]',
