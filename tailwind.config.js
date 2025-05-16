@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       screens: {
-        xl1440: '1440px',
+        desktop: '1440px',
+        tablet: '760px',
       },
       colors: {
         primary: {
