@@ -8,7 +8,7 @@ import { Flex, Position } from '../components/common/Wrapper';
 import { useState } from 'react';
 
 export default function HomePage() {
-  const [isClicked, setIsClicked] = useState<boolean>(true);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleOpen = () => {
     setIsClicked(true);
@@ -26,7 +26,7 @@ export default function HomePage() {
     <main
       className={clsx(
         Flex({
-          height: 'h-[670.67px] tablet:h-[841.14px] desktop:h-[620px]',
+          height: 'desktop:h-[620px]',
           align: 'start',
         }),
         ' overflow-hidden  mt-[41px] mb-[40.33px] tablet:mt-[60px] tablet:mb-[76.86px] desktop:mt-[112px] desktop:mb-[192px]',
@@ -88,7 +88,7 @@ export default function HomePage() {
       {isClicked && (
         <div
           className={clsx(
-            Position({ position: 'absolute', zIndex: 'z-index-[100px]' }),
+            Position({ position: 'absolute', zIndex: 'z-index-[60px]' }),
             'pl-[60px] tablet:hidden',
           )}
         >
