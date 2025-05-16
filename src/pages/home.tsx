@@ -25,8 +25,8 @@ export default function HomePage() {
   return (
     <main
       className={clsx(
-        Flex({ height: 'tablet:h-[841.14px] desktop:h-[620px]' }),
-        'mt-[112px] mb-[192px] overflow-hidden',
+        Flex({ height: 'h-[670.67px] tablet:h-[841.14px] desktop:h-[620px]' }),
+        ' overflow-hidden  mt-[41px] mb-[40.33px] tablet:mt-[60px] tablet:mb-[76.86px] desktop:mt-[112px] desktop:mb-[192px]',
       )}
     >
       <div
