@@ -6,7 +6,11 @@ import TodoItem from './TodoItem';
 import arrowIcon from '../../assets/icons/todo/todo-arrow.svg';
 import { theme } from '../../styles/theme';
 
-const TodoTemplate = () => {
+type TodoProps = {
+  handleClose: () => void;
+};
+
+const TodoTemplate = ({ handleClose }: TodoProps) => {
   const todos = useTodoStore((s) => s.todos);
 
   return (
@@ -15,11 +19,11 @@ const TodoTemplate = () => {
         Flex({
           direction: 'column',
           align: 'start',
-          width: 'w-[421px]',
           gap: 'gap-[32px]',
         }),
         'tablet:w-[449px]',
         'tablet:gap-[36px]',
+        theme.bgPalette.White,
       )}
     >
       {/* 제목 */}
@@ -36,7 +40,7 @@ const TodoTemplate = () => {
           src={arrowIcon}
           alt="화살표"
           className={clsx('w-[20px]', 'h-[20px]', 'tablet:hidden')}
-          // onClick={}
+          onClick={handleClose}
         />
         <h1 className={clsx(theme.typo.Heading3_Eng)}>Todo-List</h1>
       </div>

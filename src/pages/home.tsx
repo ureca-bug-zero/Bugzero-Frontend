@@ -4,9 +4,20 @@ import FriendBox from '../components/home/FriendBox';
 import GreetingBox from '../components/home/GreetingBox';
 import TimerBox from '../components/home/TimerBox';
 import TodoTemplate from '../components/todo/TodoTemplate';
-import { Flex } from '../components/common/Wrapper';
+import { Flex, Position } from '../components/common/Wrapper';
+import { useState } from 'react';
 
 export default function HomePage() {
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+
+  const handleOpen = () => {
+    setIsClicked(true);
+  };
+
+  const handleClose = () => {
+    setIsClicked(false);
+  };
+
   const line = clsx(
     'border-[1px] h-[500px] border-solid border-gray-200 hidden desktop:block',
   );
@@ -15,7 +26,7 @@ export default function HomePage() {
     <main
       className={clsx(
         Flex({ height: 'tablet:h-[841.14px] desktop:h-[620px]' }),
-        'mt-[112px] mb-[192px] overflow-x-hidden',
+        'mt-[112px] mb-[192px] overflow-hidden',
       )}
     >
       <div
@@ -38,16 +49,19 @@ export default function HomePage() {
       </div>
       <hr className={clsx(line, 'mx-[80px]')}></hr>
       <div
-        className={clsx(
-          Flex({
-            direction: 'column',
-            height: 'h-full',
-            justify: 'start',
-            align: 'start',
-          }),
-        )}
+        className={
+          (clsx(
+            Flex({
+              direction: 'column',
+              height: 'h-full',
+              justify: 'start',
+              align: 'start',
+            }),
+          ),
+          'hidden tablet:block')
+        }
       >
-        <TodoTemplate />
+        <TodoTemplate handleClose={handleClose} />
         <div className="tablet:mt-[63px] desktop:hidden">
           <TimerBox />
         </div>
@@ -62,12 +76,22 @@ export default function HomePage() {
             justify: 'start',
             align: 'start',
           }),
-          'tablet:hidden desktop:flex',
+          'hidden desktop:flex',
         )}
       >
         <TimerBox />
         <FriendBox />
       </div>
+      {isClicked && (
+        <div
+          className={clsx(
+            Position({ position: 'absolute', zIndex: 'z-index-[100px]' }),
+            'pl-[60px] tablet:hidden',
+          )}
+        >
+          <TodoTemplate handleClose={handleClose} />
+        </div>
+      )}
     </main>
   );
 }
