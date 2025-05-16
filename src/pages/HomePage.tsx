@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <MainLayout>
-        <div className="pt-[112px] px-4 lg:px-0">
+        <div className="pt-[40px] tablet:pt-[60px] desktop:pt-[112px]">
           {/* 데스크탑: 가로 배치 */}
           {viewport === 'desktop' && (
             <div className="flex flex-row justify-center gap-[140px]">
@@ -72,8 +72,8 @@ const HomePage: React.FC = () => {
               </div>
 
               {isTodoModalOpen && (
-                <div className="fixed top-[112px] bottom-[80px] left-0 right-0 bg-white z-50 overflow-y-auto px-4">
-                  <div className="relative w-full max-w-[500px] mx-auto pt-6">
+                <div className="fixed top-[64px] bottom-[48px] left-0 right-0 bg-white z-50 overflow-y-auto px-4">
+                  <div className="relative w-full mx-auto pt-16">
                     <button
                       onClick={() => setIsTodoModalOpen(false)}
                       className="absolute top-0 right-0 text-secondary-500 hover:text-black text-xl"
