@@ -6,6 +6,7 @@ import Footer from './components/common/Footer';
 import LandingPage from './pages/landing';
 import clsx from 'clsx';
 import FriendPage from './pages/friend-home';
+import { ToastContainer } from 'react-toastify';
 
 function SelectCommon({ type }: SelectCommonProps) {
   const location = useLocation();
@@ -25,6 +26,16 @@ function App() {
   return (
     <BrowserRouter>
       <div className={clsx('flex flex-col min-h-screen')}>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <SelectCommon type={'header'} />
         <main className="flex-grow">
           <Routes>
