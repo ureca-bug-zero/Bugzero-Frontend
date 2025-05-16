@@ -43,7 +43,7 @@ const TodoPanel = ({ selectedDate }: Props) => {
         </div>
 
         {/* 리스트 */}
-        <div className="mt-[48px] max-h-[400px] overflow-y-auto hide-scrollbar w-full max-w-[360px]">
+        <div className="mt-[48px] max-h-[345px] overflow-y-auto hide-scrollbar w-full max-w-[360px]">
           <TodoList selectedDate={selectedDate} todos={todos} />
         </div>
       </div>

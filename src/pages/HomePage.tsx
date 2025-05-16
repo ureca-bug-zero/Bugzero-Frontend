@@ -8,9 +8,12 @@ import SetTimer from '@/components/timer/SetTimer';
 import FriendList from '@/components/friend/FriendList';
 import FriendModalContainer from '@/components/modals/FriendModalContainer';
 
+type ScreenSize = 'desktop' | 'tablet' | 'mobile';
+
 const HomePage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const viewport = useViewport();
+
 
   return (
     <MainLayout>
@@ -70,7 +73,7 @@ const HomePage: React.FC = () => {
               <RightPanel />
             </div>
           </div>
-        )}
+        </div>
       </div>
       <FriendModalContainer />
     </MainLayout>
