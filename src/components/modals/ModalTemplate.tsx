@@ -23,15 +23,15 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
     Position({
       position: 'absolute',
     }),
-    'w-[20px]',
-    'h-[17px]',
+    'w-[20px] tablet:w-[30px]',
+    'h-[17px] tablet:h-[26px]',
     theme.bgPalette.White,
-    'rounded-[13px]',
+    'rounded-[13px] tablet:rounded-[20px]',
     'transition-transform',
     'duration-300',
     isRequestMode
-      ? 'ml-[2px] translate-x-[22px]'
-      : 'mr-[2px] translate-x-[2px]',
+      ? 'ml-[2px] translate-x-[22px] tablet:ml-[3px] tablet:translate-x-[33px]'
+      : 'mr-[2px] translate-x-[2px] tablet:mr-[3px] tablet:translate-x-[3px]',
   );
 
   return createPortal(
@@ -61,6 +61,8 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
           }),
           Flex({
             direction: 'column',
+            width: 'w-[360px] tablet:w-[550px]',
+            height: 'h-[269px] tablet:h-[410px]',
           }),
 
           'animate-fadeIn',
@@ -88,7 +90,7 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
           className={clsx(
             Flex({
               direction: 'column',
-              width: 'w-[289px]',
+              width: 'w-[289px] tablet:w-[442px]',
               height: 'h-auto',
               gap: 'gap-[21px]',
               align: 'start',
@@ -102,7 +104,7 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
                 direction: 'column',
                 gap: 'gap-[20px]',
                 width: 'w-full',
-                height: 'h-[99px]',
+                height: 'h-[99px] tablet:h-[150px]',
               }),
             )}
           >
@@ -138,12 +140,12 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
                 onClick={() => setIsRequestMode(!isRequestMode)}
                 className={clsx(
                   Flex({
-                    width: 'w-[46px]',
-                    height: 'h-[21px]',
-                    gap: 'gap-[5px]',
+                    width: 'w-[46px] tablet:w-[70px]',
+                    height: 'h-[21px] tablet:h-[32px]',
+                    gap: 'gap-[5px] tablet:gap-[8px]',
                     justify: 'between',
                   }),
-                  'rounded-[26px]',
+                  'rounded-[26px] tablet:rounded-[40px]',
                   theme.bgPalette.Gray2,
                   Position({
                     position: 'relative',
@@ -157,7 +159,9 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
                       position: 'absolute',
                     }),
                     Flex({}),
-                    isRequestMode ? 'left-[7px]' : 'right-[7px]',
+                    isRequestMode
+                      ? 'left-[7px] tablet:left-[10px]'
+                      : 'right-[7px] tablet:right-[10px]',
                     isRequestMode ? 'opacity-100' : 'opacity-0',
                   )}
                 >
@@ -171,7 +175,9 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
                       position: 'absolute',
                     }),
                     Flex({}),
-                    isRequestMode ? 'left-[7px]' : 'right-[7px]',
+                    isRequestMode
+                      ? 'left-[7px] tablet:left-[10px]'
+                      : 'right-[7px] tablet:right-[10px]',
                     isRequestMode ? 'opacity-0' : 'opacity-100',
                   )}
                 >
