@@ -14,14 +14,11 @@ const TodoTemplate = () => {
       className={clsx(
         Flex({
           direction: 'column',
-          width: 'w-[361px]',
-          margin: 'mx-[16px]',
+          align: 'start',
+          width: 'w-[421px]',
           gap: 'gap-[32px]',
         }),
-        'tablet:w-[369px]',
-        'tablet:mx-[8px]',
-        'desktop:w-[360px]',
-        'desktop:items-start',
+        'tablet:w-[449px]',
         'tablet:gap-[36px]',
       )}
     >
@@ -30,10 +27,9 @@ const TodoTemplate = () => {
         className={clsx(
           Flex({
             justify: 'start',
+            width: 'w-full',
             gap: 'gap-[3px]',
           }),
-          '-translate-x-[100px]',
-          'desktop:translate-x-0',
         )}
       >
         <img
@@ -50,14 +46,9 @@ const TodoTemplate = () => {
         className={clsx(
           Flex({
             direction: 'column',
-            gap: 'gap-[28px]',
-            padding: {
-              x: 'px-[42px]',
-            },
+            align: 'start',
+            gap: 'gap-[28px] tablet:gap-[48px]',
           }),
-          'pb-[19px]',
-          'tablet:px-0',
-          'tablet:gap-[48px]',
         )}
       >
         <TodoInput />
@@ -70,12 +61,20 @@ const TodoTemplate = () => {
           )}
         >
           {/* 미션 투두 */}
-          {todos
-            .filter((todo) => todo.isMission)
-            .map((todo) => (
-              <TodoItem key={todo.id} todo={todo} />
-            ))}
-          <div>
+          <div className={clsx('pr-[60px] tablet:pr-[80px]')}>
+            {todos
+              .filter((todo) => todo.isMission)
+              .map((todo) => (
+                <TodoItem key={todo.id} todo={todo} />
+              ))}
+          </div>
+          <div
+            className={clsx(
+              'h-[437px] tablet:h-[290px] desktop:h-[325px]',
+              'overflow-y-auto scrollbar-hide',
+              'pr-[60px] tablet:pr-[80px]',
+            )}
+          >
             {/* 미션 아닌 투두 */}
             {todos
               .filter((t) => !t.isMission)

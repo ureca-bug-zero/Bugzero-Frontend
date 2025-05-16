@@ -62,7 +62,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           width: 'w-[277px]',
           padding: {
             x: 'px-[12px]',
-            y: 'py-[10px]',
+            y: 'py-[40px]',
           },
         }),
         'tablet:w-[360px]',
@@ -138,6 +138,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
             className={clsx(
               todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
               theme.textPalette.Secondary,
+              'w-[172px] break-all tablet:w-[255px]',
               'underline', // 링크에 밑줄 줄지 말지
             )}
           >
@@ -148,6 +149,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
             className={clsx(
               todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
               theme.textPalette.Secondary,
+              'w-[172px] break-all tablet:w-[255px]',
             )}
           >
             {todo.content}
@@ -167,6 +169,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
                   position: 'absolute',
                   top: 'top-[28px]',
                   right: 'right-[-44px]',
+                  zIndex: 'z-50',
                 }),
                 Flex({
                   direction: 'column',
@@ -174,7 +177,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
                 'w-[60px]',
                 'tablet:w-[80px]',
                 'tablet:right-[-64px]',
-                'z-50',
               )}
             >
               <button

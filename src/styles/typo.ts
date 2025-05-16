@@ -48,7 +48,7 @@ export const typo = {
     'font-pretendard-bold text-[0.875rem] leading-[2.8125rem] tablet:text-[1.125rem]',
   Nav: 'font-inter-semibold text-[0.9375rem]',
   Body1: 'font-pretendard-bold text-[0.75rem]',
-  Body2: 'font-pretendard-medium text-[0.75rem] leading-[1.5rem]',
+  Body2: 'font-pretendard-medium text-[0.75rem] leading-[0.8rem]',
   Label1_Eng:
     'font-inter-semibold text-[0.65438rem] leading-[0.98125rem] tablet:text-[1rem] tablet:leading-[1.5rem]',
   Label1_Kor: 'font-pretendard-semibold text-[0.78rem]',

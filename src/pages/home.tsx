@@ -8,7 +8,7 @@ import { Flex } from '../components/common/Wrapper';
 
 export default function HomePage() {
   const line = clsx(
-    'border-[1px] h-[500px] border-solid border-gray-200 mx-[50px] hidden desktop:block',
+    'border-[1px] h-[500px] border-solid border-gray-200 hidden desktop:block',
   );
 
   return (
@@ -35,7 +35,7 @@ export default function HomePage() {
           <FriendBox />
         </div>
       </div>
-      <hr className={line}></hr>
+      <hr className={clsx(line, 'mx-[80px]')}></hr>
       <div
         className={clsx(
           Flex({
@@ -51,7 +51,7 @@ export default function HomePage() {
           <TimerBox />
         </div>
       </div>
-      <hr className={line}></hr>
+      <hr className={clsx(line, 'mr-[80px]')}></hr>
       <div
         className={clsx(
           Flex({
