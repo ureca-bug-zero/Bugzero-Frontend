@@ -1,8 +1,30 @@
 import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
 import { theme } from '../../styles/theme';
+import { toast } from 'react-toastify';
+import ConfirmSuccessToast from '../common/toast/ConfirmSuccessToast';
+import ConfirmFailToast from '../common/toast/ConfirmFailToast';
+import { useState } from 'react';
 
 const FriendAddModal = () => {
+  const [email, setEmail] = useState('');
+
+  const handleSubmit = async () => {
+    if (!email.trim()) {
+      toast.error('이메일을 입력해 주세요!');
+      return;
+    }
+
+    try {
+      // API 요청
+      toast((props) => <ConfirmSuccessToast {...props} />);
+      setEmail('');
+    } catch (err) {
+      console.error('친구 요청 실패:', err);
+
+      toast((props) => <ConfirmFailToast {...props} />);
+    }
+  };
   return (
     <div
       className={clsx(
@@ -15,21 +37,6 @@ const FriendAddModal = () => {
         }),
       )}
     >
-      {/* <input
-        type="text"
-        placeholder="이메일을 입력해 주세요."
-        className={clsx(
-          'w-full',
-          'h-[50px]',
-          'px-[15px]',
-          'py-[18px]',
-          'border',
-          'border-gray-700',
-          'rounded-[7px]',
-          theme.typo.Label5_Kor,
-        )}
-      /> */}
-
       <div
         className={clsx(
           Flex({
@@ -72,6 +79,7 @@ const FriendAddModal = () => {
           theme.textPalette.White,
           theme.bgPalette.Primary,
         )}
+        onClick={handleSubmit}
       >
         Confirm
       </button>
