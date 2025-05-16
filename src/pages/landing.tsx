@@ -21,8 +21,7 @@ const LandingPage = () => {
   return (
     <div
       className={clsx(
-        'min-h-screen',
-        'flex-grow',
+        'min-h-screen w-full',
         'px-6',
         'tablet:px-12',
         'desktop:px-20',

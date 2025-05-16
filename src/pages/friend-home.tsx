@@ -1,13 +1,11 @@
 import clsx from 'clsx';
 import CalendarBox from '../components/home/CalendarBox';
-import FriendBox from '../components/home/FriendBox';
 import GreetingBox from '../components/home/GreetingBox';
-import TimerBox from '../components/home/TimerBox';
 import TodoTemplate from '../components/todo/TodoTemplate';
 import { Flex, Position } from '../components/common/Wrapper';
 import { useState } from 'react';
 
-export default function HomePage() {
+export default function FriendPage() {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   // const handleOpen = () => {
@@ -46,9 +44,6 @@ export default function HomePage() {
       >
         <GreetingBox />
         <CalendarBox />
-        <div className="mt-[45.79px] tablet:mt-[52.45px] desktop:hidden">
-          <FriendBox />
-        </div>
       </div>
       <hr className={clsx(line, 'mx-[80px]')}></hr>
       <div
@@ -65,25 +60,6 @@ export default function HomePage() {
         }
       >
         <TodoTemplate handleClose={handleClose} />
-        <div className="tablet:mt-[63px] desktop:hidden">
-          <TimerBox />
-        </div>
-      </div>
-      <hr className={clsx(line, 'mr-[80px]')}></hr>
-      <div
-        className={clsx(
-          Flex({
-            direction: 'column',
-            gap: 'gap-[83px]',
-            height: 'h-full',
-            justify: 'start',
-            align: 'start',
-          }),
-          'hidden desktop:flex',
-        )}
-      >
-        <TimerBox />
-        <FriendBox />
       </div>
       {isClicked && (
         <div
