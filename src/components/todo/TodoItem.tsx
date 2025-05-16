@@ -62,7 +62,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
           width: 'w-[277px]',
           padding: {
             x: 'px-[12px]',
-            y: 'py-[40px]',
+            y: 'py-[10px]',
           },
         }),
         'tablet:w-[360px]',

@@ -8,7 +8,7 @@ import { Flex, Position } from '../components/common/Wrapper';
 import { useState } from 'react';
 
 export default function HomePage() {
-  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(true);
 
   const handleOpen = () => {
     setIsClicked(true);
@@ -25,7 +25,10 @@ export default function HomePage() {
   return (
     <main
       className={clsx(
-        Flex({ height: 'h-[670.67px] tablet:h-[841.14px] desktop:h-[620px]' }),
+        Flex({
+          height: 'h-[670.67px] tablet:h-[841.14px] desktop:h-[620px]',
+          align: 'start',
+        }),
         ' overflow-hidden  mt-[41px] mb-[40.33px] tablet:mt-[60px] tablet:mb-[76.86px] desktop:mt-[112px] desktop:mb-[192px]',
       )}
     >
@@ -43,7 +46,7 @@ export default function HomePage() {
       >
         <GreetingBox />
         <CalendarBox />
-        <div className="tablet:mt-[52.45px] desktop:hidden">
+        <div className="mt-[45.79px] tablet:mt-[52.45px] desktop:hidden">
           <FriendBox />
         </div>
       </div>
