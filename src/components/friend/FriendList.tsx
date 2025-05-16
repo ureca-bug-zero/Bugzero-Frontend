@@ -40,27 +40,29 @@ const FriendList: React.FC = () => {
       </div>
 
       {/* 친구 목록 */}
-      <ul className="space-y-2">
-        {!friends || friends.length === 0 ? (
-          <p className="text-secondary-600">친구를 추가해보세요!</p>
-        ) : (
-          friends.map((friend) => (
-            <li
-              key={friend.friendId}
-              className="flex flex-col px-4 py-3 gap-y-1 
-              cursor-pointer hover:bg-secondary-200 
-              transition-colors duration-200 rounded-lg"
-            >
-              <span className="text-secondary-600 font-medium">
-                {friend.friendName}
-              </span>
-              <span className="text-sm text-secondary-500">
-                {friend.friendEmail}
-              </span>
-            </li>
-          ))
-        )}
-      </ul>
+      <div className="max-h-[240px] overflow-y-auto hide-scrollbar">
+        <ul className="space-y-2">
+          {!friends || friends.length === 0 ? (
+            <p className="text-secondary-600">친구를 추가해보세요!</p>
+          ) : (
+            friends.map((friend) => (
+              <li
+                key={friend.friendId}
+                className="flex flex-col px-4 py-3 gap-y-1 
+          cursor-pointer hover:bg-secondary-200 
+          transition-colors duration-200 rounded-lg"
+              >
+                <span className="text-secondary-600 font-medium">
+                  {friend.friendName}
+                </span>
+                <span className="text-sm text-secondary-500">
+                  {friend.friendEmail}
+                </span>
+              </li>
+            ))
+          )}
+        </ul>
+      </div>
     </div>
   );
 };

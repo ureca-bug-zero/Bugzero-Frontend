@@ -1,69 +1,81 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import UserPanel from '@/components/panels/UserPanel';
 import TodoPanel from '@/components/panels/TodoPanel';
 import RightPanel from '@/components/panels/RightPanel';
+import { useViewport } from '@/hooks/useViewport';
+import SetTimer from '@/components/timer/SetTimer';
+import FriendList from '@/components/friend/FriendList';
+import FriendModalContainer from '@/components/modals/FriendModalContainer';
 
 type ScreenSize = 'desktop' | 'tablet' | 'mobile';
 
 const HomePage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [screenSize, setScreenSize] = useState<ScreenSize>(() => {
-    const width = window.innerWidth;
-    if (width >= 1440) return 'desktop';
-    if (width >= 760) return 'tablet';
-    return 'mobile';
-  });
+  const viewport = useViewport();
 
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      if (width >= 1440) setScreenSize('desktop');
-      else if (width >= 760) setScreenSize('tablet');
-      else setScreenSize('mobile');
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <MainLayout>
       <div className="pt-[112px] px-4 lg:px-0">
-        {/* 유저 + 투두 + RightPanel (줄바꿈 포함) */}
-        <div
-          className={`flex flex-wrap justify-center ${
-            screenSize === 'desktop'
-              ? 'flex-row gap-[140px]'
-              : screenSize === 'tablet'
-                ? 'flex-row gap-[30px]'
-                : 'flex-col gap-4'
-          }`}
-        >
-          <div style={{ width: '360px' }}>
-            <UserPanel
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-            />
+        {/* 데스크탑: 가로 배치 */}
+        {viewport === 'desktop' && (
+          <div className="flex flex-row justify-center gap-[140px]">
+            <div style={{ width: '360px' }}>
+              <UserPanel
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
+            </div>
+            <div style={{ width: '360px' }}>
+              <TodoPanel selectedDate={selectedDate} />
+            </div>
+            <div className="w-[360px]">
+              <RightPanel />
+            </div>
           </div>
+        )}
 
-          <div style={{ width: '360px' }}>
-            <TodoPanel selectedDate={selectedDate} />
+        {/* 태블릿: 위에 유저+투두, 아래에 라이트 패널 */}
+        {viewport === 'tablet' && (
+          <div className="mx-auto max-w-[880px] grid grid-cols-2 gap-x-[40px] gap-y-8 px-4">
+            <div className="w-full max-w-[360px]">
+              <UserPanel
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
+            </div>
+            <div className="w-full max-w-[360px]">
+              <TodoPanel selectedDate={selectedDate} />
+            </div>
+            <div className="w-full max-w-[360px]">
+              <SetTimer />
+            </div>
+            <div className="w-full max-w-[360px]">
+              <FriendList />
+            </div>
           </div>
+        )}
 
-          <div
-            className={`${
-              screenSize === 'desktop'
-                ? 'w-[360px]'
-                : screenSize === 'tablet'
-                  ? 'w-[360px] mt-[40px]'
-                  : 'w-full mt-[24px] px-4 pb-12'
-            } flex ${screenSize === 'mobile' ? 'flex-col items-center gap-4' : 'justify-center'}`}
-          >
-            <RightPanel />
+        {/* 모바일: 세로 배치 */}
+        {viewport === 'mobile' && (
+          <div className="mt-[24px] flex flex-col items-center gap-4 pb-12">
+            <div style={{ width: '360px' }}>
+              <UserPanel
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
+            </div>
+            <div style={{ width: '360px' }}>
+              <TodoPanel selectedDate={selectedDate} />
+            </div>
+            <div style={{ width: '360px' }}>
+              <RightPanel />
+            </div>
           </div>
         </div>
       </div>
+      <FriendModalContainer />
     </MainLayout>
   );
 };

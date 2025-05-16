@@ -9,9 +9,9 @@ export const useViewport = (): Viewport => {
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width < 768) {
+      if (width < 760) {
         setViewport('mobile');
-      } else if (width < 1024) {
+      } else if (width < 1440) {
         setViewport('tablet');
       } else {
         setViewport('desktop');
