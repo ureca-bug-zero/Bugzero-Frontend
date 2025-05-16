@@ -6,6 +6,7 @@ import RightPanel from '@/components/panels/RightPanel';
 import { useViewport } from '@/hooks/useViewport';
 import SetTimer from '@/components/timer/SetTimer';
 import FriendList from '@/components/friend/FriendList';
+import FriendModalContainer from '@/components/modals/FriendModalContainer';
 
 const HomePage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -71,6 +72,7 @@ const HomePage: React.FC = () => {
           </div>
         )}
       </div>
+      <FriendModalContainer />
     </MainLayout>
   );
 };
