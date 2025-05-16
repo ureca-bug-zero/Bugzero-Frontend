@@ -19,10 +19,9 @@ const iconStyle = clsx('w-10', 'h-10');
 
 const LandingPage = () => {
   return (
-    <main
+    <div
       className={clsx(
-        'min-h-screen',
-        'flex-grow',
+        'min-h-screen w-full',
         'px-6',
         'tablet:px-12',
         'desktop:px-20',
@@ -164,7 +163,7 @@ const LandingPage = () => {
           <img src={kakaoLoginBtn} />
         </button>
       </div>
-    </main>
+    </div>
   );
 };
 

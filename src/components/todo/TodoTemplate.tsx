@@ -3,8 +3,14 @@ import { Flex } from '../common/Wrapper';
 import TodoInput from './TodoInput';
 import { useTodoStore } from '../../store/todoStore';
 import TodoItem from './TodoItem';
+import arrowIcon from '../../assets/icons/todo/todo-arrow.svg';
+import { theme } from '../../styles/theme';
 
-const TodoTemplate = () => {
+type TodoProps = {
+  handleClose: () => void;
+};
+
+const TodoTemplate = ({ handleClose }: TodoProps) => {
   const todos = useTodoStore((s) => s.todos);
 
   return (
@@ -12,30 +18,41 @@ const TodoTemplate = () => {
       className={clsx(
         Flex({
           direction: 'column',
-          width: 'w-[361px]',
-          margin: 'mx-[16px]',
+          align: 'start',
           gap: 'gap-[32px]',
         }),
-        'tablet:w-[369px]',
-        'tablet:mx-[8px]',
-        'desktop:w-[360px]',
-        'desktop:items-start',
+        'tablet:w-[449px]',
         'tablet:gap-[36px]',
+        theme.bgPalette.White,
       )}
     >
+      {/* 제목 */}
+      <div
+        className={clsx(
+          Flex({
+            justify: 'start',
+            width: 'w-full',
+            gap: 'gap-[3px]',
+          }),
+        )}
+      >
+        <img
+          src={arrowIcon}
+          alt="화살표"
+          className={clsx('w-[20px]', 'h-[20px]', 'tablet:hidden')}
+          onClick={handleClose}
+        />
+        <h1 className={clsx(theme.typo.Heading3_Eng)}>Todo-List</h1>
+      </div>
+
       {/* 입력 + 리스트 */}
       <div
         className={clsx(
           Flex({
             direction: 'column',
-            gap: 'gap-[28px]',
-            padding: {
-              x: 'px-[42px]',
-            },
+            align: 'start',
+            gap: 'gap-[28px] tablet:gap-[48px]',
           }),
-          'pb-[19px]',
-          'tablet:px-0',
-          'tablet:gap-[48px]',
         )}
       >
         <TodoInput />
@@ -48,12 +65,20 @@ const TodoTemplate = () => {
           )}
         >
           {/* 미션 투두 */}
-          {todos
-            .filter((todo) => todo.isMission)
-            .map((todo) => (
-              <TodoItem key={todo.id} todo={todo} />
-            ))}
-          <div>
+          <div className={clsx('pr-[60px] tablet:pr-[80px]')}>
+            {todos
+              .filter((todo) => todo.isMission)
+              .map((todo) => (
+                <TodoItem key={todo.id} todo={todo} />
+              ))}
+          </div>
+          <div
+            className={clsx(
+              'h-[480px] tablet:h-[273px] desktop:h-[325px]',
+              'overflow-y-auto scrollbar-hide',
+              'pr-[60px] tablet:pr-[80px]',
+            )}
+          >
             {/* 미션 아닌 투두 */}
             {todos
               .filter((t) => !t.isMission)

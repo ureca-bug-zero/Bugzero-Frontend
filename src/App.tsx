@@ -1,13 +1,15 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/common/Header';
-import Home from './pages/home';
+import HomePage from './pages/home';
 import { CommonType, SelectCommonProps } from './components/common/types';
 import Footer from './components/common/Footer';
 import LandingPage from './pages/landing';
+import clsx from 'clsx';
+import FriendPage from './pages/friend-home';
 
 function SelectCommon({ type }: SelectCommonProps) {
   const location = useLocation();
-  let commonType: CommonType = 'landing';
+  let commonType: CommonType = 'home';
 
   if (location.pathname === '/') commonType = 'home';
   else if (location.pathname === '/landing') commonType = 'landing';
@@ -22,12 +24,17 @@ function SelectCommon({ type }: SelectCommonProps) {
 function App() {
   return (
     <BrowserRouter>
-      <SelectCommon type={'header'} />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/landing" element={<LandingPage />} />
-      </Routes>
-      <SelectCommon type={'footer'} />
+      <div className={clsx('flex flex-col min-h-screen')}>
+        <SelectCommon type={'header'} />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/landing" element={<LandingPage />} />
+            <Route path="/:friendId" element={<FriendPage />} />
+          </Routes>
+        </main>
+        <SelectCommon type={'footer'} />
+      </div>
     </BrowserRouter>
   );
 }

@@ -8,15 +8,15 @@ export default function Footer({ type }: CommonProps) {
     <footer
       className={clsx(
         Flex({ width: 'w-full', height: 'h-[80px]' }),
-        type === 'home' ? theme.bgPalette.Gray2 : theme.bgPalette.Secondary,
+        type === 'landing' ? theme.bgPalette.Secondary : theme.bgPalette.Gray2,
       )}
     >
       <p
         className={clsx(
           theme.typo.Label3_Eng,
-          type === 'home'
-            ? theme.textPalette.Secondary
-            : theme.textPalette.White,
+          type === 'landing'
+            ? theme.textPalette.White
+            : theme.textPalette.Secondary,
         )}
       >
         © 2025 BugZero. All rights reserved.
