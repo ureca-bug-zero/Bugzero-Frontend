@@ -92,7 +92,7 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
               direction: 'column',
               width: 'w-[289px] tablet:w-[442px]',
               height: 'h-auto',
-              gap: 'gap-[21px]',
+              gap: 'gap-[21px] tablet:gap-[31px]',
               align: 'start',
             }),
           )}
