@@ -15,7 +15,7 @@ export default function HomePage() {
     <main
       className={clsx(
         Flex({ height: 'tablet:h-[841.14px] desktop:h-[620px]' }),
-        'mt-[112px] mb-[192px]',
+        'mt-[112px] mb-[192px] overflow-x-hidden',
       )}
     >
       <div
@@ -27,6 +27,7 @@ export default function HomePage() {
             align: 'start',
           }),
           'tablet:mr-[28px] desktop:mr-0',
+          'tablet:pl-[80px] desktop:pl-0',
         )}
       >
         <GreetingBox />
