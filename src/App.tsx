@@ -6,6 +6,7 @@ import Footer from './components/common/Footer';
 import LandingPage from './pages/landing';
 import clsx from 'clsx';
 import FriendPage from './pages/friend-home';
+import LoginSuccessPage from './pages/loginSuccess';
 
 function SelectCommon({ type }: SelectCommonProps) {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/kakao/callback" element={<LoginSuccessPage />} />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/:friendId" element={<FriendPage />} />
           </Routes>

@@ -5,10 +5,39 @@ import GreetingBox from '../components/home/GreetingBox';
 import TimerBox from '../components/home/TimerBox';
 import TodoTemplate from '../components/todo/TodoTemplate';
 import { Flex, Position } from '../components/common/Wrapper';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useUserStore } from '../store/userStore';
+import { useQuery } from '@tanstack/react-query';
+import { UserInfo } from '../types/home';
+import { userInfo } from '../apis/home';
+import { useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
+  const navigate = useNavigate();
+  const token = useUserStore((state) => state.token);
+  const hydrated = useUserStore.persist.hasHydrated();
+  const [info, setInfo] = useState<UserInfo>();
   const [isClicked, setIsClicked] = useState<boolean>(false);
+
+  //Greeting
+  const { data, isSuccess, error, isError, isLoading } = useQuery({
+    queryKey: ['user_info', token],
+    queryFn: () => userInfo(token),
+    enabled: hydrated,
+  });
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      setInfo(data.data);
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (isError && error) {
+      console.log(error);
+      navigate('/landing');
+    }
+  }, [isError, error]);
 
   // const handleOpen = () => {
   //   setIsClicked(true);
@@ -44,7 +73,7 @@ export default function HomePage() {
           'tablet:pl-[80px] desktop:pl-0',
         )}
       >
-        <GreetingBox />
+        <GreetingBox name={info?.name} rank={info?.rank} />
         <CalendarBox />
         <div className="mt-[45.79px] tablet:mt-[52.45px] desktop:hidden">
           <FriendBox />

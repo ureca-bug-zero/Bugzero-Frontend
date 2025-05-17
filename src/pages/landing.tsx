@@ -9,15 +9,19 @@ import clsx from 'clsx';
 import { Flex } from '../components/common/Wrapper';
 import { theme } from '../styles/theme';
 
-const descText = clsx(
-  theme.textPalette.White,
-  theme.typo.Heading7,
-  'select-none',
-);
-
-const iconStyle = clsx('w-10', 'h-10');
-
 const LandingPage = () => {
+  const descText = clsx(
+    theme.textPalette.White,
+    theme.typo.Heading7,
+    'select-none',
+  );
+
+  const iconStyle = clsx('w-10', 'h-10');
+
+  const handleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/kakao/login`;
+  };
+
   return (
     <div
       className={clsx(
@@ -147,9 +151,7 @@ const LandingPage = () => {
           </div>
         </div>
         <button
-          onClick={() => {
-            window.location.href = 'http://52.78.163.213:8080/auth/kakao/login';
-          }}
+          onClick={handleLogin}
           className={clsx(
             'w-[170px]',
             'h-[41px]',

@@ -1,8 +1,9 @@
 import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
 import { theme } from '../../styles/theme';
+import { UserInfo } from '../../types/home';
 
-export default function GreetingBox() {
+export default function GreetingBox({ name, rank }: UserInfo) {
   return (
     <>
       <div
@@ -12,7 +13,7 @@ export default function GreetingBox() {
         )}
       >
         <p className={clsx(theme.typo.Heading2_Eng)}>Hello,</p>
-        <p className={clsx(theme.typo.Heading2_Kor)}>이주희!</p>
+        <p className={clsx(theme.typo.Heading2_Kor)}>{name}!</p>
       </div>
       <div
         className={clsx(
@@ -31,7 +32,7 @@ export default function GreetingBox() {
             'bg-primary/50',
           )}
         >
-          5위
+          {rank === 0 ? '_' : rank}위
         </div>
         <p className={clsx(theme.typo.Heading4_Kor)}>입니다!</p>
       </div>
