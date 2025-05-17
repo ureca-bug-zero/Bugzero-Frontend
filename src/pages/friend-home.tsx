@@ -42,7 +42,7 @@ export default function FriendPage() {
           'tablet:pl-[80px] desktop:pl-0',
         )}
       >
-        <GreetingBox />
+        <GreetingBox name={'이주희'} rank={1} />
         <CalendarBox />
       </div>
       <hr className={clsx(line, 'mx-[80px]')}></hr>
