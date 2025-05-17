@@ -15,17 +15,19 @@ const FriendRequestsModal = () => {
   const [requests, setRequests] = useState<FriendRequest[]>([
     { id: 1, name: '이서현', email: 'tjgus9138@naver.com' },
     { id: 2, name: '이서현', email: 'tjgus9138@naver.com' },
-    { id: 1, name: '이서현', email: 'tjgus9138@naver.com' },
+    { id: 3, name: '이서현', email: 'tjgus9138@naver.com' },
   ]);
 
   const handleAccept = (id: number) => {
     // API 연결
     console.log('친구 승인 id: ', id);
+    setRequests((prev) => prev.filter((request) => request.id !== id));
   };
 
   const handleDelete = (id: number) => {
     // API 연결
     console.log('친구 거절 id: ', id);
+    setRequests((prev) => prev.filter((request) => request.id !== id));
   };
 
   return (
@@ -35,9 +37,9 @@ const FriendRequestsModal = () => {
           direction: 'column',
           justify: 'start',
           width: 'w-full',
-          height: 'h-auto max-h-[150px]',
-          // 일단 그냥 최대 임의로 150px로...
-          gap: 'gap-[18px]',
+          height: 'h-auto max-h-[101px] tablet:max-h-[154px]',
+          // 일단 그냥 최대 임의로 101/154로...
+          gap: 'gap-[18px] tablet:gap-[22px]',
         }),
         'overflow-y-auto',
       )}
@@ -51,10 +53,10 @@ const FriendRequestsModal = () => {
               justify: 'between',
               width: 'w-full',
               padding: {
-                x: 'px-[8px]',
-                y: 'py-[5px]',
+                x: 'px-[8px] tablet:px-[12px]',
+                y: 'py-[5px] tablet:py-[8px]',
               },
-              gap: 'gap-[8px]',
+              gap: 'gap-[8px] tablet:gap-[12px]',
             }),
           )}
         >
