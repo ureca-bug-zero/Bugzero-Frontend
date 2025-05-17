@@ -94,6 +94,7 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
               height: 'h-auto',
               gap: 'gap-[21px] tablet:gap-[31px]',
               align: 'start',
+              justify: 'start',
             }),
           )}
         >
@@ -222,7 +223,9 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
             </div>
           </div>
           {/* 템플릿 가져오기 */}
-          {isRequestMode ? <FriendRequestsModal /> : <FriendAddModal />}
+          <div className="w-full h-[101px] tablet:h-[154px]">
+            {isRequestMode ? <FriendRequestsModal /> : <FriendAddModal />}
+          </div>
         </div>
       </div>
     </div>,
