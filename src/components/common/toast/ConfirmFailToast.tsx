@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { ToastContentProps } from 'react-toastify';
 import { Flex } from '../Wrapper';
-import errorIcon from '../../../assets/icons/modals/toast-error.svg';
+import errorIcon from '../../../assets/icons/modals/toast-fail.svg';
 import { theme } from '../../../styles/theme';
 
 const CustomErrorToast = ({ closeToast }: ToastContentProps) => {
