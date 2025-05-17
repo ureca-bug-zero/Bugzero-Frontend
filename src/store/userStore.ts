@@ -1,10 +1,10 @@
 import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
-import { cookieStorage } from 'zustand-cookie-storage';
+import { persist } from 'zustand/middleware';
 
 interface UserStoreProps {
   token: string;
   setToken: (token: string) => void;
+  clearToken: () => void;
 }
 
 export const useUserStore = create(
@@ -12,10 +12,12 @@ export const useUserStore = create(
     (set) => ({
       token: '',
       setToken: (newToken) => set({ token: newToken }),
+      clearToken: () => {
+        set({ token: '' });
+      },
     }),
     {
       name: 'user-storage',
-      storage: createJSONStorage(() => cookieStorage),
     },
   ),
 );

@@ -6,20 +6,24 @@ import TimerBox from '../components/home/TimerBox';
 import TodoTemplate from '../components/todo/TodoTemplate';
 import { Flex, Position } from '../components/common/Wrapper';
 import { useEffect, useState } from 'react';
-import { useUserStore } from '../store/user';
+import { useUserStore } from '../store/userStore';
 import { useQuery } from '@tanstack/react-query';
 import { UserInfo } from '../types/home';
 import { userInfo } from '../apis/home';
+import { useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const token = useUserStore((state) => state.token);
+  const hydrated = useUserStore.persist.hasHydrated();
   const [info, setInfo] = useState<UserInfo>();
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   //Greeting
   const { data, isSuccess, error, isError, isLoading } = useQuery({
     queryKey: ['user_info', token],
-    queryFn: ({ queryKey }) => userInfo(queryKey[1]),
+    queryFn: () => userInfo(token),
+    enabled: hydrated,
   });
 
   useEffect(() => {
@@ -31,6 +35,7 @@ export default function HomePage() {
   useEffect(() => {
     if (isError && error) {
       console.log(error);
+      navigate('/landing');
     }
   }, [isError, error]);
 

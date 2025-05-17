@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useUserStore } from '../store/user';
+import { useUserStore } from '../store/userStore';
 
 export default function LoginSuccessPage() {
   const location = useLocation();

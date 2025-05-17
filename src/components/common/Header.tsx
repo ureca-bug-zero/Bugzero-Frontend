@@ -4,11 +4,14 @@ import { theme } from '../../styles/theme';
 import { CommonProps } from './types';
 import logo from '@/assets/icons/logo.png';
 import { Link } from 'react-router-dom';
-import { useUserStore } from '../../store/user';
+import { useUserStore } from '../../store/userStore';
 
 export default function Header({ type }: CommonProps) {
-  const setToken = useUserStore((state) => state.setToken);
-
+  const clearToken = useUserStore((state) => state.clearToken);
+  const handleLogout = () => {
+    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/kakao/logout`;
+    clearToken();
+  };
   return (
     <header
       className={clsx(
@@ -36,10 +39,7 @@ export default function Header({ type }: CommonProps) {
       {type === 'home' && (
         <button
           className={clsx(theme.textPalette.White, theme.typo.Nav)}
-          onClick={() => {
-            window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/kakao/logout`;
-            setToken('');
-          }}
+          onClick={handleLogout}
         >
           Logout
         </button>
