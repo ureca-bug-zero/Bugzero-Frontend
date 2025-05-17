@@ -20,7 +20,7 @@ export default function HomePage() {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   //Greeting
-  const { data, isSuccess, error, isError, isLoading } = useQuery({
+  const { data, isSuccess, error, isError } = useQuery({
     queryKey: ['user_info', token],
     queryFn: () => userInfo(token),
     enabled: hydrated,
