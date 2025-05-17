@@ -17,7 +17,9 @@ const FriendAddModal = () => {
 
     try {
       // API 요청
-      toast((props) => <ConfirmSuccessToast {...props} />);
+      toast((props) => <ConfirmSuccessToast {...props} />, {
+        className: 'p-0 m-0',
+      });
       setEmail('');
     } catch (err) {
       console.error('친구 요청 실패:', err);
@@ -57,6 +59,8 @@ const FriendAddModal = () => {
         <input
           type="text"
           placeholder="이메일을 입력해 주세요."
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className={clsx(
             'w-full',
             'h-full',
