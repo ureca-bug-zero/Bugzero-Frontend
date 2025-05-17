@@ -102,9 +102,10 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
             className={clsx(
               Flex({
                 direction: 'column',
+                align: 'start',
                 gap: 'gap-[20px]',
                 width: 'w-full',
-                height: 'h-[99px] tablet:h-[150px]',
+                // height: 'h-[99px] tablet:h-[150px]',
               }),
             )}
           >
