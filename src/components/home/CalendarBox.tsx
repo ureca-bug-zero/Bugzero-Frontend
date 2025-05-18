@@ -10,11 +10,13 @@ import { calendar } from '../../apis/home';
 import { useEffect, useState } from 'react';
 import { useUserStore } from '../../store/userStore';
 import { CalendarData } from '../../types/home';
+import { useDateStore } from '../../store/dateStore';
 
 export default function CalendarBox() {
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
+  const setSelectedDate = useDateStore((state) => state.setSelectedDate);
 
   /* 날짜마다 다른 opacity*/
   const calendarMutation = useMutation({
@@ -42,7 +44,6 @@ export default function CalendarBox() {
 
   const tileClassName = ({ date }: { date: Date }) => {
     const key = format(date, 'yyyy-MM-dd');
-    console.log(calendarList[key]);
     const percent = Math.round(calendarList[key] / 10);
 
     if (typeof percent === 'number') {
@@ -72,6 +73,11 @@ export default function CalendarBox() {
     );
   };
 
+  /*날짜 선택 시, 해당 날짜의 todoList 나올 수 있도록 전역상태 관리하는 날짜*/
+  const handleDate = (date: Date) => {
+    setSelectedDate(format(date, 'yyyy-MM-dd'));
+  };
+
   return (
     <>
       <div
@@ -80,6 +86,7 @@ export default function CalendarBox() {
         <Calendar
           locale="ko"
           defaultView="month"
+          onClickDay={handleDate}
           calendarType="gregory"
           formatShortWeekday={(_, date) =>
             ['일', '월', '화', '수', '목', '금', '토'][date.getDay()]

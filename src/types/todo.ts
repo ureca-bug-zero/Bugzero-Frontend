@@ -7,3 +7,7 @@ export interface Todo {
   link?: string;
   userId: number;
 }
+
+export interface TodoProps {
+  handleClose: () => void;
+}

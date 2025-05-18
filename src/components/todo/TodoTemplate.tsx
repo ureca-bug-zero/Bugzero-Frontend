@@ -1,17 +1,35 @@
 import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
 import TodoInput from './TodoInput';
-import { useTodoStore } from '../../store/todoStore';
 import TodoItem from './TodoItem';
 import arrowIcon from '../../assets/icons/todo/todo-arrow.svg';
 import { theme } from '../../styles/theme';
-
-type TodoProps = {
-  handleClose: () => void;
-};
+import { useEffect, useState } from 'react';
+import { Todo, TodoProps } from '../../types/todo';
+import { useMutation } from '@tanstack/react-query';
+import { todoList } from '../../apis/todo';
+import { useUserStore } from '../../store/userStore';
+import { useDateStore } from '../../store/dateStore';
 
 const TodoTemplate = ({ handleClose }: TodoProps) => {
-  const todos = useTodoStore((s) => s.todos);
+  const token = useUserStore((state) => state.token);
+  const selectedDate = useDateStore((state) => state.selectedDate);
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const todoListMutation = useMutation({
+    mutationFn: todoList,
+    onSuccess: (data) => {
+      console.log(data);
+      setTodos(data.data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  useEffect(() => {
+    todoListMutation.mutate({ date: selectedDate, token: token });
+  }, [selectedDate]);
 
   return (
     <div
