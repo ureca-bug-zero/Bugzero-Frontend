@@ -25,6 +25,7 @@ export default function FriendPage() {
   return (
     <div
       className={clsx(
+        Position({ position: 'relative' }),
         Flex({
           height: 'desktop:h-[620px]',
           align: 'start',
@@ -69,15 +70,12 @@ export default function FriendPage() {
       </div>
       {isClicked && (
         <div
-          className={clsx(
-            Position({ position: 'absolute', zIndex: 'z-index-[60px]' }),
-            'pl-[60px] tablet:hidden',
-          )}
+          className={clsx(Position({ position: 'absolute' }), 'tablet:hidden')}
         >
           <TodoTemplate
             handleClose={handleClose}
-            type="friend"
-            friendId={params.friendId}
+            type="me"
+            friendId="undefined"
           />
         </div>
       )}
