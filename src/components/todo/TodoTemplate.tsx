@@ -92,7 +92,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
           </div>
           <div
             className={clsx(
-              'h-[480px] tablet:h-[273px] desktop:h-[325px]',
+              'h-[480px] tablet:h-[290px] desktop:h-[325px]',
               'overflow-y-auto scrollbar-hide',
               'pr-[60px] tablet:pr-[80px]',
             )}

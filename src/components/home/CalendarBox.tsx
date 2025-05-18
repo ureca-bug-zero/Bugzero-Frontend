@@ -86,7 +86,10 @@ export default function CalendarBox({ handleOpen }: ModalTemplateProps) {
   return (
     <>
       <div
-        className={clsx(Position({ position: 'relative' }), 'w-[276.19781px]')}
+        className={clsx(
+          Position({ position: 'relative' }),
+          'w-[276.19781px] h-[384.551px]',
+        )}
       >
         <Calendar
           locale="ko"
