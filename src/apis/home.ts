@@ -20,3 +20,12 @@ export const calendar = async (info: any) => {
   });
   return response.data;
 };
+
+export const friendList = async (token: string) => {
+  const response = await client.get('/friend/requests', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};

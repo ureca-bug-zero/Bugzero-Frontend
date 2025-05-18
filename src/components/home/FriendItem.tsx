@@ -1,13 +1,12 @@
 import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
 import { theme } from '../../styles/theme';
+import { FriendItemProps } from '../../types/home';
 
-export interface FriendItemProps {
-  name: string;
-  email: string;
-}
-
-export default function FriendItem({ name, email }: FriendItemProps) {
+export default function FriendItem({
+  friendName,
+  friendEmail,
+}: FriendItemProps) {
   return (
     <div
       className={clsx(
@@ -32,7 +31,7 @@ export default function FriendItem({ name, email }: FriendItemProps) {
           'break-al',
         )}
       >
-        {name}
+        {friendName}
       </p>
       <p
         className={clsx(
@@ -47,7 +46,7 @@ export default function FriendItem({ name, email }: FriendItemProps) {
           'ml-[51px] tablet:-translate-y-[4px] break-all leading-0 tablet:h-[30px] tablet:ml-[0px]',
         )}
       >
-        {email}
+        {friendEmail}
       </p>
     </div>
   );
