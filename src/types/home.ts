@@ -12,10 +12,7 @@ export interface Home extends UserInfo {
 export type CalendarData = Record<string, number>;
 
 export interface FriendItemProps {
+  friendId: number;
   friendName: string;
   friendEmail: string;
-}
-
-export interface FriendListProps extends FriendItemProps {
-  friendId: number;
 }

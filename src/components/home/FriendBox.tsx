@@ -3,7 +3,7 @@ import { Flex } from '../common/Wrapper';
 import FriendItem from './FriendItem';
 import { theme } from '../../styles/theme';
 import ModalIcon from '@/assets/icons/home/friend-modal.svg?react';
-import { FriendListProps } from '../../types/home';
+import { FriendItemProps } from '../../types/home';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { friendList } from '../../apis/home';
@@ -16,7 +16,7 @@ interface ModalTemplateProps {
 
 export default function FriendBox({ openModal }: ModalTemplateProps) {
   const token = useUserStore((state) => state.token);
-  // const [list, setList] = useState<FriendListProps[]>([]);
+  // const [list, setList] = useState<FriendItemProps[]>([]);
   const list = [
     {
       friendId: 0,
@@ -90,6 +90,7 @@ export default function FriendBox({ openModal }: ModalTemplateProps) {
             <Link to={`/${item?.friendId}`}>
               <FriendItem
                 key={idx}
+                friendId={item?.friendId}
                 friendName={item?.friendName}
                 friendEmail={item?.friendEmail}
               />

@@ -3,11 +3,32 @@ import { Flex } from '../common/Wrapper';
 import { theme } from '../../styles/theme';
 import { FriendItemProps } from '../../types/home';
 import DeleteIcon from '@/assets/icons/home/friend-delete.svg?react';
+import { useMutation } from '@tanstack/react-query';
+import { deleteFriend } from '../../apis/home';
+import { useUserStore } from '../../store/userStore';
 
 export default function FriendItem({
   friendName,
   friendEmail,
+  friendId,
 }: FriendItemProps) {
+  const token = useUserStore((state) => state.token);
+
+  const deleteFriendMutation = useMutation({
+    mutationFn: deleteFriend,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.preventDefault();
+    deleteFriendMutation.mutate({ friendId: friendId, token: token });
+  };
+
   return (
     <div
       className={clsx(
@@ -41,7 +62,7 @@ export default function FriendItem({
         >
           {friendName}
         </p>
-        <DeleteIcon className="hidden tablet:block" />
+        <DeleteIcon className="hidden tablet:block" onClick={handleDelete} />
       </div>
       <div
         className={clsx(
@@ -66,7 +87,7 @@ export default function FriendItem({
         >
           {friendEmail}
         </p>
-        <DeleteIcon className="tablet:hidden" />
+        <DeleteIcon className="tablet:hidden" onClick={handleDelete} />
       </div>
     </div>
   );
