@@ -11,7 +11,7 @@ import { todoList } from '../../apis/todo';
 import { useUserStore } from '../../store/userStore';
 import { useDateStore } from '../../store/dateStore';
 
-const TodoTemplate = ({ handleClose }: TodoProps) => {
+const TodoTemplate = ({ handleClose, type }: TodoProps) => {
   const token = useUserStore((state) => state.token);
   const selectedDate = useDateStore((state) => state.selectedDate);
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -72,7 +72,7 @@ const TodoTemplate = ({ handleClose }: TodoProps) => {
           }),
         )}
       >
-        <TodoInput />
+        <TodoInput type={type} />
         <div
           className={clsx(
             Flex({
@@ -86,7 +86,7 @@ const TodoTemplate = ({ handleClose }: TodoProps) => {
             {todos
               .filter((todo) => todo.isMission)
               .map((todo) => (
-                <TodoItem key={todo.id} todo={todo} />
+                <TodoItem key={todo.id} todo={todo} type={type} />
               ))}
           </div>
           <div
@@ -100,7 +100,7 @@ const TodoTemplate = ({ handleClose }: TodoProps) => {
             {todos
               .filter((t) => !t.isMission)
               .map((todo) => (
-                <TodoItem key={todo.id} todo={todo} />
+                <TodoItem key={todo.id} todo={todo} type={type} />
               ))}
           </div>
         </div>

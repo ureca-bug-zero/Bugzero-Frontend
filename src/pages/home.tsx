@@ -97,7 +97,7 @@ export default function HomePage() {
             'hidden tablet:block')
           }
         >
-          <TodoTemplate handleClose={handleClose} />
+          <TodoTemplate handleClose={handleClose} type="me" />
           <div className="tablet:mt-[63px] desktop:hidden">
             <TimerBox />
           </div>
@@ -125,7 +125,7 @@ export default function HomePage() {
               'pl-[60px] tablet:hidden',
             )}
           >
-            <TodoTemplate handleClose={handleClose} />
+            <TodoTemplate handleClose={handleClose} type="me" />
           </div>
         )}
       </div>

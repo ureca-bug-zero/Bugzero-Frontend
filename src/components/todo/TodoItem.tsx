@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Todo } from '../../types/todo';
+import { Todo, TodoType } from '../../types/todo';
 import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
 import { Flex, Position } from '../common/Wrapper';
@@ -11,9 +11,10 @@ import { theme } from '../../styles/theme';
 
 type TodoItemProps = {
   todo: Todo;
+  type: TodoType;
 };
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
   const toggleCheck = useTodoStore((s) => s.toggleCheck);
   const deleteTodo = useTodoStore((s) => s.deleteTodo);
   const editTodo = useTodoStore((s) => s.editTodo);
@@ -79,7 +80,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         )}
       >
         <button
-          onClick={() => toggleCheck(todo.id)}
+          onClick={() => {
+            type === 'me' && toggleCheck(todo.id);
+          }}
           className="w-[18px] h-[18px] focus:outline-none"
         >
           <img
@@ -157,7 +160,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         )}
       </div>
 
-      {!todo.isMission && (
+      {!todo.isMission && type === 'me' && (
         <div className={clsx(Position({ position: 'relative' }))}>
           <button onClick={() => setIsMenuOpen((prev) => !prev)}>
             <img src={menuBar} alt="메뉴" className="w-[25px] h-[25px]" />

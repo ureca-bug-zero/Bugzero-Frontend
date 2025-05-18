@@ -6,10 +6,15 @@ import { Flex } from '../common/Wrapper';
 import contentIcon from '../../assets/icons/todo/todo-content.svg';
 import linkIcon from '../../assets/icons/todo/todo-link.svg';
 import { theme } from '../../styles/theme';
+import { TodoType } from '../../types/todo';
 
 // const iconStyle = clsx('w-[22px]', 'h-[22px]');
 
-const TodoInput: React.FC = () => {
+type TodoInputProps = {
+  type: TodoType;
+};
+
+const TodoInput: React.FC<TodoInputProps> = ({ type }) => {
   const addTodo = useTodoStore((s) => s.addTodo);
 
   const [content, setContent] = useState('');
@@ -17,7 +22,7 @@ const TodoInput: React.FC = () => {
 
   const handleAddTodo = () => {
     const trimmedContent = content.trim();
-    if (!trimmedContent) return;
+    if (!trimmedContent || type === 'friend') return;
 
     addTodo({
       content: trimmedContent,
