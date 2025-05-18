@@ -20,6 +20,7 @@ interface TodoTemplateProps extends Props {
 const TodoTemplate = ({ handleClose, type, friendId }: TodoTemplateProps) => {
   const token = useUserStore((state) => state.token);
   const selectedDate = useDateStore((state) => state.selectedDate);
+  const friendSelectedDate = useDateStore((state) => state.friendSelectedDate);
   const [todos, setTodos] = useState<Todo[]>([]);
 
   /*me*/
@@ -44,16 +45,16 @@ const TodoTemplate = ({ handleClose, type, friendId }: TodoTemplateProps) => {
   });
 
   useEffect(() => {
-    if (type === 'me') {
-      todoListMutation.mutate({ date: selectedDate, token: token });
-    } else if (type === 'friend') {
-      friendTodoListMutation.mutate({
-        friendId: friendId,
-        date: selectedDate,
-        token: token,
-      });
-    }
+    todoListMutation.mutate({ date: selectedDate, token: token });
   }, [selectedDate]);
+
+  useEffect(() => {
+    friendTodoListMutation.mutate({
+      friendId: friendId,
+      date: friendSelectedDate,
+      token: token,
+    });
+  }, [friendSelectedDate]);
 
   return (
     <div

@@ -24,8 +24,17 @@ export default function CalendarBox({
 }: CalendarBoxProps) {
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
+  const [friendCalendarList, setFriendCaldendarList] = useState<CalendarData>(
+    {},
+  );
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
+  const [friendActiveStartDate, setFriendActiveStartDate] = useState<Date>(
+    new Date(),
+  );
   const setSelectedDate = useDateStore((state) => state.setSelectedDate);
+  const setFriendSelectedDate = useDateStore(
+    (state) => state.setFriendSelectedDate,
+  );
 
   /* 날짜마다 다른 opacity*/
   /*me*/
@@ -50,7 +59,7 @@ export default function CalendarBox({
   const friendCalendarMutation = useMutation({
     mutationFn: friendCalendar,
     onSuccess: (data) => {
-      const yearMonth = format(activeStartDate, 'yyyy-MM');
+      const yearMonth = format(friendActiveStartDate, 'yyyy-MM');
       const newData: CalendarData = {};
 
       Object.entries(data.data.score).forEach(([day, percent]) => {
@@ -58,7 +67,7 @@ export default function CalendarBox({
         const fullDate = `${yearMonth}-${paddedDay}`;
         newData[fullDate] = percent as number;
       });
-      setCaldendarList((prev) => ({ ...prev, ...newData }));
+      setFriendCaldendarList((prev) => ({ ...prev, ...newData }));
     },
     onError: (error) => {
       console.log(error);
@@ -67,20 +76,26 @@ export default function CalendarBox({
 
   useEffect(() => {
     const yearMonth = format(activeStartDate, 'yyyy-MM');
-    if (type === 'me') {
-      calendarMutation.mutate({ yearMonth: yearMonth, token: token });
-    } else if (type === 'friend') {
-      friendCalendarMutation.mutate({
-        friendId: friendId,
-        yearMonth: yearMonth,
-        token: token,
-      });
-    }
+    calendarMutation.mutate({ yearMonth: yearMonth, token: token });
   }, [activeStartDate]);
+
+  useEffect(() => {
+    const yearMonth = format(friendActiveStartDate, 'yyyy-MM');
+    friendCalendarMutation.mutate({
+      friendId: friendId,
+      yearMonth: yearMonth,
+      token: token,
+    });
+  }, [friendActiveStartDate]);
 
   const tileClassName = ({ date }: { date: Date }) => {
     const key = format(date, 'yyyy-MM-dd');
-    const percent = Math.round(calendarList[key] / 10);
+    let percent = 0;
+    if (type === 'me') {
+      percent = Math.round(calendarList[key] / 10);
+    } else if (type === 'friend') {
+      percent = Math.round(friendCalendarList[key] / 10);
+    }
 
     if (typeof percent === 'number') {
       return `bg-opacity-${percent}`;
@@ -111,7 +126,11 @@ export default function CalendarBox({
 
   /*날짜 선택 시, 해당 날짜의 todoList 나올 수 있도록 전역상태 관리하는 날짜*/
   const handleDate = (date: Date) => {
-    setSelectedDate(format(date, 'yyyy-MM-dd'));
+    if (type === 'me') {
+      setSelectedDate(format(date, 'yyyy-MM-dd'));
+    } else if (type === 'friend') {
+      setFriendSelectedDate(format(date, 'yyyy-MM-dd'));
+    }
     handleOpen();
   };
 
@@ -140,7 +159,11 @@ export default function CalendarBox({
           onActiveStartDateChange={({ activeStartDate }) => {
             //Month바뀔때마다 진행
             if (activeStartDate) {
-              setActiveStartDate(activeStartDate);
+              if (type === 'me') {
+                setActiveStartDate(activeStartDate);
+              } else if (type === 'friend') {
+                setFriendActiveStartDate(activeStartDate);
+              }
             }
           }}
           tileClassName={tileClassName}
