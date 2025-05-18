@@ -43,6 +43,7 @@ const ModalTemplate = ({ isOpen, closeModal }: ModalTemplateProps) => {
         }),
         Position({
           position: 'fixed',
+          zIndex: 'z-20',
         }),
         'inset-0',
         'bg-secondary/50',
