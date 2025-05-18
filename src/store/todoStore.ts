@@ -14,8 +14,8 @@ export const useTodoStore = create<TodoStore>((set) => ({
     {
       id: 2,
       content: '미션 안함',
-      isChecked: false,
-      isMission: true,
+      checked: false,
+      mission: true,
       link: '',
       date: '2025-05-13',
       userId: 1,
@@ -23,8 +23,8 @@ export const useTodoStore = create<TodoStore>((set) => ({
     {
       id: 1,
       content: '미션 아닌데 함',
-      isChecked: true,
-      isMission: false,
+      checked: true,
+      mission: false,
       link: '',
       date: '2025-05-13',
       userId: 1,
@@ -32,8 +32,8 @@ export const useTodoStore = create<TodoStore>((set) => ({
     {
       id: 3,
       content: '이거 백준 링크',
-      isChecked: false,
-      isMission: false,
+      checked: false,
+      mission: false,
       link: 'https://www.acmicpc.net/problem/13460',
       date: '2025-05-13',
       userId: 1,
@@ -42,7 +42,7 @@ export const useTodoStore = create<TodoStore>((set) => ({
   toggleCheck: (id) =>
     set((state) => ({
       todos: state.todos.map((t) =>
-        t.id === id ? { ...t, isChecked: !t.isChecked } : t,
+        t.id === id ? { ...t, isChecked: !t.checked } : t,
       ),
     })),
   deleteTodo: (id) =>

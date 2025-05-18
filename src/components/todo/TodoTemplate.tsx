@@ -19,6 +19,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
   const todoListMutation = useMutation({
     mutationFn: todoList,
     onSuccess: (data) => {
+      console.log(data);
       setTodos(data.data);
     },
     onError: (error) => {
@@ -84,7 +85,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
           {/* 미션 투두 */}
           <div className={clsx('pr-[60px] tablet:pr-[80px]')}>
             {todos
-              .filter((todo) => todo.isMission)
+              .filter((todo) => todo.mission)
               .map((todo) => (
                 <TodoItem key={todo.id} todo={todo} type={type} />
               ))}
@@ -98,7 +99,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
           >
             {/* 미션 아닌 투두 */}
             {todos
-              .filter((t) => !t.isMission)
+              .filter((todo) => !todo.mission)
               .map((todo) => (
                 <TodoItem key={todo.id} todo={todo} type={type} />
               ))}

@@ -27,9 +27,10 @@ const TodoInput: React.FC<TodoInputProps> = ({ type }) => {
     addTodo({
       content: trimmedContent,
       date: new Date().toISOString(),
-      isMission: false,
+      mission: false,
       link: link.trim() || '',
       userId: 1, // 바꿔
+      checked: false,
     });
     setContent('');
     setLink('');

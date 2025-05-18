@@ -68,7 +68,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
         }),
         'tablet:w-[360px]',
         isEditMode ? 'h-auto' : 'h-[45px]',
-        todo.isMission ? '' : 'bg-white',
+        todo.mission ? '' : 'bg-white',
       )}
     >
       <div
@@ -86,8 +86,8 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
           className="w-[18px] h-[18px] focus:outline-none"
         >
           <img
-            src={todo.isChecked ? filledBox : emptyBox}
-            alt={todo.isChecked ? '완료' : '미완료'}
+            src={todo.checked ? filledBox : emptyBox}
+            alt={todo.checked ? '완료' : '미완료'}
             className="w-[18px] h-[18px] min-w-[18px] min-h-[18px]"
           />
         </button>
@@ -111,7 +111,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
                 'w-full',
                 'placeholder-gray-700',
                 'focus:placeholder-transparent',
-                todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+                todo.mission ? theme.typo.Body1 : theme.typo.Body2,
                 theme.textPalette.Secondary,
               )}
             />
@@ -126,7 +126,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
                 'w-full',
                 'placeholder-gray-700',
                 'focus:placeholder-transparent',
-                todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+                todo.mission ? theme.typo.Body1 : theme.typo.Body2,
                 theme.textPalette.Secondary,
               )}
             />
@@ -139,7 +139,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
             target="_blank"
             rel="noopener noreferrer"
             className={clsx(
-              todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+              todo.mission ? theme.typo.Body1 : theme.typo.Body2,
               theme.textPalette.Secondary,
               'w-[172px] break-all tablet:w-[255px]',
               'underline', // 링크에 밑줄 줄지 말지
@@ -150,7 +150,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
         ) : (
           <span
             className={clsx(
-              todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+              todo.mission ? theme.typo.Body1 : theme.typo.Body2,
               theme.textPalette.Secondary,
               'w-[172px] break-all tablet:w-[255px]',
             )}
@@ -160,7 +160,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
         )}
       </div>
 
-      {!todo.isMission && type === 'me' && (
+      {!todo.mission && type === 'me' && (
         <div className={clsx(Position({ position: 'relative' }))}>
           <button onClick={() => setIsMenuOpen((prev) => !prev)}>
             <img src={menuBar} alt="메뉴" className="w-[25px] h-[25px]" />
@@ -237,7 +237,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
   );
 
   // 미션 -> 박스
-  return todo.isMission ? (
+  return todo.mission ? (
     <div
       className={clsx(
         Flex({
