@@ -16,3 +16,10 @@ export interface FriendItemProps {
   friendName: string;
   friendEmail: string;
 }
+
+export type Type = 'me' | 'friend';
+
+export interface Props {
+  friendId: string | undefined;
+  type: Type;
+}

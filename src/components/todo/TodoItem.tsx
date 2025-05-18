@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Todo, Type } from '../../types/todo';
+import { Todo } from '../../types/todo';
 import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
 import { Flex, Position } from '../common/Wrapper';
@@ -7,6 +7,7 @@ import emptyBox from '../../assets/icons/todo/todo-empty.svg';
 import filledBox from '../../assets/icons/todo/todo-filled.svg';
 import menuBar from '../../assets/icons/todo/todo-menu.svg';
 import { theme } from '../../styles/theme';
+import { Type } from '../../types/home';
 
 type TodoItemProps = {
   todo: Todo;

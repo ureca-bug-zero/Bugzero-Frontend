@@ -65,7 +65,7 @@ export default function FriendPage() {
           'hidden tablet:block')
         }
       >
-        <TodoTemplate handleClose={handleClose} type="friend" />
+        <TodoTemplate handleClose={handleClose} type="friend" friendId="" />
       </div>
       {isClicked && (
         <div
@@ -74,7 +74,11 @@ export default function FriendPage() {
             'pl-[60px] tablet:hidden',
           )}
         >
-          <TodoTemplate handleClose={handleClose} type="friend" />
+          <TodoTemplate
+            handleClose={handleClose}
+            type="friend"
+            friendId={params.friendId}
+          />
         </div>
       )}
     </div>

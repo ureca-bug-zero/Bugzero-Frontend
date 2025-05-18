@@ -5,17 +5,24 @@ import TodoItem from './TodoItem';
 import arrowIcon from '../../assets/icons/todo/todo-arrow.svg';
 import { theme } from '../../styles/theme';
 import { useEffect, useState } from 'react';
-import { Todo, TodoProps } from '../../types/todo';
+import { Todo } from '../../types/todo';
 import { useMutation } from '@tanstack/react-query';
 import { todoList } from '../../apis/todo';
 import { useUserStore } from '../../store/userStore';
 import { useDateStore } from '../../store/dateStore';
+import { friendTodoList } from '../../apis/friend';
+import { Props } from '../../types/home';
 
-const TodoTemplate = ({ handleClose, type }: TodoProps) => {
+interface TodoTemplateProps extends Props {
+  handleClose: () => void;
+}
+
+const TodoTemplate = ({ handleClose, type, friendId }: TodoTemplateProps) => {
   const token = useUserStore((state) => state.token);
   const selectedDate = useDateStore((state) => state.selectedDate);
   const [todos, setTodos] = useState<Todo[]>([]);
 
+  /*me*/
   const todoListMutation = useMutation({
     mutationFn: todoList,
     onSuccess: (data) => {
@@ -25,9 +32,27 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
       console.log(error);
     },
   });
+  /*friend*/
+  const friendTodoListMutation = useMutation({
+    mutationFn: friendTodoList,
+    onSuccess: (data) => {
+      setTodos(data.data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   useEffect(() => {
-    todoListMutation.mutate({ date: selectedDate, token: token });
+    if (type === 'me') {
+      todoListMutation.mutate({ date: selectedDate, token: token });
+    } else if (type === 'friend') {
+      friendTodoListMutation.mutate({
+        friendId: friendId,
+        date: selectedDate,
+        token: token,
+      });
+    }
   }, [selectedDate]);
 
   return (

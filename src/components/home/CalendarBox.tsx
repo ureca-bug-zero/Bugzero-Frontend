@@ -9,22 +9,19 @@ import { useMutation } from '@tanstack/react-query';
 import { calendar } from '../../apis/home';
 import { useEffect, useState } from 'react';
 import { useUserStore } from '../../store/userStore';
-import { CalendarData } from '../../types/home';
+import { CalendarData, Props } from '../../types/home';
 import { useDateStore } from '../../store/dateStore';
-import { Type } from '../../types/todo';
 import { friendCalendar } from '../../apis/friend';
 
-interface ModalTemplateProps {
+interface CalendarBoxProps extends Props {
   handleOpen: () => void;
-  type: Type;
-  friendId: string | undefined;
 }
 
 export default function CalendarBox({
   handleOpen,
   type,
   friendId,
-}: ModalTemplateProps) {
+}: CalendarBoxProps) {
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
