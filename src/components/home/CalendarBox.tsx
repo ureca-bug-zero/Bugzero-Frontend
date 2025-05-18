@@ -11,20 +11,47 @@ import { useEffect, useState } from 'react';
 import { useUserStore } from '../../store/userStore';
 import { CalendarData } from '../../types/home';
 import { useDateStore } from '../../store/dateStore';
+import { Type } from '../../types/todo';
+import { friendCalendar } from '../../apis/friend';
 
 interface ModalTemplateProps {
   handleOpen: () => void;
+  type: Type;
+  friendId: string | undefined;
 }
 
-export default function CalendarBox({ handleOpen }: ModalTemplateProps) {
+export default function CalendarBox({
+  handleOpen,
+  type,
+  friendId,
+}: ModalTemplateProps) {
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
   const setSelectedDate = useDateStore((state) => state.setSelectedDate);
 
   /* 날짜마다 다른 opacity*/
+  /*me*/
   const calendarMutation = useMutation({
     mutationFn: calendar,
+    onSuccess: (data) => {
+      const yearMonth = format(activeStartDate, 'yyyy-MM');
+      const newData: CalendarData = {};
+
+      Object.entries(data.data.score).forEach(([day, percent]) => {
+        const paddedDay = day.padStart(2, '0');
+        const fullDate = `${yearMonth}-${paddedDay}`;
+        newData[fullDate] = percent as number;
+      });
+      setCaldendarList((prev) => ({ ...prev, ...newData }));
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  /*friend*/
+  const friendCalendarMutation = useMutation({
+    mutationFn: friendCalendar,
     onSuccess: (data) => {
       const yearMonth = format(activeStartDate, 'yyyy-MM');
       const newData: CalendarData = {};
@@ -43,7 +70,15 @@ export default function CalendarBox({ handleOpen }: ModalTemplateProps) {
 
   useEffect(() => {
     const yearMonth = format(activeStartDate, 'yyyy-MM');
-    calendarMutation.mutate({ yearMonth: yearMonth, token: token });
+    if (type === 'me') {
+      calendarMutation.mutate({ yearMonth: yearMonth, token: token });
+    } else if (type === 'friend') {
+      friendCalendarMutation.mutate({
+        friendId: friendId,
+        yearMonth: yearMonth,
+        token: token,
+      });
+    }
   }, [activeStartDate]);
 
   const tileClassName = ({ date }: { date: Date }) => {

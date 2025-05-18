@@ -8,9 +8,9 @@ export interface Todo {
   userId: number;
 }
 
-export type TodoType = 'me' | 'friend';
+export type Type = 'me' | 'friend';
 
 export interface TodoProps {
   handleClose: () => void;
-  type: TodoType;
+  type: Type;
 }

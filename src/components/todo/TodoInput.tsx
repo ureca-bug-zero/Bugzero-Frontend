@@ -6,12 +6,12 @@ import { Flex } from '../common/Wrapper';
 import contentIcon from '../../assets/icons/todo/todo-content.svg';
 import linkIcon from '../../assets/icons/todo/todo-link.svg';
 import { theme } from '../../styles/theme';
-import { TodoType } from '../../types/todo';
+import { Type } from '../../types/todo';
 
 // const iconStyle = clsx('w-[22px]', 'h-[22px]');
 
 type TodoInputProps = {
-  type: TodoType;
+  type: Type;
 };
 
 const TodoInput: React.FC<TodoInputProps> = ({ type }) => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Todo, TodoType } from '../../types/todo';
+import { Todo, Type } from '../../types/todo';
 import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
 import { Flex, Position } from '../common/Wrapper';
@@ -10,7 +10,7 @@ import { theme } from '../../styles/theme';
 
 type TodoItemProps = {
   todo: Todo;
-  type: TodoType;
+  type: Type;
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {

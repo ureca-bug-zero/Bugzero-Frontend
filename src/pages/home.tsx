@@ -79,7 +79,7 @@ export default function HomePage() {
           )}
         >
           <GreetingBox name={info?.name} rank={info?.rank} />
-          <CalendarBox handleOpen={handleOpen} />
+          <CalendarBox handleOpen={handleOpen} type="me" friendId="undefined" />
           <div className="mt-[36.43px] tablet:mt-[52.45px] desktop:hidden">
             <FriendBox openModal={openModal} />
           </div>

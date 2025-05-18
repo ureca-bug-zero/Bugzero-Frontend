@@ -4,8 +4,10 @@ import GreetingBox from '../components/home/GreetingBox';
 import TodoTemplate from '../components/todo/TodoTemplate';
 import { Flex, Position } from '../components/common/Wrapper';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export default function FriendPage() {
+  const params = useParams();
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleOpen = () => {
@@ -43,7 +45,11 @@ export default function FriendPage() {
         )}
       >
         <GreetingBox name={'이주희'} rank={1} />
-        <CalendarBox handleOpen={handleOpen} />
+        <CalendarBox
+          handleOpen={handleOpen}
+          type="friend"
+          friendId={params.friendId}
+        />
       </div>
       <hr className={clsx(line, 'mx-[80px]')}></hr>
       <div
