@@ -58,12 +58,12 @@ export default function FriendBox({ openModal }: ModalTemplateProps) {
             height: 'h-[162px] tablet:h-[240px]',
             padding: { x: 'px-[17px] tablet:px-[0px]' },
           }),
-          list.length > 0
+          list?.length > 0
             ? 'bg-gray-100 overflow-y-scroll scrollbar-hide rounded-[5px] tablet:bg-transparent'
             : 'bg-transparent',
         )}
       >
-        {list.length > 0 ? (
+        {list?.length > 0 ? (
           list.map((item, idx) => (
             <Link to={`/${item?.friendId}`}>
               <FriendItem

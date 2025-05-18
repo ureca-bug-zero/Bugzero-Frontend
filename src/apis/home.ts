@@ -22,7 +22,7 @@ export const calendar = async (info: any) => {
 };
 
 export const friendList = async (token: string) => {
-  const response = await client.get('/friend/requests', {
+  const response = await client.get('/friend/list', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
