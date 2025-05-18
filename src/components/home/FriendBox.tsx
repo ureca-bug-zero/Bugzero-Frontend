@@ -16,24 +16,46 @@ interface ModalTemplateProps {
 
 export default function FriendBox({ openModal }: ModalTemplateProps) {
   const token = useUserStore((state) => state.token);
-  const [list, setList] = useState<FriendListProps[]>([]);
+  // const [list, setList] = useState<FriendListProps[]>([]);
+  const list = [
+    {
+      friendId: 0,
+      friendName: '노수진',
+      friendEmail: 'shtnwls1111@naver.com',
+    },
+    {
+      friendId: 1,
+      friendName: '노수진',
+      friendEmail: 'shtnwls1111@naver.com',
+    },
+    {
+      friendId: 2,
+      friendName: '노수진',
+      friendEmail: 'shtnwls1111@naver.com',
+    },
+    {
+      friendId: 3,
+      friendName: '노수진',
+      friendEmail: 'shtnwls1111@naver.com',
+    },
+  ];
 
-  const { isSuccess, data, isError, error } = useQuery({
-    queryKey: ['friend_list', token],
-    queryFn: () => friendList(token),
-  });
+  // const { isSuccess, data, isError, error } = useQuery({
+  //   queryKey: ['friend_list', token],
+  //   queryFn: () => friendList(token),
+  // });
 
-  useEffect(() => {
-    if (isSuccess && data) {
-      setList(data.data);
-    }
-  }, [isSuccess, data]);
+  // useEffect(() => {
+  //   if (isSuccess && data) {
+  //     setList(data.data);
+  //   }
+  // }, [isSuccess, data]);
 
-  useEffect(() => {
-    if (isError && error) {
-      console.log(error);
-    }
-  }, [isError, error]);
+  // useEffect(() => {
+  //   if (isError && error) {
+  //     console.log(error);
+  //   }
+  // }, [isError, error]);
 
   return (
     <div className={clsx(Flex({ direction: 'column' }))}>
