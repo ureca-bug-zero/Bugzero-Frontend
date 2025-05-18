@@ -3,7 +3,6 @@ import { Todo, TodoType } from '../../types/todo';
 import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
 import { Flex, Position } from '../common/Wrapper';
-
 import emptyBox from '../../assets/icons/todo/todo-empty.svg';
 import filledBox from '../../assets/icons/todo/todo-filled.svg';
 import menuBar from '../../assets/icons/todo/todo-menu.svg';
@@ -60,13 +59,12 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
       className={clsx(
         Flex({
           justify: 'between',
-          width: 'w-[277px]',
+          width: 'w-[277px] tablet:w-[360px]',
           padding: {
             x: 'px-[12px]',
             y: 'py-[10px]',
           },
         }),
-        'tablet:w-[360px]',
         isEditMode ? 'h-auto' : 'h-[45px]',
         todo.mission ? '' : 'bg-white',
       )}
@@ -160,8 +158,13 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
         )}
       </div>
 
-      {!todo.mission && type === 'me' && (
-        <div className={clsx(Position({ position: 'relative' }))}>
+      {!todo.mission && (
+        <div
+          className={clsx(
+            Position({ position: 'relative' }),
+            type === 'me' ? 'visible' : 'invisible',
+          )}
+        >
           <button onClick={() => setIsMenuOpen((prev) => !prev)}>
             <img src={menuBar} alt="메뉴" className="w-[25px] h-[25px]" />
           </button>

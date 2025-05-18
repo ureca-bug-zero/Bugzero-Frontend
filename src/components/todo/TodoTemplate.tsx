@@ -19,7 +19,6 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
   const todoListMutation = useMutation({
     mutationFn: todoList,
     onSuccess: (data) => {
-      console.log(data);
       setTodos(data.data);
     },
     onError: (error) => {
@@ -49,9 +48,10 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
         className={clsx(
           Flex({
             justify: 'start',
-            width: 'w-full',
+            width: 'w-[337px] tablet:w-[full]',
             gap: 'gap-[3px]',
           }),
+          'ml-[60px] tablet:ml-[0px]',
         )}
       >
         <img
@@ -83,7 +83,11 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
           )}
         >
           {/* 미션 투두 */}
-          <div className={clsx('pr-[60px] tablet:pr-[80px]')}>
+          <div
+            className={clsx(
+              'h-[70px] px-[60px] tablet:pr-[80px] tablet:px-[0px]',
+            )}
+          >
             {todos
               .filter((todo) => todo.mission)
               .map((todo) => (
@@ -92,9 +96,9 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
           </div>
           <div
             className={clsx(
-              'h-[480px] tablet:h-[290px] desktop:h-[325px]',
+              'h-[500px] tablet:h-[290px] desktop:h-[325px]',
               'overflow-y-auto scrollbar-hide',
-              'pr-[60px] tablet:pr-[80px]',
+              'px-[60px] tablet:pr-[80px] tablet:px-[0px]',
             )}
           >
             {/* 미션 아닌 투두 */}

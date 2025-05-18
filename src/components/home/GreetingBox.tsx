@@ -32,7 +32,7 @@ export default function GreetingBox({ name, rank }: UserInfo) {
             'bg-primary/50',
           )}
         >
-          {rank === 0 ? '_' : rank}위
+          {rank === 0 ? '-' : rank}위
         </div>
         <p className={clsx(theme.typo.Heading4_Kor)}>입니다!</p>
       </div>

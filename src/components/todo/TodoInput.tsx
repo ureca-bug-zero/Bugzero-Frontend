@@ -48,6 +48,7 @@ const TodoInput: React.FC<TodoInputProps> = ({ type }) => {
         }),
         'tablet:w-[360px]',
         'tablet:h-[60px]',
+        'ml-[60px] tablet:ml-[0px]',
       )}
     >
       {/* 할 일/링크 col */}

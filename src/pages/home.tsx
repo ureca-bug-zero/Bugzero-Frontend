@@ -58,6 +58,7 @@ export default function HomePage() {
     <>
       <div
         className={clsx(
+          Position({ position: 'relative' }),
           Flex({
             height: 'desktop:h-[620px]',
             align: 'start',
@@ -121,8 +122,8 @@ export default function HomePage() {
         {isClicked && (
           <div
             className={clsx(
-              Position({ position: 'absolute', zIndex: 'z-index-[60px]' }),
-              'pl-[60px] tablet:hidden',
+              Position({ position: 'absolute' }),
+              'tablet:hidden',
             )}
           >
             <TodoTemplate handleClose={handleClose} type="me" />
