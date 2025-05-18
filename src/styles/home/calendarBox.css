@@ -7,7 +7,7 @@
   @apply w-[37.45055px] h-[37.45055px]  mr-[2.34px] mb-[9.36px] font-pretendard-bold text-[12.484px] text-secondary text-center cursor-pointer;
 
   abbr {
-    @apply bg-primary w-[37.45055px] h-[37.45055px] rounded-full block leading-[37.45055px];
+    @apply w-[37.45055px] h-[37.45055px] rounded-full block leading-[37.45055px];
   }
 }
 
@@ -58,4 +58,38 @@
 .react-calendar__navigation__label {
   /*Month label*/
   @apply w-[110px] h-[23px] text-center font-pretendard-bold text-[19px] text-secondary pointer-events-none;
+}
+
+.bg-opacity-0 {
+  background-color: rgba(26, 226, 115, 0);
+}
+.bg-opacity-1 {
+  opacity: rgba(26, 226, 115, 0.1);
+}
+.bg-opacity-2 {
+  opacity: rgba(26, 226, 115, 0.2);
+}
+.bg-opacity-3 {
+  opacity: rgba(26, 226, 115, 0.3);
+}
+.bg-opacity-4 {
+  opacity: rgba(26, 226, 115, 0.4);
+}
+.bg-opacity-5 {
+  opacity: rgba(26, 226, 115, 0.5);
+}
+.bg-opacity-6 {
+  opacity: rgba(26, 226, 115, 0.6);
+}
+.bg-opacity-7 {
+  opacity: rgba(26, 226, 115, 0.7);
+}
+.bg-opacity-8 {
+  opacity: rgba(26, 226, 115, 0.8);
+}
+.bg-opacity-9 {
+  opacity: rgba(26, 226, 115, 0.9);
+}
+.bg-opacity-10 {
+  opacity: rgba(26, 226, 115, 1);
 }
