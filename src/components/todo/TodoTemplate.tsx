@@ -19,7 +19,6 @@ const TodoTemplate = ({ handleClose }: TodoProps) => {
   const todoListMutation = useMutation({
     mutationFn: todoList,
     onSuccess: (data) => {
-      console.log(data);
       setTodos(data.data);
     },
     onError: (error) => {

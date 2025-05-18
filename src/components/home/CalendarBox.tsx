@@ -12,7 +12,11 @@ import { useUserStore } from '../../store/userStore';
 import { CalendarData } from '../../types/home';
 import { useDateStore } from '../../store/dateStore';
 
-export default function CalendarBox() {
+interface ModalTemplateProps {
+  handleOpen: () => void;
+}
+
+export default function CalendarBox({ handleOpen }: ModalTemplateProps) {
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
@@ -76,6 +80,7 @@ export default function CalendarBox() {
   /*날짜 선택 시, 해당 날짜의 todoList 나올 수 있도록 전역상태 관리하는 날짜*/
   const handleDate = (date: Date) => {
     setSelectedDate(format(date, 'yyyy-MM-dd'));
+    handleOpen();
   };
 
   return (

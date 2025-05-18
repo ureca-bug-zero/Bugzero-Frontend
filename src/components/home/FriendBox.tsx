@@ -5,7 +5,11 @@ import { theme } from '../../styles/theme';
 import ModalIcon from '@/assets/icons/home/friend-modal.svg?react';
 // import { useEffect, useState } from "react";
 
-export default function FriendBox() {
+interface ModalTemplateProps {
+  openModal: () => void;
+}
+
+export default function FriendBox({ openModal }: ModalTemplateProps) {
   // const [friendList, setFriendList] = useState<FriendItemProps[]>([]);
 
   const friendList = [
@@ -24,7 +28,10 @@ export default function FriendBox() {
         )}
       >
         <p className={clsx(theme.typo.Heading3_Eng)}>Friends</p>
-        <ModalIcon className={clsx('fill-primary cursor-pointer')} />
+        <ModalIcon
+          className={clsx('fill-primary cursor-pointer')}
+          onClick={openModal}
+        />
       </div>
       <div
         className={clsx(
