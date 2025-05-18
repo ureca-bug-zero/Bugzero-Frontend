@@ -8,3 +8,5 @@ export interface Home extends UserInfo {
   email: string;
   weekScore: number;
 }
+
+export type CalendarData = Record<string, number>;

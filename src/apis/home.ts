@@ -8,3 +8,15 @@ export const userInfo = async (token: string) => {
   });
   return response.data;
 };
+
+export const calendar = async (info: any) => {
+  const response = await client.get('/calendar', {
+    params: {
+      yearMonth: info.yearMonth,
+    },
+    headers: {
+      Authorization: `Bearer ${info.token}`,
+    },
+  });
+  return response.data;
+};
