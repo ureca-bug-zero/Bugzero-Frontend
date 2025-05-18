@@ -8,9 +8,9 @@ import { useState } from 'react';
 export default function FriendPage() {
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
-  // const handleOpen = () => {
-  //   setIsClicked(true);
-  // };
+  const handleOpen = () => {
+    setIsClicked(true);
+  };
 
   const handleClose = () => {
     setIsClicked(false);
@@ -43,7 +43,7 @@ export default function FriendPage() {
         )}
       >
         <GreetingBox name={'이주희'} rank={1} />
-        <CalendarBox />
+        <CalendarBox handleOpen={handleOpen} />
       </div>
       <hr className={clsx(line, 'mx-[80px]')}></hr>
       <div
@@ -59,7 +59,7 @@ export default function FriendPage() {
           'hidden tablet:block')
         }
       >
-        <TodoTemplate handleClose={handleClose} />
+        <TodoTemplate handleClose={handleClose} type="friend" />
       </div>
       {isClicked && (
         <div
@@ -68,7 +68,7 @@ export default function FriendPage() {
             'pl-[60px] tablet:hidden',
           )}
         >
-          <TodoTemplate handleClose={handleClose} />
+          <TodoTemplate handleClose={handleClose} type="friend" />
         </div>
       )}
     </div>

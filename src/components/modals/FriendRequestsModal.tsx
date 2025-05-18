@@ -41,7 +41,7 @@ const FriendRequestsModal = () => {
           // 일단 그냥 최대 임의로 101/154로...
           gap: 'gap-[18px] tablet:gap-[22px]',
         }),
-        'overflow-y-auto',
+        'overflow-y-auto scrollbar-hide',
       )}
     >
       {requests.map((user) => (

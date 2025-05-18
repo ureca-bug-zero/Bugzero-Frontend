@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Todo } from '../../types/todo';
+import { Todo, TodoType } from '../../types/todo';
 import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
 import { Flex, Position } from '../common/Wrapper';
-
 import emptyBox from '../../assets/icons/todo/todo-empty.svg';
 import filledBox from '../../assets/icons/todo/todo-filled.svg';
 import menuBar from '../../assets/icons/todo/todo-menu.svg';
@@ -11,9 +10,10 @@ import { theme } from '../../styles/theme';
 
 type TodoItemProps = {
   todo: Todo;
+  type: TodoType;
 };
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
   const toggleCheck = useTodoStore((s) => s.toggleCheck);
   const deleteTodo = useTodoStore((s) => s.deleteTodo);
   const editTodo = useTodoStore((s) => s.editTodo);
@@ -59,15 +59,14 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       className={clsx(
         Flex({
           justify: 'between',
-          width: 'w-[277px]',
+          width: 'w-[277px] tablet:w-[360px]',
           padding: {
             x: 'px-[12px]',
             y: 'py-[10px]',
           },
         }),
-        'tablet:w-[360px]',
         isEditMode ? 'h-auto' : 'h-[45px]',
-        todo.isMission ? '' : 'bg-white',
+        todo.mission ? '' : 'bg-white',
       )}
     >
       <div
@@ -79,12 +78,14 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         )}
       >
         <button
-          onClick={() => toggleCheck(todo.id)}
+          onClick={() => {
+            type === 'me' && toggleCheck(todo.id);
+          }}
           className="w-[18px] h-[18px] focus:outline-none"
         >
           <img
-            src={todo.isChecked ? filledBox : emptyBox}
-            alt={todo.isChecked ? '완료' : '미완료'}
+            src={todo.checked ? filledBox : emptyBox}
+            alt={todo.checked ? '완료' : '미완료'}
             className="w-[18px] h-[18px] min-w-[18px] min-h-[18px]"
           />
         </button>
@@ -108,7 +109,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
                 'w-full',
                 'placeholder-gray-700',
                 'focus:placeholder-transparent',
-                todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+                todo.mission ? theme.typo.Body1 : theme.typo.Body2,
                 theme.textPalette.Secondary,
               )}
             />
@@ -123,7 +124,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
                 'w-full',
                 'placeholder-gray-700',
                 'focus:placeholder-transparent',
-                todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+                todo.mission ? theme.typo.Body1 : theme.typo.Body2,
                 theme.textPalette.Secondary,
               )}
             />
@@ -136,7 +137,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
             target="_blank"
             rel="noopener noreferrer"
             className={clsx(
-              todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+              todo.mission ? theme.typo.Body1 : theme.typo.Body2,
               theme.textPalette.Secondary,
               'w-[172px] break-all tablet:w-[255px]',
               'underline', // 링크에 밑줄 줄지 말지
@@ -147,7 +148,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         ) : (
           <span
             className={clsx(
-              todo.isMission ? theme.typo.Body1 : theme.typo.Body2,
+              todo.mission ? theme.typo.Body1 : theme.typo.Body2,
               theme.textPalette.Secondary,
               'w-[172px] break-all tablet:w-[255px]',
             )}
@@ -157,8 +158,13 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         )}
       </div>
 
-      {!todo.isMission && (
-        <div className={clsx(Position({ position: 'relative' }))}>
+      {!todo.mission && (
+        <div
+          className={clsx(
+            Position({ position: 'relative' }),
+            type === 'me' ? 'visible' : 'invisible',
+          )}
+        >
           <button onClick={() => setIsMenuOpen((prev) => !prev)}>
             <img src={menuBar} alt="메뉴" className="w-[25px] h-[25px]" />
           </button>
@@ -234,7 +240,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   );
 
   // 미션 -> 박스
-  return todo.isMission ? (
+  return todo.mission ? (
     <div
       className={clsx(
         Flex({

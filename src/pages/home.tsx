@@ -11,6 +11,8 @@ import { useQuery } from '@tanstack/react-query';
 import { UserInfo } from '../types/home';
 import { userInfo } from '../apis/home';
 import { useNavigate } from 'react-router-dom';
+import ModalTemplate from '../components/modals/ModalTemplate';
+import useModal from '../hooks/useModal';
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ export default function HomePage() {
   const hydrated = useUserStore.persist.hasHydrated();
   const [info, setInfo] = useState<UserInfo>();
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const { isOpen, openModal, closeModal } = useModal();
 
   //Greeting
   const { data, isSuccess, error, isError } = useQuery({
@@ -39,9 +42,9 @@ export default function HomePage() {
     }
   }, [isError, error]);
 
-  // const handleOpen = () => {
-  //   setIsClicked(true);
-  // };
+  const handleOpen = () => {
+    setIsClicked(true);
+  };
 
   const handleClose = () => {
     setIsClicked(false);
@@ -52,78 +55,82 @@ export default function HomePage() {
   );
 
   return (
-    <div
-      className={clsx(
-        Flex({
-          height: 'desktop:h-[620px]',
-          align: 'start',
-        }),
-        ' overflow-hidden  pt-[5px] mt-[41px] mb-[40.33px] tablet:mt-[60px] tablet:mb-[76.86px] desktop:mt-[112px] desktop:mb-[192px]',
-      )}
-    >
+    <>
       <div
         className={clsx(
+          Position({ position: 'relative' }),
           Flex({
-            direction: 'column',
-            height: 'h-full',
-            justify: 'start',
+            height: 'desktop:h-[620px]',
             align: 'start',
           }),
-          'tablet:mr-[28px] desktop:mr-0',
-          'tablet:pl-[80px] desktop:pl-0',
+          ' overflow-hidden  pt-[5px] mt-[41px] mb-[40.33px] tablet:mt-[60px] tablet:mb-[76.86px] desktop:mt-[112px] desktop:mb-[192px]',
         )}
       >
-        <GreetingBox name={info?.name} rank={info?.rank} />
-        <CalendarBox />
-        <div className="mt-[45.79px] tablet:mt-[52.45px] desktop:hidden">
-          <FriendBox />
-        </div>
-      </div>
-      <hr className={clsx(line, 'mx-[80px]')}></hr>
-      <div
-        className={
-          (clsx(
+        <div
+          className={clsx(
             Flex({
               direction: 'column',
               height: 'h-full',
               justify: 'start',
               align: 'start',
             }),
-          ),
-          'hidden tablet:block')
-        }
-      >
-        <TodoTemplate handleClose={handleClose} />
-        <div className="tablet:mt-[63px] desktop:hidden">
-          <TimerBox />
-        </div>
-      </div>
-      <hr className={clsx(line, 'mr-[80px]')}></hr>
-      <div
-        className={clsx(
-          Flex({
-            direction: 'column',
-            gap: 'gap-[83px]',
-            height: 'h-full',
-            justify: 'start',
-            align: 'start',
-          }),
-          'hidden desktop:flex',
-        )}
-      >
-        <TimerBox />
-        <FriendBox />
-      </div>
-      {isClicked && (
-        <div
-          className={clsx(
-            Position({ position: 'absolute', zIndex: 'z-index-[60px]' }),
-            'pl-[60px] tablet:hidden',
+            'tablet:mr-[28px] desktop:mr-0',
+            'tablet:pl-[80px] desktop:pl-0',
           )}
         >
-          <TodoTemplate handleClose={handleClose} />
+          <GreetingBox name={info?.name} rank={info?.rank} />
+          <CalendarBox handleOpen={handleOpen} />
+          <div className="mt-[36.43px] tablet:mt-[52.45px] desktop:hidden">
+            <FriendBox openModal={openModal} />
+          </div>
         </div>
-      )}
-    </div>
+        <hr className={clsx(line, 'mx-[80px]')}></hr>
+        <div
+          className={
+            (clsx(
+              Flex({
+                direction: 'column',
+                height: 'h-full',
+                justify: 'start',
+                align: 'start',
+              }),
+            ),
+            'hidden tablet:block')
+          }
+        >
+          <TodoTemplate handleClose={handleClose} type="me" />
+          <div className="tablet:mt-[63px] desktop:hidden">
+            <TimerBox />
+          </div>
+        </div>
+        <hr className={clsx(line, 'mr-[80px]')}></hr>
+        <div
+          className={clsx(
+            Flex({
+              direction: 'column',
+              gap: 'gap-[83px]',
+              height: 'h-full',
+              justify: 'start',
+              align: 'start',
+            }),
+            'hidden desktop:flex',
+          )}
+        >
+          <TimerBox />
+          <FriendBox openModal={openModal} />
+        </div>
+        {isClicked && (
+          <div
+            className={clsx(
+              Position({ position: 'absolute' }),
+              'tablet:hidden',
+            )}
+          >
+            <TodoTemplate handleClose={handleClose} type="me" />
+          </div>
+        )}
+      </div>
+      {isOpen && <ModalTemplate isOpen={isOpen} closeModal={closeModal} />}
+    </>
   );
 }
