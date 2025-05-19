@@ -11,11 +11,12 @@ import FriendModalContainer from '@/components/modals/FriendModalContainer';
 const HomePage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const viewport = useViewport();
+  const [isTodoModalOpen, setIsTodoModalOpen] = useState(false);
 
   return (
     <>
       <MainLayout>
-        <div className="pt-[112px] px-4 lg:px-0">
+        <div className="pt-[40px] tablet:pt-[60px] desktop:pt-[112px]">
           {/* 데스크탑: 가로 배치 */}
           {viewport === 'desktop' && (
             <div className="flex flex-row justify-center gap-[140px]">
@@ -57,19 +58,32 @@ const HomePage: React.FC = () => {
 
           {/* 모바일: 세로 배치 */}
           {viewport === 'mobile' && (
-            <div className="mt-[24px] flex flex-col items-center gap-4 pb-12">
+            <div className="flex flex-col items-center">
               <div style={{ width: '360px' }}>
                 <UserPanel
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
+                  onDateClick={() => setIsTodoModalOpen(true)} // 날짜 클릭 시 모달 오픈
                 />
               </div>
               <div style={{ width: '360px' }}>
-                <TodoPanel selectedDate={selectedDate} />
+                <FriendList />
+                <FriendModalContainer />
               </div>
-              <div style={{ width: '360px' }}>
-                <RightPanel />
-              </div>
+
+              {isTodoModalOpen && (
+                <div className="fixed top-[64px] bottom-[48px] left-0 right-0 bg-white z-50 overflow-y-auto px-4">
+                  <div className="relative w-full mx-auto pt-16">
+                    <button
+                      onClick={() => setIsTodoModalOpen(false)}
+                      className="absolute top-0 right-0 text-secondary-500 hover:text-black text-xl"
+                    >
+                      ✕
+                    </button>
+                    <TodoPanel selectedDate={selectedDate} />
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
