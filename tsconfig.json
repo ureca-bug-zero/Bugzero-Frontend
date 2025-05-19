@@ -28,7 +28,7 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "lib": ["DOM", "ES2018"],
-    "types": ["node"]
+    "types": ["node", "react", "react-dom", "vite/client"]
   },
   "include": ["src", "**/*.ts", "**/*.tsx"]
 }
