@@ -5,7 +5,7 @@ export const addFriend = async (email: string, token: string) => {
     `/friend/request`,
     {},
     {
-      params: email,
+      params: { email },
       headers: {
         Authorization: `Bearer ${token}`,
       },
