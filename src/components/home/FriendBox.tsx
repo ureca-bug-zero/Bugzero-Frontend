@@ -9,6 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { friendList } from '../../apis/home';
 import { useUserStore } from '../../store/userStore';
 import { Link } from 'react-router-dom';
+import { getFriendRequests } from '../../apis/modal';
 
 interface ModalTemplateProps {
   openModal: () => void;
@@ -22,6 +23,12 @@ export default function FriendBox({ openModal }: ModalTemplateProps) {
     queryKey: ['friend_list', token],
     queryFn: () => friendList(token),
   });
+
+  const { data: requestData } = useQuery({
+    queryKey: ['friend_request', token],
+    queryFn: () => getFriendRequests(token),
+  });
+  const isExistRequest = requestData?.data.length > 0;
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -45,7 +52,10 @@ export default function FriendBox({ openModal }: ModalTemplateProps) {
       >
         <p className={clsx(theme.typo.Heading3_Eng)}>Friends</p>
         <ModalIcon
-          className={clsx('fill-primary cursor-pointer')}
+          className={clsx(
+            'cursor-pointer',
+            isExistRequest ? 'fill-primary' : 'fill-black',
+          )}
           onClick={openModal}
         />
       </div>
