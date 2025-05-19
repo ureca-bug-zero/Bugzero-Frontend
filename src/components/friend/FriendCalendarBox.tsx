@@ -6,11 +6,11 @@ import clsx from 'clsx';
 import { theme } from '../../styles/theme';
 import { Flex, Position } from '../common/Wrapper';
 import { useMutation } from '@tanstack/react-query';
-import { calendar } from '../../apis/home';
 import { useEffect, useState } from 'react';
 import { useUserStore } from '../../store/userStore';
 import { CalendarData } from '../../types/home';
 import { useDateStore } from '../../store/dateStore';
+import { friendCalendar } from '../../apis/friend';
 
 interface ModalTemplateProps {
   handleOpen: () => void;
@@ -24,11 +24,13 @@ export default function FriendCalendarBox({
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
-  const setSelectedDate = useDateStore((state) => state.setSelectedDate);
+  const setFriendSelectedDate = useDateStore(
+    (state) => state.setFriendSelectedDate,
+  );
 
   /* 날짜마다 다른 opacity*/
   const calendarMutation = useMutation({
-    mutationFn: calendar,
+    mutationFn: friendCalendar,
     onSuccess: (data) => {
       const yearMonth = format(activeStartDate, 'yyyy-MM');
       const newData: CalendarData = {};
@@ -46,8 +48,14 @@ export default function FriendCalendarBox({
   });
 
   useEffect(() => {
+    const parsedId = friendId ? parseInt(friendId, 10) : null;
+
     const yearMonth = format(activeStartDate, 'yyyy-MM');
-    calendarMutation.mutate({ yearMonth: yearMonth, token: token });
+    calendarMutation.mutate({
+      friendId: parsedId,
+      yearMonth: yearMonth,
+      token: token,
+    });
   }, [activeStartDate]);
 
   const tileClassName = ({ date }: { date: Date }) => {
@@ -83,7 +91,7 @@ export default function FriendCalendarBox({
 
   /*날짜 선택 시, 해당 날짜의 todoList 나올 수 있도록 전역상태 관리하는 날짜*/
   const handleDate = (date: Date) => {
-    setSelectedDate(format(date, 'yyyy-MM-dd'));
+    setFriendSelectedDate(format(date, 'yyyy-MM-dd'));
     handleOpen();
   };
 

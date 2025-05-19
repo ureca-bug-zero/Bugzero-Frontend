@@ -12,5 +12,5 @@ export const useDateStore = create<dateStoreProps>((set) => ({
   selectedDate: format(new Date(), 'yyyy-MM-dd'),
   setSelectedDate: (newDate) => set({ selectedDate: newDate }),
   friendSelectedDate: format(new Date(), 'yyyy-MM-dd'),
-  setFriendSelectedDate: (newDate) => set({ selectedDate: newDate }),
+  setFriendSelectedDate: (newDate) => set({ friendSelectedDate: newDate }),
 }));

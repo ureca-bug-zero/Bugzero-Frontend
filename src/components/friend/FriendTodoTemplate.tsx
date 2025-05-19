@@ -7,10 +7,9 @@ import { theme } from '../../styles/theme';
 import { useEffect, useState } from 'react';
 import { Todo } from '../../types/todo';
 import { useMutation } from '@tanstack/react-query';
-import { todoList } from '../../apis/todo';
 import { useUserStore } from '../../store/userStore';
 import { useDateStore } from '../../store/dateStore';
-import { Props, Type } from '../../types/home';
+import { Props } from '../../types/home';
 import { friendTodoList } from '../../apis/friend';
 
 interface CalendarBoxProps extends Props {
@@ -23,7 +22,7 @@ export const FriendTodoTemplate = ({
   friendId,
 }: CalendarBoxProps) => {
   const token = useUserStore((state) => state.token);
-  const selectedDate = useDateStore((state) => state.friendSelectedDate);
+  const friendSelectedDate = useDateStore((state) => state.friendSelectedDate);
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const friendTodoListMutation = useMutation({
@@ -37,12 +36,14 @@ export const FriendTodoTemplate = ({
   });
 
   useEffect(() => {
+    const parsedId = friendId ? parseInt(friendId, 10) : null;
+
     friendTodoListMutation.mutate({
-      friendId: friendId,
-      date: selectedDate,
+      friendId: parsedId,
+      date: friendSelectedDate,
       token: token,
     });
-  }, [selectedDate]);
+  }, [friendSelectedDate]);
 
   return (
     <div
