@@ -68,7 +68,6 @@ const HomePage: React.FC = () => {
               </div>
               <div style={{ width: '360px' }}>
                 <FriendList />
-                <FriendModalContainer />
               </div>
 
               {isTodoModalOpen && (
