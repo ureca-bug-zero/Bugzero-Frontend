@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
 
@@ -7,33 +6,51 @@ import contentIcon from '../../assets/icons/todo/todo-content.svg';
 import linkIcon from '../../assets/icons/todo/todo-link.svg';
 import { theme } from '../../styles/theme';
 import { Type } from '../../types/home';
+import { useUserStore } from '../../store/userStore';
+import { useDateStore } from '../../store/dateStore';
+import { useMutation } from '@tanstack/react-query';
+import { addTodo as addTodoAPI } from '../../apis/todo';
 
 // const iconStyle = clsx('w-[22px]', 'h-[22px]');
 
 type TodoInputProps = {
   type: Type;
+  refetch: (vars: { date: string; token: string }) => void;
 };
 
-const TodoInput: React.FC<TodoInputProps> = ({ type }) => {
-  const addTodo = useTodoStore((s) => s.addTodo);
+const TodoInput: React.FC<TodoInputProps> = ({ type, refetch }) => {
+  const token = useUserStore((state) => state.token);
+  const selectedDate = useDateStore((state) => state.selectedDate);
 
   const [content, setContent] = useState('');
   const [link, setLink] = useState('');
+
+  const addTodoMutation = useMutation({
+    mutationFn: (newTodo: { content: string; link: string }) =>
+      addTodoAPI({
+        date: selectedDate,
+        content: newTodo.content,
+        link: newTodo.link,
+        token,
+      }),
+    onSuccess: () => {
+      refetch({ date: selectedDate, token });
+      setContent('');
+      setLink('');
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const handleAddTodo = () => {
     const trimmedContent = content.trim();
     if (!trimmedContent || type === 'friend') return;
 
-    addTodo({
+    addTodoMutation.mutate({
       content: trimmedContent,
-      date: new Date().toISOString(),
-      mission: false,
-      link: link.trim() || '',
-      userId: 1, // 바꿔
-      checked: false,
+      link: link.trim(),
     });
-    setContent('');
-    setLink('');
   };
 
   return (

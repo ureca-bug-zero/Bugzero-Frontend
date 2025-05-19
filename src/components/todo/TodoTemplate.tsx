@@ -79,7 +79,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
           }),
         )}
       >
-        <TodoInput type={type} />
+        <TodoInput type={type} refetch={todoListMutation.mutate} />
         <div
           className={clsx(
             Flex({
@@ -97,7 +97,12 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
             {todos
               .filter((todo) => todo.mission)
               .map((todo) => (
-                <TodoItem key={todo.id} todo={todo} type={type} />
+                <TodoItem
+                  key={todo.id}
+                  todo={todo}
+                  type={type}
+                  refetch={todoListMutation.mutate}
+                />
               ))}
           </div>
           <div
@@ -111,7 +116,12 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
             {todos
               .filter((todo) => !todo.mission)
               .map((todo) => (
-                <TodoItem key={todo.id} todo={todo} type={type} />
+                <TodoItem
+                  key={todo.id}
+                  todo={todo}
+                  type={type}
+                  refetch={todoListMutation.mutate}
+                />
               ))}
           </div>
         </div>

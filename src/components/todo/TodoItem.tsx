@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Todo } from '../../types/todo';
-import { useTodoStore } from '../../store/todoStore';
 import clsx from 'clsx';
 import { Flex, Position } from '../common/Wrapper';
 import emptyBox from '../../assets/icons/todo/todo-empty.svg';
@@ -8,16 +7,20 @@ import filledBox from '../../assets/icons/todo/todo-filled.svg';
 import menuBar from '../../assets/icons/todo/todo-menu.svg';
 import { theme } from '../../styles/theme';
 import { Type } from '../../types/home';
+import { useUserStore } from '../../store/userStore';
+import { useDateStore } from '../../store/dateStore';
+import { deleteTodo, toggleCheck, editTodo } from '../../apis/todo';
+import { useMutation } from '@tanstack/react-query';
 
 type TodoItemProps = {
   todo: Todo;
   type: Type;
+  refetch: (vars: { date: string; token: string }) => void;
 };
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
-  const toggleCheck = useTodoStore((s) => s.toggleCheck);
-  const deleteTodo = useTodoStore((s) => s.deleteTodo);
-  const editTodo = useTodoStore((s) => s.editTodo);
+const TodoItem: React.FC<TodoItemProps> = ({ todo, type, refetch }) => {
+  const token = useUserStore((state) => state.token);
+  const selectedDate = useDateStore((state) => state.selectedDate);
 
   // 플로팅버튼
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,12 +31,58 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
 
   const todoRef = useRef<HTMLDivElement>(null);
 
+  const toggleCheckMutation = useMutation({
+    mutationFn: () => toggleCheck(todo.id, token),
+    onSuccess: () => {
+      refetch({ date: selectedDate, token });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const deleteTodoMutation = useMutation({
+    mutationFn: () => deleteTodo(todo.id, token),
+    onSuccess: () => {
+      refetch({ date: selectedDate, token });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const editTodoMutation = useMutation({
+    mutationFn: () => editTodo(todo.id, token, editContent, editLink || ''),
+    onSuccess: () => {
+      refetch({ date: selectedDate, token });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const handleToggleCheck = () => {
+    if (type === 'me') {
+      toggleCheckMutation.mutate();
+    }
+  };
+
+  const handleDelete = () => {
+    if (type === 'me') {
+      deleteTodoMutation.mutate();
+    }
+  };
+
   const handleEdit = () => {
-    if (editContent.trim()) {
-      editTodo(todo.id, editContent.trim(), (editLink || '').trim());
+    if (type === 'me') {
+      editTodoMutation.mutate();
       setIsEditMode(false);
     }
   };
+  useEffect(() => {
+    setEditContent(todo.content);
+    setEditLink(todo.link);
+  }, [todo.content, todo.link]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') handleEdit();
@@ -80,7 +129,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
       >
         <button
           onClick={() => {
-            type === 'me' && toggleCheck(todo.id);
+            handleToggleCheck();
           }}
           className="w-[18px] h-[18px] focus:outline-none"
         >
@@ -130,10 +179,10 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
               )}
             />
           </div>
-        ) : todo.link ? (
+        ) : editLink ? (
           <a
             href={
-              todo.link.startsWith('http') ? todo.link : `https://${todo.link}`
+              editLink.startsWith('http') ? editLink : `https://${todo.link}`
             }
             target="_blank"
             rel="noopener noreferrer"
@@ -144,7 +193,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
               'underline', // 링크에 밑줄 줄지 말지
             )}
           >
-            {todo.content}
+            {editContent}
           </a>
         ) : (
           <span
@@ -154,7 +203,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
               'w-[172px] break-all tablet:w-[255px]',
             )}
           >
-            {todo.content}
+            {editContent}
           </span>
         )}
       </div>
@@ -213,7 +262,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type }) => {
                 onClick={() => {
                   setIsMenuOpen(false);
                   // 삭제 기능
-                  deleteTodo(todo.id);
+                  handleDelete();
                 }}
                 className={clsx(
                   theme.typo.Body2,
