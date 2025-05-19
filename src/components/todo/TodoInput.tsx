@@ -5,17 +5,16 @@ import { Flex } from '../common/Wrapper';
 import contentIcon from '../../assets/icons/todo/todo-content.svg';
 import linkIcon from '../../assets/icons/todo/todo-link.svg';
 import { theme } from '../../styles/theme';
-import { TodoType } from '../../types/todo';
+import { Type } from '../../types/home';
 import { useUserStore } from '../../store/userStore';
 import { useDateStore } from '../../store/dateStore';
 import { useMutation } from '@tanstack/react-query';
-
 import { addTodo as addTodoAPI } from '../../apis/todo';
 
 // const iconStyle = clsx('w-[22px]', 'h-[22px]');
 
 type TodoInputProps = {
-  type: TodoType;
+  type: Type;
   refetch: (vars: { date: string; token: string }) => void;
 };
 

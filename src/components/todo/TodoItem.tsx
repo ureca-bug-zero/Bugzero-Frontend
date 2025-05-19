@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Todo, TodoType } from '../../types/todo';
+import { Todo } from '../../types/todo';
 import clsx from 'clsx';
 import { Flex, Position } from '../common/Wrapper';
 import emptyBox from '../../assets/icons/todo/todo-empty.svg';
 import filledBox from '../../assets/icons/todo/todo-filled.svg';
 import menuBar from '../../assets/icons/todo/todo-menu.svg';
 import { theme } from '../../styles/theme';
+import { Type } from '../../types/home';
 import { useUserStore } from '../../store/userStore';
 import { useDateStore } from '../../store/dateStore';
 import { deleteTodo, toggleCheck, editTodo } from '../../apis/todo';
@@ -13,7 +14,7 @@ import { useMutation } from '@tanstack/react-query';
 
 type TodoItemProps = {
   todo: Todo;
-  type: TodoType;
+  type: Type;
   refetch: (vars: { date: string; token: string }) => void;
 };
 

@@ -1,29 +1,32 @@
 import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
-import TodoInput from './TodoInput';
-import TodoItem from './TodoItem';
+import TodoInput from '../todo/TodoInput';
+import TodoItem from '../todo/TodoItem';
 import arrowIcon from '../../assets/icons/todo/todo-arrow.svg';
 import { theme } from '../../styles/theme';
 import { useEffect, useState } from 'react';
 import { Todo } from '../../types/todo';
 import { useMutation } from '@tanstack/react-query';
-import { todoList } from '../../apis/todo';
 import { useUserStore } from '../../store/userStore';
 import { useDateStore } from '../../store/dateStore';
-import { Type } from '../../types/home';
+import { Props } from '../../types/home';
+import { friendTodoList } from '../../apis/friend';
 
-interface TodoProps {
+interface CalendarBoxProps extends Props {
   handleClose: () => void;
-  type: Type;
 }
 
-const TodoTemplate = ({ handleClose, type }: TodoProps) => {
+export const FriendTodoTemplate = ({
+  handleClose,
+  type,
+  friendId,
+}: CalendarBoxProps) => {
   const token = useUserStore((state) => state.token);
-  const selectedDate = useDateStore((state) => state.selectedDate);
+  const friendSelectedDate = useDateStore((state) => state.friendSelectedDate);
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const todoListMutation = useMutation({
-    mutationFn: todoList,
+  const friendTodoListMutation = useMutation({
+    mutationFn: friendTodoList,
     onSuccess: (data) => {
       setTodos(data.data);
     },
@@ -33,8 +36,14 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
   });
 
   useEffect(() => {
-    todoListMutation.mutate({ date: selectedDate, token: token });
-  }, [selectedDate]);
+    const parsedId = friendId ? parseInt(friendId, 10) : null;
+
+    friendTodoListMutation.mutate({
+      friendId: parsedId,
+      date: friendSelectedDate,
+      token: token,
+    });
+  }, [friendSelectedDate]);
 
   return (
     <div
@@ -79,7 +88,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
           }),
         )}
       >
-        <TodoInput type={type} refetch={todoListMutation.mutate} />
+        <TodoInput type={type} />
         <div
           className={clsx(
             Flex({
@@ -97,12 +106,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
             {todos
               .filter((todo) => todo.mission)
               .map((todo) => (
-                <TodoItem
-                  key={todo.id}
-                  todo={todo}
-                  type={type}
-                  refetch={todoListMutation.mutate}
-                />
+                <TodoItem key={todo.id} todo={todo} type={type} />
               ))}
           </div>
           <div
@@ -116,12 +120,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
             {todos
               .filter((todo) => !todo.mission)
               .map((todo) => (
-                <TodoItem
-                  key={todo.id}
-                  todo={todo}
-                  type={type}
-                  refetch={todoListMutation.mutate}
-                />
+                <TodoItem key={todo.id} todo={todo} type={type} />
               ))}
           </div>
         </div>
@@ -130,4 +129,4 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
   );
 };
 
-export default TodoTemplate;
+export default FriendTodoTemplate;

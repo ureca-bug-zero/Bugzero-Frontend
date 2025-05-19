@@ -20,3 +20,21 @@ export const calendar = async (info: any) => {
   });
   return response.data;
 };
+
+export const friendList = async (token: string) => {
+  const response = await client.get('/friend/list', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const deleteFriend = async (info: any) => {
+  const response = await client.put(`/friend/delete/${info.friendId}`, {
+    headers: {
+      Authorization: `Bearer ${info.token}`,
+    },
+  });
+  return response.data;
+};

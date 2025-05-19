@@ -1,11 +1,13 @@
 import clsx from 'clsx';
-import CalendarBox from '../components/home/CalendarBox';
 import GreetingBox from '../components/home/GreetingBox';
-import TodoTemplate from '../components/todo/TodoTemplate';
 import { Flex, Position } from '../components/common/Wrapper';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { FriendTodoTemplate } from '../components/friend/FriendTodoTemplate';
+import FriendCalendarBox from '../components/friend/FriendCalendarBox';
 
 export default function FriendPage() {
+  const params = useParams();
   const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const handleOpen = () => {
@@ -23,6 +25,7 @@ export default function FriendPage() {
   return (
     <div
       className={clsx(
+        Position({ position: 'relative' }),
         Flex({
           height: 'desktop:h-[620px]',
           align: 'start',
@@ -43,7 +46,7 @@ export default function FriendPage() {
         )}
       >
         <GreetingBox name={'이주희'} rank={1} />
-        <CalendarBox handleOpen={handleOpen} />
+        <FriendCalendarBox handleOpen={handleOpen} friendId={params.friendId} />
       </div>
       <hr className={clsx(line, 'mx-[80px]')}></hr>
       <div
@@ -59,16 +62,21 @@ export default function FriendPage() {
           'hidden tablet:block')
         }
       >
-        <TodoTemplate handleClose={handleClose} type="friend" />
+        <FriendTodoTemplate
+          handleClose={handleClose}
+          type="friend"
+          friendId={params.friendId}
+        />
       </div>
       {isClicked && (
         <div
-          className={clsx(
-            Position({ position: 'absolute', zIndex: 'z-index-[60px]' }),
-            'pl-[60px] tablet:hidden',
-          )}
+          className={clsx(Position({ position: 'absolute' }), 'tablet:hidden')}
         >
-          <TodoTemplate handleClose={handleClose} type="friend" />
+          <FriendTodoTemplate
+            handleClose={handleClose}
+            type="friend"
+            friendId={params.friendId}
+          />
         </div>
       )}
     </div>

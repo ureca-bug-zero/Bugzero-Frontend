@@ -7,10 +7,3 @@ export interface Todo {
   link?: string;
   userId: number;
 }
-
-export type TodoType = 'me' | 'friend';
-
-export interface TodoProps {
-  handleClose: () => void;
-  type: TodoType;
-}

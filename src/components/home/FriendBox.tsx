@@ -3,21 +3,37 @@ import { Flex } from '../common/Wrapper';
 import FriendItem from './FriendItem';
 import { theme } from '../../styles/theme';
 import ModalIcon from '@/assets/icons/home/friend-modal.svg?react';
-// import { useEffect, useState } from "react";
+import { FriendItemProps } from '../../types/home';
+import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { friendList } from '../../apis/home';
+import { useUserStore } from '../../store/userStore';
+import { Link } from 'react-router-dom';
 
 interface ModalTemplateProps {
   openModal: () => void;
 }
 
 export default function FriendBox({ openModal }: ModalTemplateProps) {
-  // const [friendList, setFriendList] = useState<FriendItemProps[]>([]);
+  const token = useUserStore((state) => state.token);
+  const [list, setList] = useState<FriendItemProps[]>([]);
 
-  const friendList = [
-    { name: '노수진', email: 'shtnwls1111@naver.com' },
-    { name: '노수진', email: 'shtnwls1111@naver.com' },
-    { name: '노수진', email: 'shtnwls1111@naver.com' },
-    { name: '노수진', email: 'shtnwls1111@naver.com' },
-  ];
+  const { isSuccess, data, isError, error } = useQuery({
+    queryKey: ['friend_list', token],
+    queryFn: () => friendList(token),
+  });
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      setList(data.data);
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (isError && error) {
+      console.log(error);
+    }
+  }, [isError, error]);
 
   return (
     <div className={clsx(Flex({ direction: 'column' }))}>
@@ -42,14 +58,21 @@ export default function FriendBox({ openModal }: ModalTemplateProps) {
             height: 'h-[162px] tablet:h-[240px]',
             padding: { x: 'px-[17px] tablet:px-[0px]' },
           }),
-          friendList.length > 0
+          list?.length > 0
             ? 'bg-gray-100 overflow-y-scroll scrollbar-hide rounded-[5px] tablet:bg-transparent'
             : 'bg-transparent',
         )}
       >
-        {friendList.length > 0 ? (
-          friendList.map((item, idx) => (
-            <FriendItem key={idx} name={item.name} email={item.email} />
+        {list?.length > 0 ? (
+          list.map((item, idx) => (
+            <Link to={`/${item?.friendId}`}>
+              <FriendItem
+                key={idx}
+                friendId={item?.friendId}
+                friendName={item?.friendName}
+                friendEmail={item?.friendEmail}
+              />
+            </Link>
           ))
         ) : (
           <p className={clsx(theme.typo.Label3_Kor)}>친구를 추가해보세요!</p>
