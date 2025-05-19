@@ -1,9 +1,16 @@
 import iconDelete from '@/assets/icons/modals/icon-delete.svg';
 import iconAccept from '@/assets/icons/modals/icon-accept.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
 import { theme } from '../../styles/theme';
+import { useUserStore } from '../../store/userStore';
+import { useMutation } from '@tanstack/react-query';
+import {
+  acceptFriend,
+  getFriendRequests,
+  refuseFriend,
+} from '../../apis/modal';
 
 interface FriendRequest {
   id: number;
@@ -12,23 +19,48 @@ interface FriendRequest {
 }
 
 const FriendRequestsModal = () => {
-  const [requests, setRequests] = useState<FriendRequest[]>([
-    { id: 1, name: '이서현', email: 'tjgus9138@naver.com' },
-    { id: 2, name: '이서현', email: 'tjgus9138@naver.com' },
-    { id: 3, name: '이서현', email: 'tjgus9138@naver.com' },
-  ]);
+  const token = useUserStore((state) => state.token);
+  const [requests, setRequests] = useState<FriendRequest[]>([]);
+
+  const { mutate: fetchRequests } = useMutation({
+    mutationFn: () => getFriendRequests(token),
+    onSuccess: (res) => {
+      const mappedRequest = res.data.map((item: any) => ({
+        id: item.friendId,
+        name: item.friendName,
+        email: item.friendEmail,
+      }));
+      setRequests(mappedRequest);
+    },
+  });
+
+  const { mutate: acceptRequest } = useMutation({
+    mutationFn: (id: number) => acceptFriend(id, token),
+    onSuccess: (_, id) => {
+      setRequests((prev) => prev.filter((request) => request.id !== id));
+    },
+  });
+
+  const { mutate: refuseRequest } = useMutation({
+    mutationFn: (id: number) => refuseFriend(id, token),
+    onSuccess: (_, id) => {
+      setRequests((prev) => prev.filter((request) => request.id !== id));
+    },
+  });
 
   const handleAccept = (id: number) => {
-    // API 연결
     console.log('친구 승인 id: ', id);
-    setRequests((prev) => prev.filter((request) => request.id !== id));
+    acceptRequest(id);
   };
 
-  const handleDelete = (id: number) => {
-    // API 연결
+  const handleRefuse = (id: number) => {
     console.log('친구 거절 id: ', id);
-    setRequests((prev) => prev.filter((request) => request.id !== id));
+    refuseRequest(id);
   };
+
+  useEffect(() => {
+    fetchRequests();
+  }, []);
 
   return (
     <div
@@ -41,7 +73,7 @@ const FriendRequestsModal = () => {
           // 일단 그냥 최대 임의로 101/154로...
           gap: 'gap-[18px] tablet:gap-[22px]',
         }),
-        'overflow-y-auto scrollbar-hide',
+        'overflow-y-auto',
       )}
     >
       {requests.map((user) => (
@@ -98,7 +130,7 @@ const FriendRequestsModal = () => {
           >
             <button
               className={clsx('w-17px', 'h-17px')}
-              onClick={() => handleDelete(user.id)}
+              onClick={() => handleRefuse(user.id)}
             >
               <img
                 src={iconDelete}
