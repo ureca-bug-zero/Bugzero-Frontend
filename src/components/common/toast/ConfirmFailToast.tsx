@@ -4,7 +4,11 @@ import { Flex } from '../Wrapper';
 import errorIcon from '../../../assets/icons/modals/toast-fail.svg';
 import { theme } from '../../../styles/theme';
 
-const CustomErrorToast = ({ closeToast }: ToastContentProps) => {
+interface ConfirmFailToastProps extends ToastContentProps {
+  message?: string;
+}
+
+const ConfirmFailToast = ({ closeToast, message }: ConfirmFailToastProps) => {
   return (
     <div
       className={clsx(
@@ -16,7 +20,6 @@ const CustomErrorToast = ({ closeToast }: ToastContentProps) => {
         'pl-[7px] tablet:pl-[12px]',
         theme.bgPalette.Error,
         'rounded-md',
-        'shadow-md',
       )}
     >
       <div
@@ -30,10 +33,13 @@ const CustomErrorToast = ({ closeToast }: ToastContentProps) => {
         <img
           src={errorIcon}
           alt="toast error"
-          className={clsx('w-[20px] h-[20px]')}
+          className={clsx(
+            'w-[15px] tablet:w-[20px]',
+            'h-[15px] tablet:h-[20px]',
+          )}
         />
         <span className={clsx(theme.typo.Label7)}>
-          친구 요청에 실패했습니다.
+          {message || '친구 요청에 실패했습니다.'}
         </span>
       </div>
       <button
@@ -44,4 +50,4 @@ const CustomErrorToast = ({ closeToast }: ToastContentProps) => {
   );
 };
 
-export default CustomErrorToast;
+export default ConfirmFailToast;
