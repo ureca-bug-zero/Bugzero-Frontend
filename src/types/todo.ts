@@ -9,3 +9,10 @@ export interface Todo {
   link?: string;
   userId: number;
 }
+
+export interface UserTodoResponse {
+  success: boolean;
+  code: string;
+  message: string;
+  data: Todo[];
+}

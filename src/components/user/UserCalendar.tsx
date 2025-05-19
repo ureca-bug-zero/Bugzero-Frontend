@@ -10,6 +10,7 @@ import { getKSTDate } from '@/utils/date'; //한국시간대로 변환하는 uti
 interface Props {
   selectedDate: Date;
   setSelectedDate: (date: Date) => void;
+  friendId?: number;
 }
 
 interface CalendarResponse {
