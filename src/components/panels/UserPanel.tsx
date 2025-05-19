@@ -11,7 +11,7 @@ interface Props {
 
 const UserPanel = ({ selectedDate, setSelectedDate, onDateClick }: Props) => {
   return (
-    <div className="space-y-[85px] w-[360px] flex flex-col items-center">
+    <div className="space-y-[85px] w-[360px] flex flex-col items-start">
       <UserGreeting />
 
       <UserCalendar

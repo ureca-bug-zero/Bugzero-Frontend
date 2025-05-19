@@ -66,7 +66,13 @@ const FriendAddModal = () => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 min-h-screen">
-      <div className="bg-white rounded-2xl w-[550px] h-[410px] shadow-lg p-12 relative">
+      {/* <div className="bg-white rounded-2xl w-[550px] h-[410px] shadow-lg p-12 relative"> */}
+      <div
+        className="bg-white rounded-2xl shadow-lg p-12 relative
+            w-[550px] h-[410px] sm:scale-100 scale-[0.85]
+            sm:w-[550px] sm:h-[410px] max-w-[90vw] max-h-[90vh]
+            transform origin-center transition-transform duration-300"
+      >
         {/* 닫기 버튼 */}
         <button
           onClick={closeModal}
@@ -104,7 +110,7 @@ const FriendAddModal = () => {
         </div>
 
         {/* 설명 */}
-        <div className="text-sm text-primary-600 pt-5 mb-4">
+        <div className="text-sm text-primary-600 pt-5 mb-8">
           친구를 추가해 보세요. <br />
           친구의 <span className="text-secondary-500 font-semibold">Bug</span>
           <span className="text-primary-500 font-semibold">Zero</span> 를 구경할
@@ -117,7 +123,7 @@ const FriendAddModal = () => {
           placeholder="이메일을 입력해주세요"
           value={email}
           onChange={handleEmailChange}
-          className={`w-full h-[73px] rounded-lg px-4 py-3 mb-2 border ${
+          className={`w-full h-[73px] rounded-lg px-4 py-3 mb-5 border ${
             isDuplicate ? 'border-red-500' : 'border-gray-300'
           }`}
         />

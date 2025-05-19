@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import CustomToast from '@/components/common/CustomTimerToast'; // 경로는 실제 위치에 맞게 수정
+import Lottie from 'lottie-react';
+import completeAnimation from '@/assets/complete.json';
 
 const SetTimer = () => {
   const [duration, setDuration] = useState(0);
@@ -10,7 +12,25 @@ const SetTimer = () => {
   const [isRunning, setIsRunning] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // ⏱ 타이머 작동
+  const [showAnimation, setShowAnimation] = useState(false); //애니메이션 상태관리
+  // timeLeft, duration, isEditing가 변할 때 애니메이션 상태 제어
+  useEffect(() => {
+    if (timeLeft === 0 && duration > 0 && !isEditing) {
+      setShowAnimation(true);
+    }
+  }, [timeLeft, duration, isEditing]);
+
+  // showAnimation이 true 되면 3초 후 false로 변경
+  useEffect(() => {
+    if (showAnimation) {
+      const timer = setTimeout(() => {
+        setShowAnimation(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAnimation]);
+
+  // 타이머 작동
   useEffect(() => {
     if (!isRunning || timeLeft <= 0) {
       if (isRunning && timeLeft <= 0) {
@@ -157,6 +177,13 @@ const SetTimer = () => {
             >
               {formatTime(timeLeft || 0)}
             </span>
+          )}
+          {showAnimation && (
+            <div className="fixed bottom-[80px] left-1/2 transform -translate-x-1/2 z-50">
+              <div className="w-[120px] h-[120px]">
+                <Lottie animationData={completeAnimation} loop={true} />
+              </div>
+            </div>
           )}
         </div>
 
