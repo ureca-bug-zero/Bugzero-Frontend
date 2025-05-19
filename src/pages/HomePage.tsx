@@ -19,16 +19,18 @@ const HomePage: React.FC = () => {
         <div className="pt-[40px] tablet:pt-[60px] desktop:pt-[112px]">
           {/* 데스크탑: 가로 배치 */}
           {viewport === 'desktop' && (
-            <div className="flex flex-row justify-center gap-[140px]">
+            <div className="flex flex-row justify-center gap-[70px]">
               <div style={{ width: '360px' }}>
                 <UserPanel
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
                 />
               </div>
+              <div className="w-[1px] h-[500px] bg-gray-300 self-start" />
               <div style={{ width: '360px' }}>
                 <TodoPanel selectedDate={selectedDate} />
               </div>
+              <div className="w-[1px] h-[500px] bg-gray-300 self-start" />
               <div className="w-[360px]">
                 <RightPanel />
               </div>
@@ -37,7 +39,7 @@ const HomePage: React.FC = () => {
 
           {/* 태블릿: 위에 유저+투두, 아래에 라이트 패널 */}
           {viewport === 'tablet' && (
-            <div className="mx-auto max-w-[880px] grid grid-cols-2 gap-x-[40px] gap-y-8 px-4">
+            <div className="mx-auto max-w-[880px] grid grid-cols-2 gap-x-[40px] gap-y-20 pl-4">
               <div className="w-full max-w-[360px]">
                 <UserPanel
                   selectedDate={selectedDate}
