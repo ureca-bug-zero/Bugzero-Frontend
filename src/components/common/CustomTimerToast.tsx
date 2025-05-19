@@ -1,6 +1,6 @@
 import { ToastContentProps } from 'react-toastify';
-import toastSuccessIcon from '@/assets/icons/toast-success.svg';
-import toastErrorIcon from '@/assets/icons/toast-error.svg';
+import toastSuccessIcon from '@/assets/toast-success.svg';
+import toastErrorIcon from '@/assets/toast-error.svg';
 
 interface CustomToastProps extends Partial<ToastContentProps> {
   type: 'success' | 'error';

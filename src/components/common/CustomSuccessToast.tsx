@@ -1,5 +1,5 @@
 import { ToastContentProps } from 'react-toastify';
-import toastSuccess from '@/assets/icons/toast-success.svg';
+import toastSuccess from '@/assets/toast-success.svg';
 
 const CustomSuccessToast = ({ closeToast }: ToastContentProps) => {
   return (

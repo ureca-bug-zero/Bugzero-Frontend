@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
 import { useFriendModal } from '@/features/friend/useFriendModal';
-import addModalIcon from '@/assets/icons/add-modal-icon.svg';
-import rejectIcon from '@/assets/icons/reject-icon.svg';
-import acceptIcon from '@/assets/icons/accept-icon.svg';
+import addModalIcon from '@/assets/add-modal-icon.svg';
+import rejectIcon from '@/assets/reject-icon.svg';
+import acceptIcon from '@/assets/accept-icon.svg';
 
 const FriendRequestModal = () => {
   const {

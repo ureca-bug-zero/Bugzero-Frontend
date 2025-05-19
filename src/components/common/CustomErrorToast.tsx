@@ -1,5 +1,5 @@
 import { ToastContentProps } from 'react-toastify';
-import toastError from '@/assets/icons/toast-error.svg';
+import toastError from '@/assets/toast-error.svg';
 
 const CustomErrorToast = ({ closeToast }: ToastContentProps) => {
   return (

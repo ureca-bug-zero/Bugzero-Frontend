@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useFriendStore, FriendListItem } from '@/store/friend';
 import { fetchFriendList } from '@/features/friend/FriendService';
 import { useNavigate } from 'react-router-dom';
-import friendIcon from '@/assets/icons/friend-icon.svg';
-import friendReqIcon from '@/assets/icons/friend-req-icon.svg';
+import friendIcon from '@/assets/friend-icon.svg';
+import friendReqIcon from '@/assets/friend-req-icon.svg';
 
 const FriendList: React.FC = () => {
   const { openModal, friendRequests } = useFriendStore();

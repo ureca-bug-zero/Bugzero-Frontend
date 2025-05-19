@@ -8,7 +8,7 @@ import { X } from 'lucide-react';
 import { toast } from 'react-toastify';
 import CustomSuccessToast from '../common/CustomSuccessToast';
 import CustomErrorToast from '../common/CustomErrorToast';
-import addModalIcon from '@/assets/icons/add-modal-icon.svg';
+import addModalIcon from '@/assets/add-modal-icon.svg';
 
 const FriendAddModal = () => {
   const { modalType, closeModal, openModal, friendList, setFriendList } =
