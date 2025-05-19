@@ -158,17 +158,7 @@ const StyledCalendar = styled(Calendar)`
 
 const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
   const refreshTrigger = useCalendarStore((s) => s.refreshTrigger);
-
-  useEffect(() => {
-    console.log('🟢 UserCalendar mounted');
-
-    return () => {
-      console.log('🔴 UserCalendar unmounted');
-    };
-  }, []);
-
-  // 날짜를 "YYYY-MM-DD" 형식으로 변환
-  // useCallback 사용하여 불필요한 함수 재생성을 방지
+  // format 함수는 불변성 보장을 위해 useCallback
   const formatDateKey = useCallback((date: Date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -176,7 +166,6 @@ const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
     return `${year}-${month}-${day}`;
   }, []);
 
-  // selectedDate 기준으로 selectedKey 초기값 설정
   const [selectedKey, setSelectedKey] = useState(() =>
     formatDateKey(getKSTDate(selectedDate)),
   );
@@ -187,13 +176,11 @@ const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
 
   const fetchCalendarData = async (yearMonthStr: string) => {
     try {
-      const response = await axios.get<CalendarResponse>('/calendar', {
+      const { data } = await axios.get<CalendarResponse>('/calendar', {
         params: { yearMonth: yearMonthStr },
       });
 
-      const dayScores = response.data.data.score;
-
-      const newMap = Object.entries(dayScores).reduce(
+      const newMap = Object.entries(data.data.score).reduce(
         (acc, [day, score]) => {
           const dayStr = String(day).padStart(2, '0');
           acc[`${yearMonthStr}-${dayStr}`] = score;
@@ -204,16 +191,14 @@ const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
 
       setPercentageMap(newMap);
     } catch (error) {
-      console.log(error);
       console.error('캘린더 데이터 요청 실패:', error);
     }
   };
 
+  // 날짜 변경 및 새 요청 감지
   useEffect(() => {
     const kstSelected = getKSTDate(selectedDate);
-    const year = kstSelected.getFullYear();
-    const month = String(kstSelected.getMonth() + 1).padStart(2, '0');
-    const yearMonthStr = `${year}-${month}`;
+    const yearMonthStr = `${kstSelected.getFullYear()}-${String(kstSelected.getMonth() + 1).padStart(2, '0')}`;
 
     // 조건 1: selectedDate의 연월이 변경된 경우 fetch
     // 조건 2: refreshTrigger가 변경된 경우 (같은 연월이어도 강제 fetch) = 투두 상태변화
@@ -221,28 +206,33 @@ const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
       fetchCalendarData(yearMonthStr);
       setPrevYearMonth(yearMonthStr); // 요청 후 이전 연-월 갱신
     }
-  }, [refreshTrigger, selectedDate]); // selectedDate 변경 or 투두 상태 변화 시 호출
+  }, [selectedDate, refreshTrigger]); // selectedDate 변경 or 투두 상태 변화 시 호출
 
+  // month 뷰 변경 시 첫 날짜로 selectedDate 변경
   const handleActiveStartDateChange = ({ activeStartDate, view }) => {
     if (view === 'month' && activeStartDate) {
       const kstDate = getKSTDate(activeStartDate);
       const newDate = new Date(
         `${kstDate.getFullYear()}-${String(kstDate.getMonth() + 1).padStart(2, '0')}-01`,
       );
-
-      // 새로운 날짜와 기존 날짜가 다를 경우에만 상태를 변경
       if (newDate.getTime() !== selectedDate.getTime()) {
         setSelectedDate(newDate);
       }
     }
   };
 
+  // component mount 로그
+  useEffect(() => {
+    console.log('🟢 UserCalendar mounted');
+    return () => console.log('🔴 UserCalendar unmounted');
+  }, []);
+
   return (
     <div className="relative flex flex-col items-center">
-      {/* 이미지 추가 */}
       <div className="absolute right-[3px] top-[2px] w-[90px]">
         <img alt="Calendar Button" src="/src/assets/gradation.png" />
       </div>
+
       <StyledCalendar
         value={selectedDate}
         onChange={(value) => {
@@ -250,29 +240,28 @@ const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
             const kstDate = getKSTDate(value);
             const key = formatDateKey(kstDate);
             setSelectedDate(kstDate);
-            setSelectedKey(key); // 선택된 날짜 키 설정
+            setSelectedKey(key);
           }
         }}
         onActiveStartDateChange={handleActiveStartDateChange}
         calendarType="hebrew"
-        locale="ko-KR" // 한글로 표시
-        formatDay={(locale, date) => String(date.getDate())} //1일 -> 1
+        locale="ko-KR"
+        formatDay={(locale, date) => String(date.getDate())}
         next2Label={null}
         prev2Label={null}
         tileClassName={({ date }) => {
-          const day = date.getDay(); // 0: 일요일, 6: 토요일
-          if (day === 0) return 'sunday';
-          if (day === 6) return 'saturday';
-          return null;
+          const day = date.getDay();
+          return day === 0 ? 'sunday' : day === 6 ? 'saturday' : null; // 0:일요일, 6:토요일
         }}
         tileContent={({ date }) => {
           const kstDate = getKSTDate(date);
           const key = formatDateKey(kstDate);
           const percent = percentageMap[key];
           const isSelected = key === selectedKey;
+
           return (
             <>
-              {percent !== undefined && (
+              {percent != null && (
                 <div
                   style={{
                     width: 37,
@@ -299,7 +288,6 @@ const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     zIndex: 2,
-                    backgroundColor: 'transparent',
                   }}
                 />
               )}
