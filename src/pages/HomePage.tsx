@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
 
           {/* 태블릿: 위에 유저+투두, 아래에 라이트 패널 */}
           {viewport === 'tablet' && (
-            <div className="mx-auto max-w-[880px] grid grid-cols-2 gap-x-[40px] gap-y-8 px-4">
+            <div className="mx-auto max-w-[880px] grid grid-cols-2 gap-x-[40px] gap-y-20 pl-4">
               <div className="w-full max-w-[360px]">
                 <UserPanel
                   selectedDate={selectedDate}

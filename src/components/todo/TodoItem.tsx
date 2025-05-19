@@ -4,7 +4,12 @@ import { useState, useRef, useEffect } from 'react';
 import DropdownPortal from '@/components/common/DropdownPortal';
 import { useCalendarStore } from '@/store/calendar'; // 캘린더 새로고침 트리거 함수
 
-const TodoItem = ({ todo }: { todo: Todo }) => {
+interface Props {
+  todo: Todo;
+  readOnly?: boolean; // ✅ 추가
+}
+
+const TodoItem = ({ todo, readOnly = false }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState(todo.content);
   const [editLink, setEditLink] = useState(todo.link ?? '');
@@ -69,10 +74,12 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
             type="checkbox"
             checked={todo.isChecked}
             onChange={async () => {
+              if (readOnly) return;
               await toggleCheck(todo.id);
               triggerRefresh(); // 투두 체크 시 캘린더 새로고침
             }}
             className="w-5 h-5 accent-gray-700 cursor-pointer"
+            disabled={readOnly} // 체크박스 비활성화
           />
           {isEditing ? (
             <input
@@ -84,6 +91,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
                 if (e.key === 'Escape') setIsEditing(false);
               }}
               autoFocus
+              disabled={readOnly} // 읽기 전용이면 입력 막기
             />
           ) : todo.link ? (
             <a
@@ -114,7 +122,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         </div>
 
         {/* 링크 input (수정 모드일 때만 노출) */}
-        {isEditing && (
+        {isEditing && !readOnly && (
           <div className="ml-[28px]">
             <input
               className="text-xs border-b border-gray-300 text-black w-full placeholder:text-gray-400 focus:outline-none"
@@ -131,7 +139,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
       </div>
 
       {/* 오른쪽 ⋮ 메뉴 */}
-      {!todo.isMission && (
+      {!todo.isMission && !readOnly && (
         <div className="relative ml-[12px]">
           <button
             ref={buttonRef}

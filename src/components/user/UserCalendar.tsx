@@ -10,6 +10,7 @@ import { getKSTDate } from '@/utils/date'; //한국시간대로 변환하는 uti
 interface Props {
   selectedDate: Date;
   setSelectedDate: (date: Date) => void;
+  friendId?: number;
 }
 
 interface CalendarResponse {
@@ -156,7 +157,7 @@ const StyledCalendar = styled(Calendar)`
   }
 `;
 
-const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
+const UserCalendar = ({ selectedDate, setSelectedDate, friendId }: Props) => {
   const refreshTrigger = useCalendarStore((s) => s.refreshTrigger);
   // format 함수는 불변성 보장을 위해 useCallback
   const formatDateKey = useCallback((date: Date) => {
@@ -176,7 +177,8 @@ const UserCalendar = ({ selectedDate, setSelectedDate }: Props) => {
 
   const fetchCalendarData = async (yearMonthStr: string) => {
     try {
-      const { data } = await axios.get<CalendarResponse>('/calendar', {
+      const url = friendId ? `/friend/calendar/${friendId}` : '/calendar';
+      const { data } = await axios.get<CalendarResponse>(url, {
         params: { yearMonth: yearMonthStr },
       });
 
