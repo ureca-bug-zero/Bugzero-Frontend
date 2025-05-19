@@ -1,5 +1,14 @@
 import client from './client';
 
+export const friendInfo = async (info: any) => {
+  const response = await client.get(`/friend/info/${info.friendId}`, {
+    headers: {
+      Authorization: `Bearer ${info.token}`,
+    },
+  });
+  return response.data;
+};
+
 export const friendCalendar = async (info: any) => {
   const response = await client.get(`/friend/calendar/${info.friendId}`, {
     params: {
