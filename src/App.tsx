@@ -41,7 +41,7 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/auth/kakao/callback" element={<LoginSuccessPage />} />
+            <Route path="/kakao/callback" element={<LoginSuccessPage />} />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/:friendId" element={<FriendPage />} />
           </Routes>

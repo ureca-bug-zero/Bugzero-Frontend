@@ -315,7 +315,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
         'border-solid',
         'border-primary',
         'rounded-[10px]',
-        'bg-[rgba(26,226,115,0.10)]',
+        'bg-primary/10',
 
         'tablet:w-[360px]',
         'tablet:h-[70px]',
