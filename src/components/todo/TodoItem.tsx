@@ -15,7 +15,7 @@ import { useMutation } from '@tanstack/react-query';
 type TodoItemProps = {
   todo: Todo;
   type: Type;
-  refetch: (vars: { date: string; token: string }) => void;
+  refetch?: (vars: { date: string; token: string }) => void;
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo, type, refetch }) => {
@@ -34,7 +34,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type, refetch }) => {
   const toggleCheckMutation = useMutation({
     mutationFn: () => toggleCheck(todo.id, token),
     onSuccess: () => {
-      refetch({ date: selectedDate, token });
+      if (refetch) {
+        refetch({ date: selectedDate, token });
+      }
     },
     onError: (error) => {
       console.log(error);
@@ -44,7 +46,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type, refetch }) => {
   const deleteTodoMutation = useMutation({
     mutationFn: () => deleteTodo(todo.id, token),
     onSuccess: () => {
-      refetch({ date: selectedDate, token });
+      if (refetch) {
+        refetch({ date: selectedDate, token });
+      }
     },
     onError: (error) => {
       console.log(error);
@@ -54,7 +58,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type, refetch }) => {
   const editTodoMutation = useMutation({
     mutationFn: () => editTodo(todo.id, token, editContent, editLink || ''),
     onSuccess: () => {
-      refetch({ date: selectedDate, token });
+      if (refetch) {
+        refetch({ date: selectedDate, token });
+      }
     },
     onError: (error) => {
       console.log(error);

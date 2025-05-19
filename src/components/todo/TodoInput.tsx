@@ -15,7 +15,7 @@ import { addTodo as addTodoAPI } from '../../apis/todo';
 
 type TodoInputProps = {
   type: Type;
-  refetch: (vars: { date: string; token: string }) => void;
+  refetch?: (vars: { date: string; token: string }) => void;
 };
 
 const TodoInput: React.FC<TodoInputProps> = ({ type, refetch }) => {
@@ -34,9 +34,11 @@ const TodoInput: React.FC<TodoInputProps> = ({ type, refetch }) => {
         token,
       }),
     onSuccess: () => {
-      refetch({ date: selectedDate, token });
-      setContent('');
-      setLink('');
+      if (refetch) {
+        refetch({ date: selectedDate, token });
+        setContent('');
+        setLink('');
+      }
     },
     onError: (error) => {
       console.log(error);
