@@ -30,5 +30,5 @@
     "lib": ["DOM", "ES2018"],
     "types": ["node", "react", "react-dom", "vite/client"]
   },
-  "include": ["src", "**/*.ts", "**/*.tsx"]
+  "include": ["src", "vite-env.d.ts"]
 }
