@@ -66,7 +66,13 @@ const FriendAddModal = () => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 min-h-screen">
-      <div className="bg-white rounded-2xl w-[550px] h-[410px] shadow-lg p-12 relative">
+      {/* <div className="bg-white rounded-2xl w-[550px] h-[410px] shadow-lg p-12 relative"> */}
+      <div
+        className="bg-white rounded-2xl shadow-lg p-12 relative
+            w-[550px] h-[410px] sm:scale-100 scale-[0.85]
+            sm:w-[550px] sm:h-[410px] max-w-[90vw] max-h-[90vh]
+            transform origin-center transition-transform duration-300"
+      >
         {/* 닫기 버튼 */}
         <button
           onClick={closeModal}
