@@ -3,7 +3,7 @@ import { useTodoStore } from '@/store/todo';
 import { useState, useRef, useEffect } from 'react';
 import DropdownPortal from '@/components/common/DropdownPortal';
 import { useCalendarStore } from '@/store/calendar'; // 캘린더 새로고침 트리거 함수
-import menuVertical from 'src/assets/todo-Menu Vertical.png';
+import menuVertical from '@/assets/todo-Menu Vertical.png';
 
 interface Props {
   todo: Todo;
