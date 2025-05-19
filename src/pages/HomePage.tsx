@@ -19,16 +19,18 @@ const HomePage: React.FC = () => {
         <div className="pt-[40px] tablet:pt-[60px] desktop:pt-[112px]">
           {/* 데스크탑: 가로 배치 */}
           {viewport === 'desktop' && (
-            <div className="flex flex-row justify-center gap-[140px]">
+            <div className="flex flex-row justify-center gap-[70px]">
               <div style={{ width: '360px' }}>
                 <UserPanel
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
                 />
               </div>
+              <div className="w-[1px] h-[500px] bg-gray-300 self-start" />
               <div style={{ width: '360px' }}>
                 <TodoPanel selectedDate={selectedDate} />
               </div>
+              <div className="w-[1px] h-[500px] bg-gray-300 self-start" />
               <div className="w-[360px]">
                 <RightPanel />
               </div>
