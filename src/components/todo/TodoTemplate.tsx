@@ -99,17 +99,47 @@ const TodoTemplate = ({ handleClose, type, calRefetch }: TodoProps) => {
               'h-[70px] px-[60px] tablet:pr-[80px] tablet:px-[0px]',
             )}
           >
-            {todos
-              .filter((todo) => todo.mission)
-              .map((todo) => (
-                <TodoItem
-                  key={todo.id}
-                  todo={todo}
-                  type={type}
-                  refetch={todoListMutation.mutate}
-                  calRefetch={calRefetch}
-                />
-              ))}
+            {todos.filter((todo) => todo.mission).length === 0 ? (
+              <div
+                className={clsx(
+                  Flex({
+                    width: 'w-[277px]',
+                    height: 'h-[70px]',
+                    justify: 'center',
+                    align: 'center',
+                  }),
+                  'border-[1.5px]',
+                  'border-solid',
+                  'border-primary',
+                  'rounded-[10px]',
+                  'bg-primary/10',
+                  'tablet:w-[360px]',
+                  'tablet:h-[70px]',
+                )}
+              >
+                <span
+                  className={clsx(
+                    theme.typo.Body1,
+                    theme.textPalette.Secondary,
+                    'text-center',
+                  )}
+                >
+                  미션은 자정에 업데이트됩니다.
+                </span>
+              </div>
+            ) : (
+              todos
+                .filter((todo) => todo.mission)
+                .map((todo) => (
+                  <TodoItem
+                    key={todo.id}
+                    todo={todo}
+                    type={type}
+                    refetch={todoListMutation.mutate}
+                    calRefetch={calRefetch}
+                  />
+                ))
+            )}
           </div>
           <div
             className={clsx(
