@@ -70,9 +70,8 @@ const LandingPage = () => {
         <div
           className={clsx(
             Flex({
-              justify: 'between',
-              width: 'w-[399px]',
-              gap: 'g-[28px]',
+              width: 'w-[258px]',
+              wrap: 'wrap',
             }),
             'tablet:w-[534px]',
             'tablet:gap-[18px]',
@@ -82,72 +81,90 @@ const LandingPage = () => {
           <div
             className={clsx(
               Flex({
-                direction: 'column',
+                width: 'w-[258px]',
+                justify: 'between',
               }),
-              'tablet:w-[120px]',
             )}
           >
-            <img
-              src={iconTodo}
-              alt="투두 관리 아이콘"
-              // className="w-[3.125rem] h-[3.125rem] mb-1 mt-1"
-              className={clsx('w-[3.125rem]', 'h-[3.125rem]')}
-            />
-            <p
+            <div
               className={clsx(
-                theme.textPalette.White,
-                theme.typo.Heading7,
-                '-translate-y-[5px]',
-                'select-none',
+                Flex({
+                  direction: 'column',
+                }),
+                'tablet:w-[120px]',
               )}
             >
-              투두 관리
-            </p>
+              <img
+                src={iconTodo}
+                alt="투두 관리 아이콘"
+                // className="w-[3.125rem] h-[3.125rem] mb-1 mt-1"
+                className={clsx('w-[3.125rem]', 'h-[3.125rem]')}
+              />
+              <p
+                className={clsx(
+                  theme.textPalette.White,
+                  theme.typo.Heading7,
+                  '-translate-y-[5px]',
+                  'select-none',
+                )}
+              >
+                투두 관리
+              </p>
+            </div>
+            <div
+              className={clsx(
+                Flex({
+                  direction: 'column',
+                }),
+                'tablet:w-[120px]',
+              )}
+            >
+              <img
+                src={iconDaily}
+                alt="데일리 미션 아이콘"
+                className={iconStyle}
+              />
+              <p className={descText}>데일리 미션</p>
+            </div>
           </div>
           <div
             className={clsx(
               Flex({
-                direction: 'column',
+                width: 'w-[258px]',
+                justify: 'between',
               }),
-              'tablet:w-[120px]',
             )}
           >
-            <img
-              src={iconDaily}
-              alt="데일리 미션 아이콘"
-              className={iconStyle}
-            />
-            <p className={descText}>데일리 미션</p>
-          </div>
-          <div
-            className={clsx(
-              Flex({
-                direction: 'column',
-              }),
-              'tablet:w-[120px]',
-            )}
-          >
-            <img
-              src={iconTimer}
-              alt="타이머 기능 아이콘"
-              className={iconStyle}
-            />
-            <p className={descText}>타이머 기능</p>
-          </div>
-          <div
-            className={clsx(
-              Flex({
-                direction: 'column',
-              }),
-              'tablet:w-[120px]',
-            )}
-          >
-            <img
-              src={iconFriend}
-              alt="친구와 함께 아이콘"
-              className={iconStyle}
-            />
-            <p className={descText}>친구와 함께</p>
+            <div
+              className={clsx(
+                Flex({
+                  direction: 'column',
+                }),
+                'tablet:w-[120px]',
+              )}
+            >
+              <img
+                src={iconTimer}
+                alt="타이머 기능 아이콘"
+                className={iconStyle}
+              />
+              <p className={descText}>타이머 기능</p>
+            </div>
+            <div
+              className={clsx(
+                Flex({
+                  direction: 'column',
+                }),
+                'tablet:w-[120px]',
+              )}
+            >
+              <img
+                src={iconFriend}
+                alt="친구와 함께 아이콘"
+                className={iconStyle}
+              />
+              <p className={descText}>친구와 함께</p>
+            </div>
           </div>
         </div>
         <button
