@@ -15,6 +15,7 @@ export interface FriendItemProps {
   friendId: number;
   friendName: string;
   friendEmail: string;
+  refetch: () => void;
 }
 
 export type Type = 'me' | 'friend';
