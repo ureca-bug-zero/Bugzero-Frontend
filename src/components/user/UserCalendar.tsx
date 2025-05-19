@@ -6,6 +6,7 @@ import axios from '@/api/axios';
 import calendarBtn from '@/assets/calendar-Btn.png';
 import { useCalendarStore } from '@/store/calendar';
 import { getKSTDate } from '@/utils/date'; //한국시간대로 변환하는 util
+import calendarButtonIcon from '@/assets/gradation.png';
 
 interface Props {
   selectedDate: Date;
@@ -233,7 +234,7 @@ const UserCalendar = ({ selectedDate, setSelectedDate, friendId }: Props) => {
   return (
     <div className="relative flex flex-col items-center">
       <div className="absolute right-[3px] top-[-5px] w-[120px]">
-        <img alt="Calendar Button" src="/src/assets/gradation.png" />
+        <img alt="Calendar Button" src={calendarButtonIcon} />
       </div>
 
       <StyledCalendar

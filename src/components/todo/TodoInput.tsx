@@ -81,7 +81,7 @@ const TodoInput = ({ selectedDate, readOnly = false }: TodoInputProps) => {
         ${
           readOnly
             ? 'cursor-not-allowed'
-            : 'hover:opacity-80 hover:scale-110 transition-transform duration-200'
+            : 'hover:opacity-80 transition-transform duration-200'
         }`}
       >
         Add

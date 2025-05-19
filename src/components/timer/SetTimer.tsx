@@ -3,6 +3,8 @@ import { toast } from 'react-toastify';
 import CustomToast from '@/components/common/CustomTimerToast'; // 경로는 실제 위치에 맞게 수정
 import Lottie from 'lottie-react';
 import completeAnimation from '@/assets/complete.json';
+import play from '@/assets/play.png';
+import pause from '@/assets/pause.png';
 
 const SetTimer = () => {
   const [duration, setDuration] = useState(0);
@@ -193,7 +195,7 @@ const SetTimer = () => {
             className="hover:opacity-80 hover:scale-110 transition-transform duration-150"
           >
             <img
-              src={isRunning ? 'src/assets/pause.png' : 'src/assets/play.png'}
+              src={isRunning ? pause : play}
               alt="Play/Pause"
               className={isRunning ? 'w-[16px] h-[16px]' : 'w-[14px] h-[14px]'}
             />
