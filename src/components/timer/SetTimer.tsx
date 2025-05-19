@@ -16,7 +16,7 @@ const SetTimer = () => {
       if (isRunning && timeLeft <= 0) {
         toast.success(
           () => (
-            <CustomToast type="success" message={`⏰ 시간이 모두 지났어요!`} />
+            <CustomToast type="success" message={`시간이 모두 지났어요!`} />
           ),
           { autoClose: 2000 },
         );
