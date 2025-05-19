@@ -5,6 +5,7 @@ import Lottie from 'lottie-react';
 import completeAnimation from '@/assets/complete.json';
 import play from '@/assets/play.png';
 import pause from '@/assets/pause.png';
+import repeat from '@/assets/arrow-repeat.png';
 
 const SetTimer = () => {
   const [duration, setDuration] = useState(0);
@@ -204,11 +205,7 @@ const SetTimer = () => {
             onClick={handleReset}
             className="hover:opacity-80 hover:scale-110 transition-transform duration-150 -translate-y-[1px]"
           >
-            <img
-              src="src/assets/arrow-repeat.png"
-              alt="Reset"
-              className="w-[16px] h-[16px]"
-            />
+            <img src={repeat} alt="Reset" className="w-[16px] h-[16px]" />
           </button>
         </div>
       </div>
