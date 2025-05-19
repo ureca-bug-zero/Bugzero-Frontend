@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useFriendStore, FriendListItem } from '@/store/friend';
 import { fetchFriendList } from '@/features/friend/FriendService';
+import { useNavigate } from 'react-router-dom';
 
 const FriendList: React.FC = () => {
   const { openModal, friendRequests } = useFriendStore();
   const [friends, setFriends] = useState<FriendListItem[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const load = async () => {
@@ -48,6 +50,9 @@ const FriendList: React.FC = () => {
             friends.map((friend) => (
               <li
                 key={friend.friendId}
+                onClick={() =>
+                  navigate(`/friend/${friend.friendId}`, { state: friend })
+                }
                 className="flex flex-col px-4 py-3 gap-y-1 
           cursor-pointer hover:bg-secondary-200 
           transition-colors duration-200 rounded-lg"
