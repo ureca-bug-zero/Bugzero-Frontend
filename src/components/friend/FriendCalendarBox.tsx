@@ -24,6 +24,7 @@ export default function FriendCalendarBox({
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
+  const friendSelectedDate = useDateStore((state) => state.friendSelectedDate);
   const setFriendSelectedDate = useDateStore(
     (state) => state.setFriendSelectedDate,
   );
@@ -117,6 +118,7 @@ export default function FriendCalendarBox({
           prevLabel={<img src={leftIcon} alt="left" />}
           next2Label={null}
           prev2Label={null}
+          value={new Date(friendSelectedDate)}
           onActiveStartDateChange={({ activeStartDate }) => {
             //Month바뀔때마다 진행
             if (activeStartDate) {

@@ -19,6 +19,7 @@ const CalendarBox = forwardRef(({ handleOpen }: ModalTemplateProps, ref) => {
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
+  const selectedDate = useDateStore((state) => state.selectedDate);
   const setSelectedDate = useDateStore((state) => state.setSelectedDate);
 
   /* 날짜마다 다른 opacity*/
@@ -111,6 +112,7 @@ const CalendarBox = forwardRef(({ handleOpen }: ModalTemplateProps, ref) => {
           prevLabel={<img src={leftIcon} alt="left" />}
           next2Label={null}
           prev2Label={null}
+          value={new Date(selectedDate)}
           onActiveStartDateChange={({ activeStartDate }) => {
             //Month바뀔때마다 진행
             if (activeStartDate) {
