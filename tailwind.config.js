@@ -42,11 +42,12 @@ export default {
       error: 'rgb(255, 204, 204)',
       success: 'rgb(26, 226, 115)',
       'gray-700': 'rgb(96, 96, 96)',
+      'gray-500': 'rgb(170, 170, 170)',
       'gray-200': 'rgb(231, 235, 238)',
       'gray-100': 'rgb(233, 233, 233)',
       white: 'rgb(255, 255, 255)',
       transparent: 'transparent',
     },
   },
-  plugins: [require("tailwind-scrollbar-hide")],
+  plugins: [require('tailwind-scrollbar-hide')],
 };
