@@ -31,7 +31,7 @@ export const friendList = async (token: string) => {
 };
 
 export const deleteFriend = async (info: any) => {
-  const response = await client.put(`/friend/delete/${info.friendId}`, {
+  const response = await client.put(`/friend/delete/${info.friendId}`, null, {
     headers: {
       Authorization: `Bearer ${info.token}`,
     },
