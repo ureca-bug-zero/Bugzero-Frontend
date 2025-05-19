@@ -9,35 +9,20 @@ import { useMutation } from '@tanstack/react-query';
 import { calendar } from '../../apis/home';
 import { useEffect, useState } from 'react';
 import { useUserStore } from '../../store/userStore';
-import { CalendarData, Props } from '../../types/home';
+import { CalendarData } from '../../types/home';
 import { useDateStore } from '../../store/dateStore';
-import { friendCalendar } from '../../apis/friend';
 
-interface CalendarBoxProps extends Props {
+interface ModalTemplateProps {
   handleOpen: () => void;
 }
 
-export default function CalendarBox({
-  handleOpen,
-  type,
-  friendId,
-}: CalendarBoxProps) {
+export default function CalendarBox({ handleOpen }: ModalTemplateProps) {
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
-  const [friendCalendarList, setFriendCaldendarList] = useState<CalendarData>(
-    {},
-  );
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
-  const [friendActiveStartDate, setFriendActiveStartDate] = useState<Date>(
-    new Date(),
-  );
   const setSelectedDate = useDateStore((state) => state.setSelectedDate);
-  const setFriendSelectedDate = useDateStore(
-    (state) => state.setFriendSelectedDate,
-  );
 
   /* 날짜마다 다른 opacity*/
-  /*me*/
   const calendarMutation = useMutation({
     mutationFn: calendar,
     onSuccess: (data) => {
@@ -55,47 +40,15 @@ export default function CalendarBox({
       console.log(error);
     },
   });
-  /*friend*/
-  const friendCalendarMutation = useMutation({
-    mutationFn: friendCalendar,
-    onSuccess: (data) => {
-      const yearMonth = format(friendActiveStartDate, 'yyyy-MM');
-      const newData: CalendarData = {};
-
-      Object.entries(data.data.score).forEach(([day, percent]) => {
-        const paddedDay = day.padStart(2, '0');
-        const fullDate = `${yearMonth}-${paddedDay}`;
-        newData[fullDate] = percent as number;
-      });
-      setFriendCaldendarList((prev) => ({ ...prev, ...newData }));
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
 
   useEffect(() => {
     const yearMonth = format(activeStartDate, 'yyyy-MM');
     calendarMutation.mutate({ yearMonth: yearMonth, token: token });
   }, [activeStartDate]);
 
-  useEffect(() => {
-    const yearMonth = format(friendActiveStartDate, 'yyyy-MM');
-    friendCalendarMutation.mutate({
-      friendId: friendId,
-      yearMonth: yearMonth,
-      token: token,
-    });
-  }, [friendActiveStartDate]);
-
   const tileClassName = ({ date }: { date: Date }) => {
     const key = format(date, 'yyyy-MM-dd');
-    let percent = 0;
-    if (type === 'me') {
-      percent = Math.round(calendarList[key] / 10);
-    } else if (type === 'friend') {
-      percent = Math.round(friendCalendarList[key] / 10);
-    }
+    const percent = Math.round(calendarList[key] / 10);
 
     if (typeof percent === 'number') {
       return `bg-opacity-${percent}`;
@@ -126,11 +79,7 @@ export default function CalendarBox({
 
   /*날짜 선택 시, 해당 날짜의 todoList 나올 수 있도록 전역상태 관리하는 날짜*/
   const handleDate = (date: Date) => {
-    if (type === 'me') {
-      setSelectedDate(format(date, 'yyyy-MM-dd'));
-    } else if (type === 'friend') {
-      setFriendSelectedDate(format(date, 'yyyy-MM-dd'));
-    }
+    setSelectedDate(format(date, 'yyyy-MM-dd'));
     handleOpen();
   };
 
@@ -159,11 +108,7 @@ export default function CalendarBox({
           onActiveStartDateChange={({ activeStartDate }) => {
             //Month바뀔때마다 진행
             if (activeStartDate) {
-              if (type === 'me') {
-                setActiveStartDate(activeStartDate);
-              } else if (type === 'friend') {
-                setFriendActiveStartDate(activeStartDate);
-              }
+              setActiveStartDate(activeStartDate);
             }
           }}
           tileClassName={tileClassName}

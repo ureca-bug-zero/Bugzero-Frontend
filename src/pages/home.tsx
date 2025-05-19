@@ -79,7 +79,7 @@ export default function HomePage() {
           )}
         >
           <GreetingBox name={info?.name} rank={info?.rank} />
-          <CalendarBox handleOpen={handleOpen} type="me" friendId="undefined" />
+          <CalendarBox handleOpen={handleOpen} />
           <div className="mt-[36.43px] tablet:mt-[52.45px] desktop:hidden">
             <FriendBox openModal={openModal} />
           </div>
@@ -98,11 +98,7 @@ export default function HomePage() {
             'hidden tablet:block')
           }
         >
-          <TodoTemplate
-            handleClose={handleClose}
-            type="me"
-            friendId="undefined"
-          />
+          <TodoTemplate handleClose={handleClose} type="me" />
           <div className="tablet:mt-[63px] desktop:hidden">
             <TimerBox />
           </div>
@@ -130,11 +126,7 @@ export default function HomePage() {
               'tablet:hidden',
             )}
           >
-            <TodoTemplate
-              handleClose={handleClose}
-              type="me"
-              friendId="undefined"
-            />
+            <TodoTemplate handleClose={handleClose} type="me" />
           </div>
         )}
       </div>

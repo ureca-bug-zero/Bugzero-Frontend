@@ -60,36 +60,36 @@
   @apply w-[110px] h-[23px] text-center font-pretendard-bold text-[19px] text-secondary pointer-events-none;
 }
 
-.bg-opacity-0 {
-  background-color: rgba(26, 226, 115, 0);
+.bg-opacity-0 abbr {
+  background-color: rgba(26, 226, 115, 0) !important;
 }
-.bg-opacity-1 {
-  opacity: rgba(26, 226, 115, 0.1);
+.bg-opacity-1 abbr {
+  background-color: rgba(26, 226, 115, 0.1) !important;
 }
-.bg-opacity-2 {
-  opacity: rgba(26, 226, 115, 0.2);
+.bg-opacity-2 abbr {
+  background-color: rgba(26, 226, 115, 0.2) !important;
 }
-.bg-opacity-3 {
-  opacity: rgba(26, 226, 115, 0.3);
+.bg-opacity-3 abbr {
+  background-color: rgba(26, 226, 115, 0.3) !important;
 }
-.bg-opacity-4 {
-  opacity: rgba(26, 226, 115, 0.4);
+.bg-opacity-4 abbr {
+  background-color: rgba(26, 226, 115, 0.4) !important;
 }
-.bg-opacity-5 {
-  opacity: rgba(26, 226, 115, 0.5);
+.bg-opacity-5 abbr {
+  background-color: rgba(26, 226, 115, 0.5) !important;
 }
-.bg-opacity-6 {
-  opacity: rgba(26, 226, 115, 0.6);
+.bg-opacity-6 abbr {
+  background-color: rgba(26, 226, 115, 0.6) !important;
 }
-.bg-opacity-7 {
-  opacity: rgba(26, 226, 115, 0.7);
+.bg-opacity-7 abbr {
+  background-color: rgba(26, 226, 115, 0.7) !important;
 }
-.bg-opacity-8 {
-  opacity: rgba(26, 226, 115, 0.8);
+.bg-opacity-8 abbr {
+  background-color: rgba(26, 226, 115, 0.8) !important;
 }
-.bg-opacity-9 {
-  opacity: rgba(26, 226, 115, 0.9);
+.bg-opacity-9 abbr {
+  background-color: rgba(26, 226, 115, 0.9) !important;
 }
-.bg-opacity-10 {
-  opacity: rgba(26, 226, 115, 1);
+.bg-opacity-10 abbr {
+  background-color: rgba(26, 226, 115, 1) !important;
 }
