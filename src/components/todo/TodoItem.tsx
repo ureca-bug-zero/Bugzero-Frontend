@@ -16,9 +16,15 @@ type TodoItemProps = {
   todo: Todo;
   type: Type;
   refetch?: (vars: { date: string; token: string }) => void;
+  calRefetch?: () => void;
 };
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, type, refetch }) => {
+const TodoItem: React.FC<TodoItemProps> = ({
+  todo,
+  type,
+  refetch,
+  calRefetch,
+}) => {
   const token = useUserStore((state) => state.token);
   const selectedDate = useDateStore((state) => state.selectedDate);
 
@@ -34,8 +40,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type, refetch }) => {
   const toggleCheckMutation = useMutation({
     mutationFn: () => toggleCheck(todo.id, token),
     onSuccess: () => {
-      if (refetch) {
+      if (refetch && calRefetch) {
         refetch({ date: selectedDate, token });
+        calRefetch();
       }
     },
     onError: (error) => {
@@ -46,8 +53,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, type, refetch }) => {
   const deleteTodoMutation = useMutation({
     mutationFn: () => deleteTodo(todo.id, token),
     onSuccess: () => {
-      if (refetch) {
+      if (refetch && calRefetch) {
         refetch({ date: selectedDate, token });
+        calRefetch();
       }
     },
     onError: (error) => {

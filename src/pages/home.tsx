@@ -5,7 +5,7 @@ import GreetingBox from '../components/home/GreetingBox';
 import TimerBox from '../components/home/TimerBox';
 import TodoTemplate from '../components/todo/TodoTemplate';
 import { Flex, Position } from '../components/common/Wrapper';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useUserStore } from '../store/userStore';
 import { useQuery } from '@tanstack/react-query';
 import { UserInfo } from '../types/home';
@@ -15,6 +15,7 @@ import ModalTemplate from '../components/modals/ModalTemplate';
 import useModal from '../hooks/useModal';
 
 export default function HomePage() {
+  const calendarRef = useRef<{ refetchCalendar: () => void }>(null);
   const navigate = useNavigate();
   const token = useUserStore((state) => state.token);
   const hydrated = useUserStore.persist.hasHydrated();
@@ -79,7 +80,7 @@ export default function HomePage() {
           )}
         >
           <GreetingBox name={info?.name} rank={info?.rank} />
-          <CalendarBox handleOpen={handleOpen} />
+          <CalendarBox ref={calendarRef} handleOpen={handleOpen} />
           <div className="mt-[36.43px] tablet:mt-[52.45px] desktop:hidden">
             <FriendBox openModal={openModal} />
           </div>
@@ -98,7 +99,11 @@ export default function HomePage() {
             'hidden tablet:block')
           }
         >
-          <TodoTemplate handleClose={handleClose} type="me" />
+          <TodoTemplate
+            handleClose={handleClose}
+            type="me"
+            calRefetch={() => calendarRef.current?.refetchCalendar()}
+          />
           <div className="tablet:mt-[63px] desktop:hidden">
             <TimerBox />
           </div>
@@ -126,7 +131,11 @@ export default function HomePage() {
               'tablet:hidden',
             )}
           >
-            <TodoTemplate handleClose={handleClose} type="me" />
+            <TodoTemplate
+              handleClose={handleClose}
+              type="me"
+              calRefetch={() => calendarRef.current?.refetchCalendar()}
+            />
           </div>
         )}
       </div>

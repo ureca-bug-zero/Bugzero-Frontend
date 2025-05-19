@@ -15,9 +15,10 @@ import { Type } from '../../types/home';
 interface TodoProps {
   handleClose: () => void;
   type: Type;
+  calRefetch: () => void;
 }
 
-const TodoTemplate = ({ handleClose, type }: TodoProps) => {
+const TodoTemplate = ({ handleClose, type, calRefetch }: TodoProps) => {
   const token = useUserStore((state) => state.token);
   const selectedDate = useDateStore((state) => state.selectedDate);
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -79,7 +80,11 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
           }),
         )}
       >
-        <TodoInput type={type} refetch={todoListMutation.mutate} />
+        <TodoInput
+          type={type}
+          refetch={todoListMutation.mutate}
+          calRefetch={calRefetch}
+        />
         <div
           className={clsx(
             Flex({
@@ -102,6 +107,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
                   todo={todo}
                   type={type}
                   refetch={todoListMutation.mutate}
+                  calRefetch={calRefetch}
                 />
               ))}
           </div>
@@ -121,6 +127,7 @@ const TodoTemplate = ({ handleClose, type }: TodoProps) => {
                   todo={todo}
                   type={type}
                   refetch={todoListMutation.mutate}
+                  calRefetch={calRefetch}
                 />
               ))}
           </div>
