@@ -23,7 +23,9 @@ const FriendAddModal = () => {
     },
     onError: (error) => {
       console.log(error);
-      toast((props) => <ConfirmFailToast {...props} />);
+      toast((props) => <ConfirmFailToast {...props} />, {
+        className: 'p-0 m-0',
+      });
     },
   });
 
