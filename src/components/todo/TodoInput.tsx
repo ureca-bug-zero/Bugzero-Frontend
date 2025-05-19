@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Flex } from '../common/Wrapper';
-
 import contentIcon from '../../assets/icons/todo/todo-content.svg';
 import linkIcon from '../../assets/icons/todo/todo-link.svg';
 import { theme } from '../../styles/theme';
@@ -15,10 +14,11 @@ import { addTodo as addTodoAPI } from '../../apis/todo';
 
 type TodoInputProps = {
   type: Type;
-  refetch: (vars: { date: string; token: string }) => void;
+  refetch?: (vars: { date: string; token: string }) => void;
+  calRefetch?: () => void;
 };
 
-const TodoInput: React.FC<TodoInputProps> = ({ type, refetch }) => {
+const TodoInput: React.FC<TodoInputProps> = ({ type, refetch, calRefetch }) => {
   const token = useUserStore((state) => state.token);
   const selectedDate = useDateStore((state) => state.selectedDate);
 
@@ -34,9 +34,12 @@ const TodoInput: React.FC<TodoInputProps> = ({ type, refetch }) => {
         token,
       }),
     onSuccess: () => {
-      refetch({ date: selectedDate, token });
-      setContent('');
-      setLink('');
+      if (refetch && calRefetch) {
+        refetch({ date: selectedDate, token });
+        setContent('');
+        setLink('');
+        calRefetch();
+      }
     },
     onError: (error) => {
       console.log(error);

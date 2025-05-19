@@ -7,7 +7,7 @@ import { theme } from '../../styles/theme';
 import { Flex, Position } from '../common/Wrapper';
 import { useMutation } from '@tanstack/react-query';
 import { calendar } from '../../apis/home';
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { useUserStore } from '../../store/userStore';
 import { CalendarData } from '../../types/home';
 import { useDateStore } from '../../store/dateStore';
@@ -15,8 +15,7 @@ import { useDateStore } from '../../store/dateStore';
 interface ModalTemplateProps {
   handleOpen: () => void;
 }
-
-export default function CalendarBox({ handleOpen }: ModalTemplateProps) {
+const CalendarBox = forwardRef(({ handleOpen }: ModalTemplateProps, ref) => {
   const token = useUserStore((state) => state.token);
   const [calendarList, setCaldendarList] = useState<CalendarData>({});
   const [activeStartDate, setActiveStartDate] = useState<Date>(new Date());
@@ -45,6 +44,13 @@ export default function CalendarBox({ handleOpen }: ModalTemplateProps) {
     const yearMonth = format(activeStartDate, 'yyyy-MM');
     calendarMutation.mutate({ yearMonth: yearMonth, token: token });
   }, [activeStartDate]);
+
+  useImperativeHandle(ref, () => ({
+    refetchCalendar: () => {
+      const yearMonth = format(activeStartDate, 'yyyy-MM');
+      calendarMutation.mutate({ yearMonth: yearMonth, token: token });
+    },
+  }));
 
   const tileClassName = ({ date }: { date: Date }) => {
     const key = format(date, 'yyyy-MM-dd');
@@ -121,4 +127,6 @@ export default function CalendarBox({ handleOpen }: ModalTemplateProps) {
       </div>
     </>
   );
-}
+});
+
+export default CalendarBox;

@@ -3,9 +3,9 @@ import { create } from 'zustand';
 
 interface dateStoreProps {
   selectedDate: string;
-  setSelectedDate: (token: string) => void;
+  setSelectedDate: (date: string) => void;
   friendSelectedDate: string;
-  setFriendSelectedDate: (token: string) => void;
+  setFriendSelectedDate: (date: string) => void;
 }
 
 export const useDateStore = create<dateStoreProps>((set) => ({

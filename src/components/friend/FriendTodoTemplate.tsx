@@ -106,7 +106,12 @@ export const FriendTodoTemplate = ({
             {todos
               .filter((todo) => todo.mission)
               .map((todo) => (
-                <TodoItem key={todo.id} todo={todo} type={type} />
+                <TodoItem
+                  key={todo.id}
+                  todo={todo}
+                  type={type}
+                  refetch={undefined}
+                />
               ))}
           </div>
           <div
@@ -120,7 +125,12 @@ export const FriendTodoTemplate = ({
             {todos
               .filter((todo) => !todo.mission)
               .map((todo) => (
-                <TodoItem key={todo.id} todo={todo} type={type} />
+                <TodoItem
+                  key={todo.id}
+                  todo={todo}
+                  type={type}
+                  refetch={undefined}
+                />
               ))}
           </div>
         </div>

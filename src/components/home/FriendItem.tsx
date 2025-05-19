@@ -11,12 +11,14 @@ export default function FriendItem({
   friendName,
   friendEmail,
   friendId,
+  refetch,
 }: FriendItemProps) {
   const token = useUserStore((state) => state.token);
 
   const deleteFriendMutation = useMutation({
     mutationFn: deleteFriend,
     onSuccess: (data) => {
+      refetch();
       console.log(data);
     },
     onError: (error) => {

@@ -9,12 +9,17 @@ export interface Home extends UserInfo {
   weekScore: number;
 }
 
+export interface FriendInfo extends UserInfo {
+  id: number;
+}
+
 export type CalendarData = Record<string, number>;
 
 export interface FriendItemProps {
   friendId: number;
   friendName: string;
   friendEmail: string;
+  refetch: () => void;
 }
 
 export type Type = 'me' | 'friend';

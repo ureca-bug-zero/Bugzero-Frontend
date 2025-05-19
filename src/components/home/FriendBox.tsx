@@ -18,7 +18,7 @@ export default function FriendBox({ openModal }: ModalTemplateProps) {
   const token = useUserStore((state) => state.token);
   const [list, setList] = useState<FriendItemProps[]>([]);
 
-  const { isSuccess, data, isError, error } = useQuery({
+  const { isSuccess, data, isError, error, refetch } = useQuery({
     queryKey: ['friend_list', token],
     queryFn: () => friendList(token),
   });
@@ -71,6 +71,7 @@ export default function FriendBox({ openModal }: ModalTemplateProps) {
                 friendId={item?.friendId}
                 friendName={item?.friendName}
                 friendEmail={item?.friendEmail}
+                refetch={refetch}
               />
             </Link>
           ))
