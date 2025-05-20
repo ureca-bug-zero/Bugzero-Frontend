@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
                   setSelectedDate={setSelectedDate}
                 />
               </div>
-              <div className="w-[1px] h-[500px] bg-gray-300 self-start" />
+              <div className="w-[1px] h-[585px] bg-gray-300 self-start" />
               <div style={{ width: '360px' }}>
                 <TodoPanel selectedDate={selectedDate} />
               </div>
