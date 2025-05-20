@@ -21,7 +21,7 @@ export default function HomePage() {
   const hydrated = useUserStore.persist.hasHydrated();
   const [info, setInfo] = useState<UserInfo>();
   const [isClicked, setIsClicked] = useState<boolean>(false);
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, openModal, closeModal, friendBoxKey } = useModal();
 
   //Greeting
   const { data, isSuccess, error, isError } = useQuery({
@@ -82,7 +82,7 @@ export default function HomePage() {
           <GreetingBox name={info?.name} rank={info?.rank} />
           <CalendarBox ref={calendarRef} handleOpen={handleOpen} />
           <div className="mt-[36.43px] tablet:mt-[52.45px] desktop:hidden">
-            <FriendBox openModal={openModal} />
+            <FriendBox key={friendBoxKey} openModal={openModal} />
           </div>
         </div>
         <hr className={clsx(line, 'mx-[80px]')}></hr>
@@ -122,7 +122,7 @@ export default function HomePage() {
           )}
         >
           <TimerBox />
-          <FriendBox openModal={openModal} />
+          <FriendBox key={friendBoxKey} openModal={openModal} />
         </div>
         {isClicked && (
           <div
