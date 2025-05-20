@@ -2,11 +2,12 @@ import { Todo } from '@/types/todo';
 import { useTodoStore } from '@/store/todo';
 import { useState, useRef, useEffect } from 'react';
 import DropdownPortal from '@/components/common/DropdownPortal';
-import { useCalendarStore } from '@/store/calendar'; // 캘린더 새로고침 트리거 함수
+import { useCalendarStore } from '@/store/calendar';
+import menuVertical from '@/assets/todo-Menu Vertical.png';
 
 interface Props {
   todo: Todo;
-  readOnly?: boolean; // ✅ 추가
+  readOnly?: boolean;
 }
 
 const TodoItem = ({ todo, readOnly = false }: Props) => {
@@ -14,13 +15,17 @@ const TodoItem = ({ todo, readOnly = false }: Props) => {
   const [editContent, setEditContent] = useState(todo.content);
   const [editLink, setEditLink] = useState(todo.link ?? '');
   const [menuOpen, setMenuOpen] = useState(false);
+
   const toggleCheck = useTodoStore((s) => s.toggleCheck);
   const updateTodo = useTodoStore((s) => s.updateTodo);
   const removeTodo = useTodoStore((s) => s.removeTodo);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+
   const containerRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
   const [menuStyle, setMenuStyle] = useState({ top: 0, left: 0 });
-  const triggerRefresh = useCalendarStore((s) => s.triggerRefresh); // 달력 새로고침 트리거
+  const triggerRefresh = useCalendarStore((s) => s.triggerRefresh);
 
   const handleEditSubmit = async () => {
     const trimmedContent = editContent.trim();
@@ -38,6 +43,7 @@ const TodoItem = ({ todo, readOnly = false }: Props) => {
     }
   };
 
+  // 수정 모드에서 외부 클릭 시 자동 저장
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
@@ -52,6 +58,7 @@ const TodoItem = ({ todo, readOnly = false }: Props) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isEditing, editContent, editLink]);
 
+  // 메뉴 열릴 때 위치 계산
   useEffect(() => {
     if (menuOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
@@ -60,6 +67,23 @@ const TodoItem = ({ todo, readOnly = false }: Props) => {
         left: rect.left + window.scrollX,
       });
     }
+  }, [menuOpen]);
+
+  // 메뉴 외부 클릭 시 메뉴 닫기
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (
+        menuOpen &&
+        !containerRef.current?.contains(target) &&
+        !menuRef.current?.contains(target) &&
+        !buttonRef.current?.contains(target)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, [menuOpen]);
 
   return (
@@ -76,10 +100,10 @@ const TodoItem = ({ todo, readOnly = false }: Props) => {
             onChange={async () => {
               if (readOnly) return;
               await toggleCheck(todo.id);
-              triggerRefresh(); // 투두 체크 시 캘린더 새로고침
+              triggerRefresh();
             }}
             className="w-5 h-5 accent-gray-700 cursor-pointer"
-            disabled={readOnly} // 체크박스 비활성화
+            disabled={readOnly}
           />
           {isEditing ? (
             <input
@@ -91,7 +115,7 @@ const TodoItem = ({ todo, readOnly = false }: Props) => {
                 if (e.key === 'Escape') setIsEditing(false);
               }}
               autoFocus
-              disabled={readOnly} // 읽기 전용이면 입력 막기
+              disabled={readOnly}
             />
           ) : todo.link ? (
             <a
@@ -146,16 +170,13 @@ const TodoItem = ({ todo, readOnly = false }: Props) => {
             onClick={() => setMenuOpen((prev) => !prev)}
             className="p-1 hover:opacity-80"
           >
-            <img
-              src="src/assets/todo-Menu Vertical.png"
-              alt="메뉴"
-              className="w-[25px] h-[25px]"
-            />
+            <img src={menuVertical} alt="메뉴" className="w-[25px] h-[25px]" />
           </button>
 
           {menuOpen && (
             <DropdownPortal>
               <div
+                ref={menuRef} // 메뉴 ref 적용
                 className="absolute w-[100px] bg-white border rounded-[10px] shadow z-[9999] text-base overflow-hidden"
                 style={{
                   top: `${menuStyle.top}px`,
@@ -174,7 +195,7 @@ const TodoItem = ({ todo, readOnly = false }: Props) => {
                 <button
                   onClick={async () => {
                     await removeTodo(todo.id);
-                    triggerRefresh(); // 삭제 후 캘린더 갱신
+                    triggerRefresh();
                     setMenuOpen(false);
                   }}
                   className="w-full px-3 py-2 text-center text-red-500 hover:bg-gray-100"
