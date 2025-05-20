@@ -23,6 +23,12 @@ export default function HomePage() {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const { isOpen, openModal, closeModal, friendBoxKey } = useModal();
 
+  useEffect(() => {
+    if (token === '') {
+      navigate('/landing');
+    }
+  }, [hydrated]);
+
   //Greeting
   const { data, isSuccess, error, isError } = useQuery({
     queryKey: ['user_info', token],
