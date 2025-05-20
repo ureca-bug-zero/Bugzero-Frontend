@@ -10,8 +10,11 @@ const CustomSuccessToast = ({ closeToast }: ToastContentProps) => {
       className={clsx(
         Flex({
           justify: 'between',
-          width: 'w-[190px] tablet:w-[333px]',
-          height: 'h-[39px] tablet:h-[64px]',
+          // width: 'w-[190px] tablet:w-[333px]',
+          // height: 'h-[39px] tablet:h-[64px]',
+
+          width: 'w-full',
+          height: 'h-full',
         }),
         'pl-[7px] tablet:pl-[12px]',
         'bg-success/10',
