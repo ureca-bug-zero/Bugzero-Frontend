@@ -11,10 +11,9 @@ import CustomErrorToast from '../common/CustomErrorToast';
 import addModalIcon from '@/assets/add-modal-icon.svg';
 
 const FriendAddModal = () => {
-  const { modalType, closeModal, openModal, friendList, setFriendList } =
-    useFriendStore();
+  const { modalType, closeModal, openModal, setFriendList } = useFriendStore();
   const [email, setEmail] = useState('');
-  const [isDuplicate, setIsDuplicate] = useState(false);
+  // const [isDuplicate, setIsDuplicate] = useState(false);
 
   // 모달이 열릴 때 친구 리스트 로드
   useEffect(() => {
@@ -36,30 +35,42 @@ const FriendAddModal = () => {
   }, [modalType, setFriendList]);
 
   // 이메일 입력 시 중복 검사
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setEmail(value);
+  // const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   setEmail(value);
 
-    const duplicate = friendList.some((friend) => friend.friendEmail === value);
-    setIsDuplicate(duplicate);
-  };
+  //   const duplicate = friendList.some((friend) => friend.friendEmail === value);
+  //   setIsDuplicate(duplicate);
+  // };
 
   const handleSubmit = async () => {
-    // if (!email.trim()) {
-
-    //   return;
-    // }
-
-    if (isDuplicate) return;
+    if (!email.trim()) {
+      toast(<CustomErrorToast message="이메일을 입력해주세요." />);
+      return;
+    }
 
     try {
       await sendFriendRequest({ email });
-      toast((props) => <CustomSuccessToast {...props} />);
+      toast(<CustomSuccessToast />);
       setEmail('');
       closeModal();
-    } catch (err) {
-      console.error('친구 요청 실패:', err);
-      toast((props) => <CustomErrorToast {...props} />);
+    } catch (error) {
+      console.error('친구 요청 실패:', error);
+
+      const message = error?.response?.data?.message;
+
+      let toastMessage = '친구 요청에 실패했습니다.';
+      if (message === '이미 존재하는 요청입니다.') {
+        toastMessage = '이미 친구 요청을 보냈습니다.';
+      } else if (message === '해당 이메일을 가진 유저가 존재하지 않습니다.') {
+        toastMessage = '존재하지 않는 사용자입니다.';
+      } else if (message === '자기 자신에게 친구 요청을 보낼 수 없습니다.') {
+        toastMessage = '자기 자신에게는 요청할 수 없어요!';
+      }
+
+      toast(<CustomErrorToast message={toastMessage} />, {
+        className: 'p-0 m-0',
+      });
     }
   };
 
@@ -119,24 +130,26 @@ const FriendAddModal = () => {
           type="email"
           placeholder="이메일을 입력해주세요"
           value={email}
-          onChange={handleEmailChange}
-          className={`w-full h-[73px] rounded-lg px-4 py-3 mb-5 border ${
-            isDuplicate ? 'border-red-500' : 'border-gray-300'
-          }`}
+          // onChange={handleEmailChange}
+          className="w-full h-[73px] rounded-lg px-4 py-3 mb-5 border border-gray-300"
+          // className={`w-full h-[73px] rounded-lg px-4 py-3 mb-5 border ${
+          //   isDuplicate ? 'border-red-500' : 'border-gray-300'
+          // }`}
         />
-        {isDuplicate && (
+        {/* {isDuplicate && (
           <p className="text-red-500 text-sm mb-2">이미 등록된 친구입니다.</p>
-        )}
+        )} */}
 
         {/* 제출 버튼 */}
         <button
           onClick={handleSubmit}
-          disabled={isDuplicate}
-          className={`w-full py-3 rounded-lg font-semibold mt-2 transition duration-200 ${
-            isDuplicate
-              ? 'bg-gray-300 text-white cursor-not-allowed'
-              : 'bg-primary-500 text-white hover:bg-green-600'
-          }`}
+          // disabled={isDuplicate}
+          className="w-full py-3 rounded-lg font-semibold mt-2 transition duration-200 bg-primary-500 text-white hover:bg-green-600"
+          // className={`w-full py-3 rounded-lg font-semibold mt-2 transition duration-200 ${
+          //   isDuplicate
+          //     ? 'bg-gray-300 text-white cursor-not-allowed'
+          //     : 'bg-primary-500 text-white hover:bg-green-600'
+          // }`}
         >
           Confirm
         </button>
