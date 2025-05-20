@@ -21,7 +21,7 @@ const ConfirmFailToast = ({ closeToast, message }: ConfirmFailToastProps) => {
         }),
         'pl-[7px] tablet:pl-[12px]',
         theme.bgPalette.Error,
-        'rounded-md',
+        // 'rounded-md',
       )}
     >
       <div

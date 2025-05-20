@@ -18,7 +18,7 @@ const CustomSuccessToast = ({ closeToast }: ToastContentProps) => {
         }),
         'pl-[7px] tablet:pl-[12px]',
         'bg-success/10',
-        'rounded-md',
+        // 'rounded-md',
       )}
     >
       <div
