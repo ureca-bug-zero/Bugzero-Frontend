@@ -34,14 +34,13 @@ const FriendAddModal = () => {
     }
   }, [modalType, setFriendList]);
 
-  // 이메일 입력 시 중복 검사
-  // const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.value;
-  //   setEmail(value);
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
 
-  //   const duplicate = friendList.some((friend) => friend.friendEmail === value);
-  //   setIsDuplicate(duplicate);
-  // };
+    // const duplicate = friendList.some((friend) => friend.friendEmail === value);
+    // setIsDuplicate(duplicate);
+  };
 
   const handleSubmit = async () => {
     if (!email.trim()) {
@@ -130,7 +129,7 @@ const FriendAddModal = () => {
           type="email"
           placeholder="이메일을 입력해주세요"
           value={email}
-          // onChange={handleEmailChange}
+          onChange={handleEmailChange}
           className="w-full h-[73px] rounded-lg px-4 py-3 mb-5 border border-gray-300"
           // className={`w-full h-[73px] rounded-lg px-4 py-3 mb-5 border ${
           //   isDuplicate ? 'border-red-500' : 'border-gray-300'
