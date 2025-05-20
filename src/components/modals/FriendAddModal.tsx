@@ -5,28 +5,36 @@ import { toast } from 'react-toastify';
 import ConfirmSuccessToast from '../common/toast/ConfirmSuccessToast';
 import ConfirmFailToast from '../common/toast/ConfirmFailToast';
 import { useState } from 'react';
+import { addFriend } from '../../apis/modal';
+import { useUserStore } from '../../store/userStore';
+import { useMutation } from '@tanstack/react-query';
 
 const FriendAddModal = () => {
   const [email, setEmail] = useState('');
+  const token = useUserStore((state) => state.token);
 
-  const handleSubmit = async () => {
+  const { mutate: requestFriend } = useMutation({
+    mutationFn: () => addFriend(email, token),
+    onSuccess: () => {
+      toast((props) => <ConfirmSuccessToast {...props} />, {
+        className:
+          'p-0 m-0 w-[190px] tablet:w-[333px] h-[33px] tablet:h-[64px] rounded-md',
+      });
+      setEmail('');
+    },
+    onError: (error) => {
+      console.log(error);
+      toast((props) => <ConfirmFailToast {...props} />);
+    },
+  });
+
+  const handleSubmit = () => {
+    console.log('친구 요청 시도: ', email);
     if (!email.trim()) {
       toast.error('이메일을 입력해 주세요!');
       return;
     }
-
-    try {
-      // API 요청
-      toast((props) => <ConfirmSuccessToast {...props} />, {
-        className:
-          'p-0 m-0 w-[190px] tablet:w-[333px] h-[33px] tablet:h-[64px]',
-      });
-      setEmail('');
-    } catch (err) {
-      console.error('친구 요청 실패:', err);
-
-      toast((props) => <ConfirmFailToast {...props} />);
-    }
+    requestFriend();
   };
   return (
     <div
