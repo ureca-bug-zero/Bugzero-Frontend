@@ -3,6 +3,7 @@ import { useTodoStore } from '@/store/todo';
 import { useState, useRef, useEffect } from 'react';
 import DropdownPortal from '@/components/common/DropdownPortal';
 import { useCalendarStore } from '@/store/calendar'; // 캘린더 새로고침 트리거 함수
+import menuVertical from '@/assets/todo-Menu Vertical.png';
 
 interface Props {
   todo: Todo;
@@ -146,11 +147,7 @@ const TodoItem = ({ todo, readOnly = false }: Props) => {
             onClick={() => setMenuOpen((prev) => !prev)}
             className="p-1 hover:opacity-80"
           >
-            <img
-              src="src/assets/todo-Menu Vertical.png"
-              alt="메뉴"
-              className="w-[25px] h-[25px]"
-            />
+            <img src={menuVertical} alt="메뉴" className="w-[25px] h-[25px]" />
           </button>
 
           {menuOpen && (

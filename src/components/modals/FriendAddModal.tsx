@@ -8,6 +8,7 @@ import { X } from 'lucide-react';
 import { toast } from 'react-toastify';
 import CustomSuccessToast from '../common/CustomSuccessToast';
 import CustomErrorToast from '../common/CustomErrorToast';
+import addModalIcon from '@/assets/add-modal-icon.svg';
 
 const FriendAddModal = () => {
   const { modalType, closeModal, openModal, friendList, setFriendList } =
@@ -84,11 +85,7 @@ const FriendAddModal = () => {
         {/* 헤더 */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2 text-2xl">
-            <img
-              src="/public/icons/add-modal-icon.svg"
-              className="w-10 h-10"
-              alt="icon"
-            />
+            <img src={addModalIcon} className="w-10 h-10" alt="icon" />
             Add Your Friends
           </div>
 

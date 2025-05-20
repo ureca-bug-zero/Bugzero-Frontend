@@ -14,7 +14,7 @@ const FriendTodoPanel = ({ friendId, selectedDate }: Props) => {
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [showTooltip, setShowTooltip] = useState(false);
 
-  // ✅ 친구 Todo 불러오기
+  // 친구 Todo 불러오기
   useEffect(() => {
     const dateString = `${selectedDate.getFullYear()}-${(
       selectedDate.getMonth() + 1
@@ -27,15 +27,15 @@ const FriendTodoPanel = ({ friendId, selectedDate }: Props) => {
       .then((res) => {
         const converted = res.data.data.map((todoFromApi) => ({
           ...todoFromApi,
-          isChecked: todoFromApi.checked,
-          isMission: todoFromApi.mission,
+          isChecked: todoFromApi.isChecked,
+          isMission: todoFromApi.isMission,
         }));
         setTodos(converted);
       })
       .catch(() => setTodos([]));
   }, [friendId, selectedDate]);
 
-  // ✅ 마우스 진입 시 툴팁 표시 + 위치 추적
+  // 마우스 진입 시 툴팁 표시 + 위치 추적
   const handleMouseEnter = () => setShowTooltip(true);
   const handleMouseLeave = () => setShowTooltip(false);
 
@@ -50,7 +50,7 @@ const FriendTodoPanel = ({ friendId, selectedDate }: Props) => {
           Todo-List
         </h2>
 
-        {/* ✅ 입력창 + 툴팁 */}
+        {/* 입력창 + 툴팁 */}
         <div
           className="mt-[36px] w-full"
           onMouseEnter={handleMouseEnter}
@@ -60,7 +60,7 @@ const FriendTodoPanel = ({ friendId, selectedDate }: Props) => {
           <TodoInput selectedDate={selectedDate} readOnly />
         </div>
 
-        {/* ✅ 툴팁 메시지 - 마우스 근처에 표시 */}
+        {/* 툴팁 메시지 - 마우스 근처에 표시 */}
         {showTooltip && (
           <div
             className="fixed bg-gray-700 text-white text-xs rounded-md px-3 py-1 pointer-events-none z-50 whitespace-nowrap"
@@ -74,7 +74,7 @@ const FriendTodoPanel = ({ friendId, selectedDate }: Props) => {
           </div>
         )}
 
-        {/* ✅ Todo 리스트 */}
+        {/* Todo 리스트 */}
         <div className="mt-[48px] max-h-[345px] overflow-y-auto hide-scrollbar w-full max-w-[360px]">
           <TodoList todos={todos} selectedDate={selectedDate} readOnly />
         </div>

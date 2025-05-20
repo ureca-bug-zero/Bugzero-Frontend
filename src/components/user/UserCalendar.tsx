@@ -6,6 +6,7 @@ import axios from '@/api/axios';
 import calendarBtn from '@/assets/calendar-Btn.png';
 import { useCalendarStore } from '@/store/calendar';
 import { getKSTDate } from '@/utils/date'; //한국시간대로 변환하는 util
+import calendarButtonIcon from '@/assets/gradation.png';
 
 interface Props {
   selectedDate: Date;
@@ -31,7 +32,7 @@ const getColorFromPercentage = (percentage: number) => {
 
 const StyledCalendar = styled(Calendar)`
   color: #333333;
-  width: 277px !important;
+  width: 360px !important;
   height: 378px !important;
   font-family: 'Pretendard', sans-serif;
   border: none;
@@ -39,7 +40,7 @@ const StyledCalendar = styled(Calendar)`
   /* 네비게이션바 css 설정 */
   .react-calendar__navigation {
     display: flex; /* 플렉스 박스로 설정 */
-    width: 148px;
+    width: 180px;
     height: 40px;
     justify-content: space-between;
     align-items: center;
@@ -48,7 +49,7 @@ const StyledCalendar = styled(Calendar)`
 
   /* 네비게이션 레이블 */
   .react-calendar__navigation__label {
-    width: 100px; /* 레이블 너비 조정 */
+    width: 150px; /* 레이블 너비 조정 */
     text-align: center; /* 레이블 가운데 정렬 */
     flex-shrink: 0; /* 레이블이 축소되지 않도록 설정 */
   }
@@ -62,7 +63,7 @@ const StyledCalendar = styled(Calendar)`
     }
   }
   .react-calendar__navigation__label__labelText {
-    font-size: 19px;
+    font-size: 25px;
     font-weight: 700;
   }
 
@@ -91,7 +92,7 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__month-view__days {
     display: flex;
     flex-wrap: wrap;
-    row-gap: 8px;
+    row-gap: 10px;
   }
 
   /* 일월화수목금토 영역*/
@@ -103,7 +104,7 @@ const StyledCalendar = styled(Calendar)`
     text-decoration: none;
     border-bottom: none;
     font-weight: 500;
-    font-size: 13px;
+    font-size: 16px;
     padding: 8px 0;
   }
 
@@ -114,8 +115,9 @@ const StyledCalendar = styled(Calendar)`
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 37px;
-    height: 37px;
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
   }
 
   .react-calendar__tile abbr {
@@ -140,8 +142,8 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__tile:hover::before {
     content: '';
     position: absolute;
-    width: 37px;
-    height: 37px;
+    width: 50px;
+    height: 50px;
     background-color: #606060;
     opacity: 0.5;
     border-radius: 50%;
@@ -231,8 +233,8 @@ const UserCalendar = ({ selectedDate, setSelectedDate, friendId }: Props) => {
 
   return (
     <div className="relative flex flex-col items-center">
-      <div className="absolute right-[3px] top-[2px] w-[90px]">
-        <img alt="Calendar Button" src="/src/assets/gradation.png" />
+      <div className="absolute right-[3px] top-[-5px] w-[120px]">
+        <img alt="Calendar Button" src={calendarButtonIcon} />
       </div>
 
       <StyledCalendar
@@ -266,8 +268,8 @@ const UserCalendar = ({ selectedDate, setSelectedDate, friendId }: Props) => {
               {percent != null && (
                 <div
                   style={{
-                    width: 37,
-                    height: 37,
+                    width: 50,
+                    height: 50,
                     borderRadius: '50%',
                     backgroundColor: getColorFromPercentage(percent),
                     position: 'absolute',
@@ -281,8 +283,8 @@ const UserCalendar = ({ selectedDate, setSelectedDate, friendId }: Props) => {
               {isSelected && (
                 <div
                   style={{
-                    width: 37,
-                    height: 37,
+                    width: 50,
+                    height: 50,
                     border: '2px dashed #333333',
                     borderRadius: '50%',
                     position: 'absolute',
