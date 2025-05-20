@@ -1,4 +1,6 @@
 import { ToastContentProps } from 'react-toastify';
+import toastSuccessIcon from '@/assets/toast-success.svg';
+import toastErrorIcon from '@/assets/toast-error.svg';
 
 interface CustomToastProps extends Partial<ToastContentProps> {
   type: 'success' | 'error';
@@ -13,10 +15,7 @@ const CustomTimerToast = ({
   closeToast,
 }: CustomToastProps) => {
   const bgColor = type === 'success' ? 'bg-primary-200' : 'bg-error-200';
-  const defaultIcon =
-    type === 'success'
-      ? '/public/icons/toast-success.svg'
-      : '/public/icons/toast-error.svg';
+  const defaultIcon = type === 'success' ? toastSuccessIcon : toastErrorIcon;
 
   return (
     <div

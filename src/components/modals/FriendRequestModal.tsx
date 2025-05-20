@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
 import { useFriendModal } from '@/features/friend/useFriendModal';
+import addModalIcon from '@/assets/add-modal-icon.svg';
+import rejectIcon from '@/assets/reject-icon.svg';
+import acceptIcon from '@/assets/accept-icon.svg';
 
 const FriendRequestModal = () => {
   const {
@@ -40,11 +43,7 @@ const FriendRequestModal = () => {
         {/* 헤더 */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2 text-2xl">
-            <img
-              src="/public/icons/add-modal-icon.svg"
-              className="w-10 h-10"
-              alt="icon"
-            />
+            <img src={addModalIcon} className="w-10 h-10" alt="icon" />
             Confirm your requests
           </div>
 
@@ -92,18 +91,10 @@ const FriendRequestModal = () => {
                 {/* 오른쪽: 아이콘 버튼 */}
                 <div className="flex gap-3">
                   <button onClick={() => handleReject(f.id)}>
-                    <img
-                      src="/public/icons/reject-icon.svg"
-                      alt="거절"
-                      className="w-7 h-7"
-                    />
+                    <img src={rejectIcon} alt="거절" className="w-7 h-7" />
                   </button>
                   <button onClick={() => handleAccept(f.id)}>
-                    <img
-                      src="/public/icons/accept-icon.svg"
-                      alt="수락"
-                      className="w-7 h-7"
-                    />
+                    <img src={acceptIcon} alt="수락" className="w-7 h-7" />
                   </button>
                 </div>
               </div>
