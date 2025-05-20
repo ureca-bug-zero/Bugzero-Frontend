@@ -26,7 +26,7 @@ const FriendAddModal = () => {
       console.log(error);
       toast((props) => <ConfirmFailToast {...props} />, {
         className:
-          'p-0 m-0 w-[190px] tablet:w-[333px] h-[33px] tablet:h-[64px] rounded-md',
+          'p-0 m-0 w-[190px] tablet:w-[333px] h-[33px] tablet:h-[64px] rounded-md overflow-hidden',
       });
     },
   });
