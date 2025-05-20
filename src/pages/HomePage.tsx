@@ -60,7 +60,7 @@ const HomePage: React.FC = () => {
 
           {/* 모바일: 세로 배치 */}
           {viewport === 'mobile' && (
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center gap-4">
               <div style={{ width: '360px' }}>
                 <UserPanel
                   selectedDate={selectedDate}
