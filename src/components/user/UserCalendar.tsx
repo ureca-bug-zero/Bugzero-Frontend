@@ -46,7 +46,10 @@ const StyledCalendar = styled(Calendar)`
     align-items: center;
     margin-bottom: 10px;
   }
-
+  .react-calendar__tile--now {
+    background: transparent !important;
+    color: inherit !important;
+  }
   /* 네비게이션 레이블 */
   .react-calendar__navigation__label {
     width: 150px; /* 레이블 너비 조정 */
