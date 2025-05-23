@@ -75,8 +75,8 @@
     <td align="center"><img src="https://avatars.githubusercontent.com/u/164132741?v=4" width="160"></td>
   </tr>
   <tr>
-    <td align="center">노수진</td>
-    <td align="center">이서현</td>
+    <td align="center"><a href="https://github.com/sujinRo" target="_blank">노수진</a></td>
+    <td align="center"><a href="https://github.com/seohyunn2" target="_blank">이서현</a></td>
   </tr>
 </table>
 
@@ -129,9 +129,9 @@
     <td align="center"><img src="https://avatars.githubusercontent.com/u/125029488?v=4" width="160"></td>
   </tr>
   <tr>
-    <td align="center">안민지</td>
-    <td align="center">이은채</td>
-    <td align="center">이주희</td>
+    <td align="center"><a href="https://github.com/minji-38" target="_blank">안민지</a></td>
+    <td align="center"><a href="https://github.com/eunchrri" target="_blank">이은채</a></td>
+    <td align="center"><a href="https://github.com/Jetty-Lee" target="_blank">이주희</a></td>
   </tr>
 </table>
 
