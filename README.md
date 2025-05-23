@@ -72,8 +72,8 @@
     <td align="center"><img src="https://avatars.githubusercontent.com/u/164132741?v=4" width="160"></td>
   </tr>
   <tr>
-    <td align="center">노수진</td>
-    <td align="center">이서현</td>
+    <td align="center"><a href=“https://github.com/sujinRo” target=“_blank”>노수진</a></td>
+    <td align="center"><a href=“https://github.com/seohyunn2” target=“_blank”>이서현</a></td>
   </tr>
 </table>
 
